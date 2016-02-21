@@ -1,2 +1,2 @@
 # Citrix
-All things Citrix
+Scripts and files for all things Citrix

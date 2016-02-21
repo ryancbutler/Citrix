@@ -1,2 +1,0 @@
-# Introduction
-Powershell Scripts
