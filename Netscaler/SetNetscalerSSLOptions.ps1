@@ -6,12 +6,16 @@
 #By: Ryan Butler 2-19-16
 
 #Netscaler NSIP login information
-$hostname = "http://192.168.100.50"
+$hostname = "http://192.168.1.50"
 $username = "nsroot"
 $password = "nsroot"
 
 #what would you like to name the cipher group
 $ciphergroupname = "claus-cipher-list-with-gcm"
+
+#Rewrite Policy names
+$rwactname = "act-sts-header"
+$rwpolname = "pol-sts-force"
 
 
 ##Functions
@@ -52,14 +56,9 @@ function Cipher ($Name, $Cipher) {
 
 function get-ciphers ($Name) {
     #Get cipher groups already on netscaler
-    $body = @{
-        "sslcipher_binding"=[ordered]@{
-            "ciphergroupname"="$Name";
-            "ciphername"="$Cipher";
-            }
-        }
-    Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslcipher" -WebSession $NSSession `
+    $ciphers = Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslcipher" -WebSession $NSSession `
     -Headers @{"Content-Type"="application/json"} -Method GET
+    return $ciphers.sslcipher
 }
 
 function CipherGroup ($Name) {
@@ -154,6 +153,118 @@ function SaveConfig {
     -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.nsconfig+json"} -Method POST
 }
 
+function get-rewritepol {
+    #gets rewrite policies
+    $pols = Invoke-RestMethod -uri "$hostname/nitro/v1/config/rewritepolicy" -WebSession $NSSession `
+    -Headers @{"Content-Type"="application/json"} -Method GET
+    return $pols.rewritepolicy
+}
+
+function EnableFeatures ($features) {
+#enables NS features
+    $body = @{
+        "nsfeature"=@{
+            "feature"=@(
+                )
+            }
+        }
+    $features = $features.split(",")
+    foreach($feature in $features) {
+        $body.nsfeature.feature+=$feature
+    }
+    $body = ConvertTo-JSON $body
+    Invoke-RestMethod -uri "$hostname/nitro/v1/config/nsfeature?action=enable" -body $body -WebSession $NSSession `
+    -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.nsfeature+json"} -Method POST
+}
+
+Function SetupSTS ($rwactname, $rwpolname) {
+
+    # Strict Transport Security Policy creation
+
+
+        EnableFeatures Rewrite
+
+        $body = ConvertTo-JSON @{
+            "rewriteaction"=@{
+                "name"=$rwactname;
+                "type"="insert_http_header";
+                "target"="Strict-Transport-Security";
+                "stringbuilderexpr"='"max-age=157680000"';
+                }
+            }
+        Invoke-RestMethod -uri "$hostname/nitro/v1/config/rewriteaction?action=add" -body $body -WebSession $NSSession `
+        -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.rewriteaction+json"} -Method POST
+
+        $body = ConvertTo-JSON @{
+            "rewritepolicy"=@{
+                "name"=$rwpolname;
+                "action"=$rwactname;
+                "rule"='true';
+                }
+            }
+        Invoke-RestMethod -uri "$hostname/nitro/v1/config/rewritepolicy?action=add" -body $body -WebSession $NSSession `
+        -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.rewritepolicy+json"} -Method POST
+        
+    
+}
+
+Function set-lbpols ($vip, $rwpolname){
+#binds LB policy
+    $name = $vip.name
+
+            $body = ConvertTo-JSON @{
+                "lbvserver_rewritepolicy_binding"=@{
+                    "name"=$Name;
+                    "policyname"=$rwpolname;
+                    "priority"=100;
+                    "bindpoint" = "RESPONSE";
+                    }
+                }
+            Invoke-RestMethod -uri "$hostname/nitro/v1/config/lbvserver_rewritepolicy_binding/$Name" -body $body -WebSession $NSSession `
+            -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.lbvserver_rewritepolicy_binding+json"} -Method POST
+            
+
+}
+
+Function set-cspols ($vip, $rwpolname){
+#binds CS policy
+    $name = $vip.name
+
+           $body = ConvertTo-JSON @{
+                "csvserver_rewritepolicy_binding"=@{
+                    "name"=$Name;
+                    "policyname"=$rwpolname;
+                    "priority"=100;
+                    "bindpoint" = "RESPONSE";
+                    }
+                }
+            Invoke-RestMethod -uri "$hostname/nitro/v1/config/csvserver_rewritepolicy_binding/$Name" -body $body -WebSession $NSSession `
+            -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.csvserver_rewritepolicy_binding+json"} -Method PUT
+            
+
+}
+
+Function set-vpnpols ($vip, $rwpolname){
+#binds NG policy
+    $name = $vip.name
+
+        $body = ConvertTo-JSON @{
+                "vpnvserver_rewritepolicy_binding"=@{
+                    "name"=$Name;
+                    "policy"=$rwpolname;
+                    "priority"=100;
+                    "gotopriorityexpression" = "END";
+                    "bindpoint" = "RESPONSE";
+                    }
+                }
+            Invoke-RestMethod -uri "$hostname/nitro/v1/config/vpnvserver_rewritepolicy_binding/$Name" -body $body -WebSession $NSSession `
+            -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.vpnvserver_rewritepolicy_binding+json"} -Method POST
+            
+
+}
+
+
+
 ###Script starts here
 CLS
 #Logs into netscaler
@@ -163,14 +274,26 @@ write-host "Logged in..."
 
 write-host "Checking for cipher group..."
 #Checks for cipher group we will be creating    
-    if (((get-ciphers).sslcipher.ciphergroupname) -notcontains $ciphergroupname)
+    if (((get-ciphers).ciphergroupname) -notcontains $ciphergroupname)
     {
-        write-host "Creating " $ciphergroupname
+        write-host "Creating " $ciphergroupname -ForegroundColor Gray
         ciphergroup $ciphergroupname
     }
     else
     {
-    write-host $ciphergroupname " already present"
+    write-host $ciphergroupname "already present" -ForegroundColor Green
+    }
+
+write-host "Checking for rewrite policy..."
+#Checks for rewrite policy
+    if (((get-rewritepol).name) -notcontains $rwpolname)
+    {
+        write-host "Creating " $rwpolname -ForegroundColor Gray
+        SetupSTS $rwactname $rwpolname
+    }
+    else
+    {
+    write-host $rwpolname "policy already present" -ForegroundColor Green
     }
 
 write-host "Checking LB VIPs..."
@@ -180,6 +303,7 @@ $ssls = $lbservers|where{$_.servicetype -like "SSL"}
 foreach ($ssl in $ssls){
     write-host $ssl.name
     (set-cipher $ssl.name $ciphergroupname).message
+    set-lbpols $ssl $rwpolname|Out-Null
 }
 
 write-host "Checking NG VIPs..."
@@ -188,16 +312,18 @@ $vpnservers = get-vpnservers
 foreach ($ssl in $vpnservers){
     write-host $ssl.name
     (set-cipher $ssl.name $ciphergroupname).message
+    set-vpnpols $ssl $rwpolname|Out-Null
 }
 
-write-host "Checking NS VIPs..."
+write-host "Checking CS VIPs..."
 #Gets all Content Switches and makes changes
 $csservers = get-csservers
 #Filters for only SSL
 $csssls = $csservers|where{$_.servicetype -like "SSL"}
 foreach ($sslcs in $csssls){
     write-host $sslcs.name
-    (set-cipher $sslcs.name $ciphergroupname).message
+   (set-cipher $sslcs.name $ciphergroupname).message
+   set-cspols $sslcs $rwpolname|Out-Null
 }
 
 write-host "Saving NS config.."
