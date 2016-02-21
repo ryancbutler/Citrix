@@ -12,14 +12,11 @@ $username = "nsroot"
 $password = "nsroot"
 
 #what would you like to name the cipher group
-$ciphergroupname = "claus-cipher-list-with-gcm-vpx"
+$ciphergroupname = "claus-cipher-list-with-gcm"
 
 #Rewrite Policy names
 $rwactname = "act-sts-header"
 $rwpolname = "pol-sts-force"
-
-#Is this a VPX?
-$vpx = $true
 
 
 ##Functions
@@ -91,7 +88,7 @@ function CipherGroup ($Name) {
 
 function CipherGroup-vpx ($Name) {
     #Ciphers from https://www.citrix.com/blogs/2015/05/22/scoring-an-a-at-ssllabs-com-with-citrix-netscaler-the-sequel/
-    #for VPXs (had to remove TLS1.2-ECDHE-RSA-AES-128-SHA256)
+    #for VPXs had to remove TLS1.2-ECDHE-RSA-AES-128-SHA256
     $body = @{
         "sslcipher"=@{
             "ciphergroupname"="$Name";
@@ -288,6 +285,23 @@ Function set-vpnpols ($vip, $rwpolname){
 
 }
 
+function checkvpx {
+    #Checks if NS is a VPX or not
+    $info = Invoke-RestMethod -uri "$hostname/nitro/v1/config/nshardware" -WebSession $NSSession `
+    -Headers @{"Content-Type"="application/json"} -Method GET
+    $info = $info.nshardware
+        if ($info.hwdescription -like "NetScaler Virtual Appliance")
+        {
+            write-host "VPX FOUND..." -ForegroundColor Gray
+            $found = $true
+            }
+            else
+            {
+        $found = $false
+        }
+Return $found
+}
+
 
 
 ###Script starts here
@@ -302,7 +316,7 @@ write-host "Checking for cipher group..."
     if (((get-ciphers).ciphergroupname) -notcontains $ciphergroupname)
     {
         write-host "Creating " $ciphergroupname -ForegroundColor Gray
-        if ($vpx)
+        if (checkvpx)
         {
             write-host "Creating cipher group for VPX..."
             CipherGroup-vpx $ciphergroupname
@@ -327,7 +341,7 @@ write-host "Checking for rewrite policy..."
     }
     else
     {
-    write-host $rwpolname "policy already present" -ForegroundColor Green
+    write-host $rwpolname "already present" -ForegroundColor Green
     }
 
 write-host "Checking LB VIPs..."
