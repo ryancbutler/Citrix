@@ -1,21 +1,25 @@
 ﻿#Disables SSLv2 and SSLv3, removes default ciphers and binds ciphers mentioned in https://www.citrix.com/blogs/2015/05/22/scoring-an-a-at-ssllabs-com-with-citrix-netscaler-the-sequel/
 #Checks for all SSL LB servers, content switches and Netscaler Gateways
-#Version 1.0
+#Version 2.0
 #Tested with Windows 10 and Netscaler 11 60.63.16
 #USE AT OWN RISK
 #By: Ryan Butler 2-19-16
+#Updated: 2-21-2016
 
 #Netscaler NSIP login information
-$hostname = "http://192.168.1.50"
+$hostname = "http://192.168.1.200"
 $username = "nsroot"
 $password = "nsroot"
 
 #what would you like to name the cipher group
-$ciphergroupname = "claus-cipher-list-with-gcm"
+$ciphergroupname = "claus-cipher-list-with-gcm-vpx"
 
 #Rewrite Policy names
 $rwactname = "act-sts-header"
 $rwpolname = "pol-sts-force"
+
+#Is this a VPX?
+$vpx = $true
 
 
 ##Functions
@@ -85,6 +89,27 @@ function CipherGroup ($Name) {
     Cipher $Name SSL3-DES-CBC3-SHA
 }
 
+function CipherGroup-vpx ($Name) {
+    #Ciphers from https://www.citrix.com/blogs/2015/05/22/scoring-an-a-at-ssllabs-com-with-citrix-netscaler-the-sequel/
+    #for VPXs (had to remove TLS1.2-ECDHE-RSA-AES-128-SHA256)
+    $body = @{
+        "sslcipher"=@{
+            "ciphergroupname"="$Name";
+            }
+        }
+    $body = ConvertTo-JSON $body
+    Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslcipher?action=add" -body $body -WebSession $NSSession `
+    -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslcipher+json"} -Method POST
+    #feel free to edit these
+    Cipher $Name TLS1-ECDHE-RSA-AES256-SHA
+    Cipher $Name TLS1-ECDHE-RSA-AES128-SHA
+    Cipher $Name TLS1-DHE-RSA-AES-256-CBC-SHA
+    Cipher $Name TLS1-DHE-RSA-AES-128-CBC-SHA
+    Cipher $Name TLS1-AES-256-CBC-SHA
+    Cipher $Name TLS1-AES-128-CBC-SHA
+    Cipher $Name SSL3-DES-CBC3-SHA
+}
+
 function get-vpnservers{
     #gets netscaler gateway VIPs
     $vips = Invoke-RestMethod -uri "$hostname/nitro/v1/config/vpnvserver" -WebSession $NSSession `
@@ -121,7 +146,7 @@ function set-cipher ($Name, $cipher){
     Invoke-RestMethod -uri ("$hostname/nitro/v1/config/sslvserver_sslciphersuite_binding/$Name" + "?args=cipherName:DEFAULT") -WebSession $NSSession `
     -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslvserver_sslciphersuite_binding+json"} -Method DELETE
 
-    #binds new cipher group created
+        #binds new cipher group created
     $body = ConvertTo-JSON @{
         "sslvserver_sslciphersuite_binding"=@{
             "vservername"="$Name";
@@ -277,7 +302,16 @@ write-host "Checking for cipher group..."
     if (((get-ciphers).ciphergroupname) -notcontains $ciphergroupname)
     {
         write-host "Creating " $ciphergroupname -ForegroundColor Gray
-        ciphergroup $ciphergroupname
+        if ($vpx)
+        {
+            write-host "Creating cipher group for VPX..."
+            CipherGroup-vpx $ciphergroupname
+        }
+         else
+        {
+            write-host "Creating cipher group for NON-VPX..."
+            ciphergroup $ciphergroupname
+        }
     }
     else
     {
@@ -303,7 +337,7 @@ $ssls = $lbservers|where{$_.servicetype -like "SSL"}
 foreach ($ssl in $ssls){
     write-host $ssl.name
     (set-cipher $ssl.name $ciphergroupname).message
-    set-lbpols $ssl $rwpolname|Out-Null
+    (set-lbpols $ssl $rwpolname).message
 }
 
 write-host "Checking NG VIPs..."
@@ -312,7 +346,7 @@ $vpnservers = get-vpnservers
 foreach ($ssl in $vpnservers){
     write-host $ssl.name
     (set-cipher $ssl.name $ciphergroupname).message
-    set-vpnpols $ssl $rwpolname|Out-Null
+    (set-vpnpols $ssl $rwpolname).message
 }
 
 write-host "Checking CS VIPs..."
@@ -323,7 +357,7 @@ $csssls = $csservers|where{$_.servicetype -like "SSL"}
 foreach ($sslcs in $csssls){
     write-host $sslcs.name
    (set-cipher $sslcs.name $ciphergroupname).message
-   set-cspols $sslcs $rwpolname|Out-Null
+   (set-cspols $sslcs $rwpolname).message
 }
 
 write-host "Saving NS config.."
