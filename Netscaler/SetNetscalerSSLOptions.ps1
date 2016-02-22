@@ -1,5 +1,5 @@
-﻿#Disables SSLv2 and SSLv3, creates and binds DH key, removes default ciphers and binds ciphers mentioned in https://www.citrix.com/blogs/2015/05/22/scoring-an-a-at-ssllabs-com-with-citrix-netscaler-the-sequel/
-#Checks for all SSL LB servers, content switches and Netscaler Gateways
+﻿#Disables SSLv2 and SSLv3, creates and binds DH key, removes all other ciphers and binds ciphers mentioned in https://www.citrix.com/blogs/2015/05/22/scoring-an-a-at-ssllabs-com-with-citrix-netscaler-the-sequel/
+#Checks for NSIP, all SSL LB servers, content switches and Netscaler Gateways
 #Version 2.0
 #Tested with Windows 10 and Netscaler 11 60.63.16
 #USE AT OWN RISK
@@ -39,7 +39,7 @@ function Login {
             }
         }
     Invoke-RestMethod -uri "$hostname/nitro/v1/config/login" -body $body -SessionVariable NSSession `
-    -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.login+json"} -Method POST
+    -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.login+json"} -Method POST|Out-Null
     $Script:NSSession = $local:NSSession
 }
 
@@ -54,7 +54,7 @@ function Cipher ($Name, $Cipher) {
         }
     $body = ConvertTo-JSON $body
     Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslcipher_binding/$Name" -body $body -WebSession $NSSession `
-    -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslcipher_binding+json"} -Method PUT
+    -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslcipher_binding+json"} -Method PUT|Out-Null
 }
 
 function get-ciphers ($Name) {
@@ -73,7 +73,7 @@ function CipherGroup ($Name) {
         }
     $body = ConvertTo-JSON $body
     Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslcipher?action=add" -body $body -WebSession $NSSession `
-    -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslcipher+json"} -Method POST
+    -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslcipher+json"} -Method POST|Out-Null
     #feel free to edit these
     Cipher $Name TLS1.2-ECDHE-RSA-AES256-GCM-SHA384
     Cipher $Name TLS1.2-ECDHE-RSA-AES128-GCM-SHA256
@@ -98,7 +98,7 @@ function CipherGroup-vpx ($Name) {
         }
     $body = ConvertTo-JSON $body
     Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslcipher?action=add" -body $body -WebSession $NSSession `
-    -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslcipher+json"} -Method POST
+    -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslcipher+json"} -Method POST|Out-Null
     #feel free to edit these
     Cipher $Name TLS1-ECDHE-RSA-AES256-SHA
     Cipher $Name TLS1-ECDHE-RSA-AES128-SHA
@@ -137,24 +137,52 @@ function Logout {
             }
         }
     Invoke-RestMethod -uri "$hostname/nitro/v1/config/logout" -body $body -WebSession $NSSession `
-    -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.logout+json"} -Method POST
+    -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.logout+json"} -Method POST|Out-Null
 }
 
 function set-cipher ($Name, $cipher){
-    #unbinds default cipher group
-    Invoke-RestMethod -uri ("$hostname/nitro/v1/config/sslvserver_sslciphersuite_binding/$Name" + "?args=cipherName:DEFAULT") -WebSession $NSSession `
-    -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslvserver_sslciphersuite_binding+json"} -Method DELETE
 
-        #binds new cipher group created
-    $body = ConvertTo-JSON @{
-        "sslvserver_sslciphersuite_binding"=@{
-            "vservername"="$Name";
-            "ciphername"="$Cipher";
-            }
+    
+    #unbinds all cipher groups
+    $foundflag = 0 #flag if cipher already found
+    $cgs = Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslvserver_sslciphersuite_binding/$Name" -WebSession $NSSession `
+    -Headers @{"Content-Type"="application/json"} -Method GET
+
+    $cgs = $cgs.sslvserver_sslciphersuite_binding
+
+    foreach ($cg in $cgs)
+    {
+        
+        if ($cg.ciphername -notlike $cipher)
+        {
+        write-host "Unbinding" $cg.ciphername -ForegroundColor yellow
+
+        Invoke-RestMethod -uri ("$hostname/nitro/v1/config/sslvserver_sslciphersuite_binding/$Name" + "?args=cipherName:" + $cg.ciphername ) -WebSession $NSSession `
+        -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslvserver_sslciphersuite_binding+json"} -Method DELETE|Out-Null
         }
-    Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslvserver_sslciphersuite_binding/$Name" -body $body -WebSession $NSSession `
-    -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslvserver_sslciphersuite_binding+json"} -Method PUT
+        else
+        {
+        write-host $cipher "already present.." -ForegroundColor Green
+        $foundflag = 1
+        }
 
+    }
+
+
+    if ($foundflag -eq 0)
+        {
+        #binds new cipher group created if not already present
+        write-host "Binding $cipher" -ForegroundColor Yellow
+        $body = ConvertTo-JSON @{
+            "sslvserver_sslciphersuite_binding"=@{
+                "vservername"="$Name";
+                "ciphername"="$Cipher";
+                }
+            }
+        Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslvserver_sslciphersuite_binding/$Name" -body $body -WebSession $NSSession `
+        -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslvserver_sslciphersuite_binding+json"} -Method PUT|Out-Null
+        }
+    
     #disables sslv2 and sslv3
     $body = ConvertTo-JSON @{
         "sslvserver"=@{
@@ -166,7 +194,36 @@ function set-cipher ($Name, $cipher){
             }
         }
     Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslvserver/$Name" -body $body -WebSession $NSSession `
-    -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslvserver+json"} -Method PUT
+    -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslvserver+json"} -Method PUT|Out-Null
+
+}
+
+function set-nsip {
+    #Adjusts SSL setting for IPV4 and IPV6 on 443
+    $services = Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslservice" -WebSession $NSSession `
+    -Headers @{"Content-Type"="application/json"} -Method GET
+    $services = $services.sslservice
+
+    #only want nshttps services
+    $nsips = $services|where{$_.servicename -like "nshttps-*"}
+        foreach ($nsip in $nsips)
+        {
+        $name = $nsip.servicename
+        write-host $name
+
+        #disables sslv2 and sslv3
+        $body = ConvertTo-JSON @{
+            "sslservice"=@{
+                "servicename"="$Name";
+                "ssl3"="DISABLED";
+                "ssl2"="DISABLED";
+                "dh"="ENABLED";
+                "dhfile"= $dhname;
+                }
+            }
+        Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslservice/$Name" -body $body -WebSession $NSSession `
+        -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslservice+json"} -Method PUT|Out-Null
+        }
 }
 
 function SaveConfig {
@@ -176,7 +233,7 @@ function SaveConfig {
             }
         }
     Invoke-RestMethod -uri "$hostname/nitro/v1/config/nsconfig?action=save" -body $body -WebSession $NSSession `
-    -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.nsconfig+json"} -Method POST
+    -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.nsconfig+json"} -Method POST|Out-Null
 }
 
 function get-rewritepol {
@@ -186,21 +243,16 @@ function get-rewritepol {
     return $pols.rewritepolicy
 }
 
-function EnableFeatures ($features) {
-#enables NS features
+function EnableFeature ($feature) {
+#enables NS feature
     $body = @{
         "nsfeature"=@{
-            "feature"=@(
-                )
+            "feature"=$feature;
             }
         }
-    $features = $features.split(",")
-    foreach($feature in $features) {
-        $body.nsfeature.feature+=$feature
-    }
     $body = ConvertTo-JSON $body
     Invoke-RestMethod -uri "$hostname/nitro/v1/config/nsfeature?action=enable" -body $body -WebSession $NSSession `
-    -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.nsfeature+json"} -Method POST
+    -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.nsfeature+json"} -Method POST|Out-Null
 }
 
 Function SetupSTS ($rwactname, $rwpolname) {
@@ -208,7 +260,7 @@ Function SetupSTS ($rwactname, $rwpolname) {
     # Strict Transport Security Policy creation
 
 
-        EnableFeatures Rewrite
+        EnableFeature Rewrite
 
         $body = ConvertTo-JSON @{
             "rewriteaction"=@{
@@ -219,7 +271,7 @@ Function SetupSTS ($rwactname, $rwpolname) {
                 }
             }
         Invoke-RestMethod -uri "$hostname/nitro/v1/config/rewriteaction?action=add" -body $body -WebSession $NSSession `
-        -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.rewriteaction+json"} -Method POST
+        -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.rewriteaction+json"} -Method POST|Out-Null
 
         $body = ConvertTo-JSON @{
             "rewritepolicy"=@{
@@ -229,7 +281,7 @@ Function SetupSTS ($rwactname, $rwpolname) {
                 }
             }
         Invoke-RestMethod -uri "$hostname/nitro/v1/config/rewritepolicy?action=add" -body $body -WebSession $NSSession `
-        -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.rewritepolicy+json"} -Method POST
+        -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.rewritepolicy+json"} -Method POST|Out-Null
         
     
 }
@@ -247,7 +299,7 @@ Function set-lbpols ($vip, $rwpolname){
                     }
                 }
             Invoke-RestMethod -uri "$hostname/nitro/v1/config/lbvserver_rewritepolicy_binding/$Name" -body $body -WebSession $NSSession `
-            -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.lbvserver_rewritepolicy_binding+json"} -Method POST
+            -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.lbvserver_rewritepolicy_binding+json"} -Method POST|Out-Null
             
 
 }
@@ -265,7 +317,7 @@ Function set-cspols ($vip, $rwpolname){
                     }
                 }
             Invoke-RestMethod -uri "$hostname/nitro/v1/config/csvserver_rewritepolicy_binding/$Name" -body $body -WebSession $NSSession `
-            -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.csvserver_rewritepolicy_binding+json"} -Method PUT
+            -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.csvserver_rewritepolicy_binding+json"} -Method PUT|Out-Null
             
 
 }
@@ -284,7 +336,7 @@ Function set-vpnpols ($vip, $rwpolname){
                     }
                 }
             Invoke-RestMethod -uri "$hostname/nitro/v1/config/vpnvserver_rewritepolicy_binding/$Name" -body $body -WebSession $NSSession `
-            -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.vpnvserver_rewritepolicy_binding+json"} -Method POST
+            -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.vpnvserver_rewritepolicy_binding+json"} -Method POST|Out-Null
             
 
 }
@@ -341,7 +393,7 @@ Catch
 CLS
 #Logs into netscaler
 write-host "Logging in..."
-Login|Out-Null
+Login
 
 write-host "Creating" $dhname  -ForegroundColor DarkMagenta
 write-host "This can take a couple of minutes..." -ForegroundColor yellow
@@ -381,13 +433,17 @@ write-host "Checking for rewrite policy..." -ForegroundColor DarkMagenta
     write-host $rwpolname "already present" -ForegroundColor Green
     }
 
+write-host "Adjusting SSL managment IPs..." -ForegroundColor DarkMagenta
+#adjusts all managment IPs.  Does not adjust ciphers
+set-nsip
+
 write-host "Checking LB VIPs..." -ForegroundColor DarkMagenta
 #Gets all LB servers that are SSL and makes changes
 $lbservers = (get-vservers)
 $ssls = $lbservers|where{$_.servicetype -like "SSL"}
 foreach ($ssl in $ssls){
     write-host $ssl.name
-    (set-cipher $ssl.name $ciphergroupname).message
+    (set-cipher $ssl.name $ciphergroupname)
     (set-lbpols $ssl $rwpolname).message
 }
 
@@ -396,7 +452,7 @@ write-host "Checking NG VIPs..." -ForegroundColor DarkMagenta
 $vpnservers = get-vpnservers
 foreach ($ssl in $vpnservers){
     write-host $ssl.name
-    (set-cipher $ssl.name $ciphergroupname).message
+    (set-cipher $ssl.name $ciphergroupname)
     (set-vpnpols $ssl $rwpolname).message
 }
 
@@ -407,15 +463,16 @@ $csservers = get-csservers
 $csssls = $csservers|where{$_.servicetype -like "SSL"}
 foreach ($sslcs in $csssls){
     write-host $sslcs.name
-   (set-cipher $sslcs.name $ciphergroupname).message
+   (set-cipher $sslcs.name $ciphergroupname)
    (set-cspols $sslcs $rwpolname).message
 }
 
+
 write-host "Saving NS config.." -ForegroundColor DarkMagenta
 #Save NS Config
-SaveConfig|Out-Null
+SaveConfig
 
 write-host "Logging out..." -ForegroundColor DarkMagenta
 #Logout
-Logout|Out-Null
+Logout
 
