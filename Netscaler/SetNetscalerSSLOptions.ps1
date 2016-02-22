@@ -1,4 +1,4 @@
-﻿#Disables SSLv2 and SSLv3, removes default ciphers and binds ciphers mentioned in https://www.citrix.com/blogs/2015/05/22/scoring-an-a-at-ssllabs-com-with-citrix-netscaler-the-sequel/
+﻿#Disables SSLv2 and SSLv3, creates and binds DH key, removes default ciphers and binds ciphers mentioned in https://www.citrix.com/blogs/2015/05/22/scoring-an-a-at-ssllabs-com-with-citrix-netscaler-the-sequel/
 #Checks for all SSL LB servers, content switches and Netscaler Gateways
 #Version 2.0
 #Tested with Windows 10 and Netscaler 11 60.63.16
@@ -18,6 +18,8 @@ $ciphergroupname = "claus-cipher-list-with-gcm"
 $rwactname = "act-sts-header"
 $rwpolname = "pol-sts-force"
 
+#DHNAME key
+$dhname = "dhkey2048.key"
 
 ##Functions
 ###############################
@@ -159,6 +161,8 @@ function set-cipher ($Name, $cipher){
             "vservername"="$Name";
             "ssl3"="DISABLED";
             "ssl2"="DISABLED";
+            "dh"="ENABLED";
+            "dhfile"= $dhname;
             }
         }
     Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslvserver/$Name" -body $body -WebSession $NSSession `
@@ -302,6 +306,35 @@ function checkvpx {
 Return $found
 }
 
+function new-dhkey ($name) {
+
+    #Creates new DH Key
+    $body = @{
+                    
+        "ssldhparam"= @{
+            "dhfile"= $name;
+            "bits"="2048";
+            "gen"="2";
+            }
+        }
+try {        
+    $body = ConvertTo-JSON $body
+    Invoke-RestMethod -uri "$hostname/nitro/v1/config/ssldhparam?action=create" -body $body -WebSession $NSSession `
+    -Headers @{"Content-Type"="application/json"} -Method POST -TimeoutSec 240
+    }
+Catch
+{
+    $ErrorMessage = $_.Exception
+    $FailedItem = $_.Exception.ItemName
+}
+    if ($ErrorMessage.Response.StatusCode -like "Conflict")
+    {
+    write-host $name "already present" -ForegroundColor Green
+    }
+
+
+}
+
 
 
 ###Script starts here
@@ -309,9 +342,13 @@ CLS
 #Logs into netscaler
 write-host "Logging in..."
 Login|Out-Null
-write-host "Logged in..."
 
-write-host "Checking for cipher group..."
+write-host "Creating" $dhname  -ForegroundColor DarkMagenta
+write-host "This can take a couple of minutes..." -ForegroundColor yellow
+#Checks for and creates DH key
+new-dhkey $dhname
+
+write-host "Checking for cipher group..." -ForegroundColor DarkMagenta
 #Checks for cipher group we will be creating    
     if (((get-ciphers).ciphergroupname) -notcontains $ciphergroupname)
     {
@@ -332,7 +369,7 @@ write-host "Checking for cipher group..."
     write-host $ciphergroupname "already present" -ForegroundColor Green
     }
 
-write-host "Checking for rewrite policy..."
+write-host "Checking for rewrite policy..." -ForegroundColor DarkMagenta
 #Checks for rewrite policy
     if (((get-rewritepol).name) -notcontains $rwpolname)
     {
@@ -344,7 +381,7 @@ write-host "Checking for rewrite policy..."
     write-host $rwpolname "already present" -ForegroundColor Green
     }
 
-write-host "Checking LB VIPs..."
+write-host "Checking LB VIPs..." -ForegroundColor DarkMagenta
 #Gets all LB servers that are SSL and makes changes
 $lbservers = (get-vservers)
 $ssls = $lbservers|where{$_.servicetype -like "SSL"}
@@ -354,7 +391,7 @@ foreach ($ssl in $ssls){
     (set-lbpols $ssl $rwpolname).message
 }
 
-write-host "Checking NG VIPs..."
+write-host "Checking NG VIPs..." -ForegroundColor DarkMagenta
 #Gets all Netscaler Gateways and makes changes
 $vpnservers = get-vpnservers
 foreach ($ssl in $vpnservers){
@@ -363,7 +400,7 @@ foreach ($ssl in $vpnservers){
     (set-vpnpols $ssl $rwpolname).message
 }
 
-write-host "Checking CS VIPs..."
+write-host "Checking CS VIPs..." -ForegroundColor DarkMagenta
 #Gets all Content Switches and makes changes
 $csservers = get-csservers
 #Filters for only SSL
@@ -374,11 +411,11 @@ foreach ($sslcs in $csssls){
    (set-cspols $sslcs $rwpolname).message
 }
 
-write-host "Saving NS config.."
+write-host "Saving NS config.." -ForegroundColor DarkMagenta
 #Save NS Config
 SaveConfig|Out-Null
 
-write-host "Logging out..."
+write-host "Logging out..." -ForegroundColor DarkMagenta
 #Logout
 Logout|Out-Null
 
