@@ -1,13 +1,13 @@
 ﻿#Disables SSLv2 and SSLv3, creates and binds DH key, removes all other ciphers and binds ciphers mentioned in https://www.citrix.com/blogs/2015/05/22/scoring-an-a-at-ssllabs-com-with-citrix-netscaler-the-sequel/
 #Checks for NSIP, all SSL LB servers, content switches and Netscaler Gateways
-#Version 2.0
+#Version 2.1
 #Tested with Windows 10 and Netscaler 11 60.63.16
 #USE AT OWN RISK
 #By: Ryan Butler 2-19-16
-#Updated: 2-21-2016
+#3-17-16: Added port 3008 and 3009 to managment ips
 
 #Netscaler NSIP login information
-$hostname = "http://192.168.1.200"
+$hostname = "http://192.168.1.50"
 $username = "nsroot"
 $password = "nsroot"
 
