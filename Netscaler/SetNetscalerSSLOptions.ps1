@@ -205,7 +205,7 @@ function set-nsip {
     $services = $services.sslservice
 
     #only want nshttps services
-    $nsips = $services|where{$_.servicename -like "nshttps-*"}
+    $nsips = $services|where{($_.servicename -like "nshttps-*") -or ($_.servicename -like "nskrpcs-*") -or ($_.servicename -like "nsrpcs-*") }
         foreach ($nsip in $nsips)
         {
         $name = $nsip.servicename
