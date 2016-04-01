@@ -1,25 +1,93 @@
-﻿#Disables SSLv2 and SSLv3, creates and binds DH key, removes all other ciphers and binds ciphers mentioned in https://www.citrix.com/blogs/2015/05/22/scoring-an-a-at-ssllabs-com-with-citrix-netscaler-the-sequel/
-#Checks for NSIP, all SSL LB servers, content switches and Netscaler Gateways
-#Version 2.1
+﻿<#
+.SYNOPSIS
+   A PowerShell script for hardening Netscaler SSL IPs
+.DESCRIPTION
+   A PowerShell script that Disables SSLv2 and SSLv3, creates and binds Diffie-Hellman (DH) key, creates and binds "Strict Transport Security policy" and removes all other ciphers and binds cipher group mentioned in https://www.citrix.com/blogs/2015/05/22/scoring-an-a-at-ssllabs-com-with-citrix-netscaler-the-sequel/
+.PARAMETER nsip
+	DNS Name or IP of the Netscaler that needs to be configured.
+.PARAMETER adminaccount
+	Netscaler admin account (Default: nsroot)
+.PARAMETER adminpassword
+	Password for the Netscaler admin account (Default: nsroot)
+.PARAMETER https
+   Use HTTPS for communication (NOT YET IMPLEMENTED)
+.PARAMETER ciphergroupname
+    Cipher group name to search for (Default: "claus-cipher-list-with-gcm")
+.PARAMETER rwactname
+    ReWrite action name (Default: "act-sts-header")
+.PARAMETER rwpolname
+    ReWrite policy name (Default: "pol-sts-force")
+.PARAMETER dhname
+    DH Key to be used (Default: "dhkey2048.key")
+.PARAMETER nomgmt
+    Do not perform changes on Netsclaer managment IP
+.PARAMETER nolb
+    Do not perform changes on Netscaler Load Balanced SSL VIPs
+.PARAMETER nocsw
+    Do not perform changes on Netscaler Content Switch VIPs
+.PARAMETER novpn
+    Do not perofm change on Netscaler VPN\Netscaler Gateway VIPs
+.NOTES
+	HTTPS is currently not yet implemented
+.EXAMPLE
+   ./set-nsssl -nssip 10.1.1.2
+.EXAMPLE
+   ./set-nsssl -nssip 10.1.1.2 -adminaccount nsadmin -adminpassword "mysupersecretpassword" -ciphergroupname "mynewciphers" -rwactname "rw-actionnew" -rwpolname "rw-polnamenew" -dhname "mydhey.key" -nomgmt -nocsw
+   #>
+Param
+(
+	[Parameter(Mandatory=$true)]$nsip,
+    [String]$adminaccount="nsroot",
+	[String]$adminpassword="nsroot",
+	[switch]$https,
+    [string]$ciphergroupname = "claus-cipher-list-with-gcm",
+    [string]$rwactname = "act-sts-header",
+    [string]$rwpolname = "pol-sts-force",
+    [string]$dhname = "dhkey2048.key",
+    [switch]$nomgmt,
+    [switch]$nolb,
+    [switch]$nocsw,
+    [switch]$novpn
+
+
+)
+
+
+#Version 2.2
 #Tested with Windows 10 and Netscaler 11 60.63.16
 #USE AT OWN RISK
 #By: Ryan Butler 2-19-16
 #3-17-16: Added port 3008 and 3009 to managment ips
+#3-28-16: Rewrite to reflect PS best practice and managment IP ciphers
 
 #Netscaler NSIP login information
-$hostname = "http://192.168.1.50"
-$username = "nsroot"
-$password = "nsroot"
+if ($https)
+{
+<#
+    write-host "Connecting HTTPS" -ForegroundColor Yellow
+    $hostname = "https://" + $nsip
 
-#what would you like to name the cipher group
-$ciphergroupname = "claus-cipher-list-with-gcm"
+[System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy
+ 
+[System.Net.ServicePointManager]::CheckCertificateRevocationList = $false;
+[System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $true; };
+[System.Net.ServicePointManager]::SecurityProtocol{Tls1};
+#>
+write-host "HTTPS NOT YET IMPLEMENTED" -ForegroundColor red
+break
 
-#Rewrite Policy names
-$rwactname = "act-sts-header"
-$rwpolname = "pol-sts-force"
+}
+else
+{
+    write-host "Connecting HTTP" -ForegroundColor Yellow
+    $hostname = "http://" + $nsip
+}
 
-#DHNAME key
-$dhname = "dhkey2048.key"
+
+$username = $adminaccount
+$password = $adminpassword
+
+
 
 ##Functions
 ###############################
@@ -38,9 +106,15 @@ function Login {
             "password"="$password"
             }
         }
+    try {
     Invoke-RestMethod -uri "$hostname/nitro/v1/config/login" -body $body -SessionVariable NSSession `
     -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.login+json"} -Method POST|Out-Null
     $Script:NSSession = $local:NSSession
+    }
+    Catch
+    {
+    throw $_
+    }
 }
 
 function Cipher ($Name, $Cipher) {
@@ -198,6 +272,52 @@ function set-cipher ($Name, $cipher){
 
 }
 
+function set-nscipher ($Name, $cipher){
+
+    
+    #unbinds all cipher groups
+    $foundflag = 0 #flag if cipher already found
+    $cgs = Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslservice_sslciphersuite_binding/$Name" -WebSession $NSSession `
+    -Headers @{"Content-Type"="application/json"} -Method GET
+
+    $cgs = $cgs.sslservice_sslciphersuite_binding
+
+    foreach ($cg in $cgs)
+    {
+        
+        if ($cg.ciphername -notlike $cipher)
+        {
+        write-host "Unbinding" $cg.ciphername -ForegroundColor yellow
+
+        Invoke-RestMethod -uri ("$hostname/nitro/v1/config/sslservice_sslciphersuite_binding/$Name" + "?args=cipherName:" + $cg.ciphername ) -WebSession $NSSession `
+        -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslservice_sslciphersuite_binding+json"} -Method DELETE|Out-Null
+        }
+        else
+        {
+        write-host $cipher "already present.." -ForegroundColor Green
+        $foundflag = 1
+        }
+
+    }
+
+
+    if ($foundflag -eq 0)
+        {
+        #binds new cipher group created if not already present
+        write-host "Binding $cipher" -ForegroundColor Yellow
+        $body = ConvertTo-JSON @{
+            "sslservice_sslciphersuite_binding"=@{
+                "servicename"="$Name";
+                "ciphername"="$Cipher";
+                }
+            }
+        Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslservice_sslciphersuite_binding/$Name" -body $body -WebSession $NSSession `
+        -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslservice_sslciphersuite_binding+json"} -Method PUT|Out-Null
+        }
+    
+   
+}
+
 function set-nsip {
     #Adjusts SSL setting for IPV4 and IPV6 on 443
     $services = Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslservice" -WebSession $NSSession `
@@ -223,8 +343,11 @@ function set-nsip {
             }
         Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslservice/$Name" -body $body -WebSession $NSSession `
         -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslservice+json"} -Method PUT|Out-Null
+        set-nscipher $name $ciphergroupname
         }
 }
+
+
 
 function SaveConfig {
     #Saves NS config
@@ -376,7 +499,7 @@ try {
     }
 Catch
 {
-    $ErrorMessage = $_.Exception
+    $ErrorMessage = $_.Exception.Response
     $FailedItem = $_.Exception.ItemName
 }
     if ($ErrorMessage.Response.StatusCode -like "Conflict")
@@ -390,7 +513,7 @@ Catch
 
 
 ###Script starts here
-CLS
+
 #Logs into netscaler
 write-host "Logging in..."
 Login
@@ -433,38 +556,69 @@ write-host "Checking for rewrite policy..." -ForegroundColor DarkMagenta
     write-host $rwpolname "already present" -ForegroundColor Green
     }
 
-write-host "Adjusting SSL managment IPs..." -ForegroundColor DarkMagenta
-#adjusts all managment IPs.  Does not adjust ciphers
-set-nsip
-
-write-host "Checking LB VIPs..." -ForegroundColor DarkMagenta
-#Gets all LB servers that are SSL and makes changes
-$lbservers = (get-vservers)
-$ssls = $lbservers|where{$_.servicetype -like "SSL"}
-foreach ($ssl in $ssls){
-    write-host $ssl.name
-    (set-cipher $ssl.name $ciphergroupname)
-    (set-lbpols $ssl $rwpolname).message
+if ($nomgmt)
+{
+    write-host "Skipping SSL managment IPs..."
+    }
+    else
+    {
+    write-host "Adjusting SSL managment IPs..." -ForegroundColor DarkMagenta
+    #adjusts all managment IPs.  Does not adjust ciphers
+    set-nsip
 }
 
-write-host "Checking NG VIPs..." -ForegroundColor DarkMagenta
-#Gets all Netscaler Gateways and makes changes
-$vpnservers = get-vpnservers
-foreach ($ssl in $vpnservers){
-    write-host $ssl.name
-    (set-cipher $ssl.name $ciphergroupname)
-    (set-vpnpols $ssl $rwpolname).message
+if($nolb)
+{
+    write-host "Skipping LB VIPs..." -ForegroundColor DarkMagenta
+    }
+    else
+    {
+    write-host "Checking LB VIPs..." -ForegroundColor DarkMagenta
+    #Gets all LB servers that are SSL and makes changes
+    $lbservers = (get-vservers)
+    $ssls = $lbservers|where{$_.servicetype -like "SSL"}
+    
+    foreach ($ssl in $ssls){
+        write-host $ssl.name
+        (set-cipher $ssl.name $ciphergroupname)
+        (set-lbpols $ssl $rwpolname).message
+    }
 }
 
-write-host "Checking CS VIPs..." -ForegroundColor DarkMagenta
-#Gets all Content Switches and makes changes
-$csservers = get-csservers
-#Filters for only SSL
-$csssls = $csservers|where{$_.servicetype -like "SSL"}
-foreach ($sslcs in $csssls){
-    write-host $sslcs.name
-   (set-cipher $sslcs.name $ciphergroupname)
-   (set-cspols $sslcs $rwpolname).message
+if($novpn)
+{
+    write-host "Skiping VPN VIPS..."
+    }
+    else
+    {
+    write-host "Checking VPN VIPs..." -ForegroundColor DarkMagenta
+    #Gets all Netscaler Gateways and makes changes
+    $vpnservers = get-vpnservers
+    
+    foreach ($ssl in $vpnservers){
+        write-host $ssl.name
+        (set-cipher $ssl.name $ciphergroupname)
+        (set-vpnpols $ssl $rwpolname).message
+    }
+}
+
+
+if($nocsw)
+{
+    write-host "Skipping CSW IPs..." -ForegroundColor DarkMagenta
+}
+else
+{
+    write-host "Checking CS VIPs..." -ForegroundColor DarkMagenta
+    #Gets all Content Switches and makes changes
+    $csservers = get-csservers
+    #Filters for only SSL
+    $csssls = $csservers|where{$_.servicetype -like "SSL"}
+    foreach ($sslcs in $csssls){
+        write-host $sslcs.name
+       (set-cipher $sslcs.name $ciphergroupname)
+       (set-cspols $sslcs $rwpolname).message
+    }
 }
 
 
