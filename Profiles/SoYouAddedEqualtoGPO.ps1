@@ -6,6 +6,7 @@ CLS
 #Default excludes https://docs.citrix.com/en-us/profile-management/5/upm-tuning-den/upm-include-exclude-defaults-den.html along with some google
 $excludes = "AppData\LocalLow\",`
 "AppData\Local\Microsoft\Windows\Temporary Internet Files\",`
+"AppData\Local\Microsoft\Windows\INetCache\",`
 "AppData\Local\Microsoft\Windows\Burn\",`
 "AppData\Local\Microsoft\Windows\CD Burning\",`
 "AppData\Local\Microsoft\Windows Live\",`
