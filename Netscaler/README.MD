@@ -4,6 +4,8 @@ Netscaler Scripts and files
 ## set-nsssl.ps1 
 **CREATED: 3-17-16**
 
+Please see [My blog](http://techdrabble.com/citrix/16-getting-an-a-for-netscaler-from-ssllabs-com) for more information.
+
 Based on this [Citrix blog](https://www.citrix.com/blogs/2015/05/22/scoring-an-a-at-ssllabs-com-with-citrix-netscaler-the-sequel)
 - Checks and sets all SSL Netscaler managment, load balancer, Netscaler Gateway and content switch VIPS
 - Enables TLS 1.2
