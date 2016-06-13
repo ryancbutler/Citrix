@@ -2,9 +2,9 @@
 .SYNOPSIS
    A PowerShell script for hardening Netscaler SSL IPs
 .DESCRIPTION
-   A PowerShell script that Disables SSLv2 and SSLv3, creates and binds Diffie-Hellman (DH) key, creates and binds "Strict Transport Security policy" and removes all other ciphers and binds cipher group mentioned in https://www.citrix.com/blogs/2015/05/22/scoring-an-a-at-ssllabs-com-with-citrix-netscaler-the-sequel/
+   A PowerShell script that enables TLS 1.2, disables SSLv2 and SSLv3, creates and binds Diffie-Hellman (DH) key, creates and binds "Strict Transport Security policy" and removes all other ciphers and binds cipher group mentioned in https://www.citrix.com/blogs/2015/05/22/scoring-an-a-at-ssllabs-com-with-citrix-netscaler-the-sequel/
 .PARAMETER nsip
-	DNS Name or IP of the Netscaler that needs to be configured.
+	DNS Name or IP of the Netscaler that needs to be configured. (MANDATORY)
 .PARAMETER adminaccount
 	Netscaler admin account (Default: nsroot)
 .PARAMETER adminpassword
@@ -19,8 +19,8 @@
     ReWrite policy name (Default: "pol-sts-force")
 .PARAMETER dhname
     DH Key to be used (Default: "dhkey2048.key")
-.PARAMETER nomgmt
-    Do not perform changes on Netsclaer managment IP
+.PARAMETER mgmt
+    Perform changes on Netsclaer managment IP
 .PARAMETER nolb
     Do not perform changes on Netscaler Load Balanced SSL VIPs
 .PARAMETER nocsw
@@ -30,9 +30,9 @@
 .NOTES
 	HTTPS is currently not yet implemented
 .EXAMPLE
-   ./set-nsssl -nssip 10.1.1.2
+   ./set-nsssl -nsip 10.1.1.2
 .EXAMPLE
-   ./set-nsssl -nssip 10.1.1.2 -adminaccount nsadmin -adminpassword "mysupersecretpassword" -ciphergroupname "mynewciphers" -rwactname "rw-actionnew" -rwpolname "rw-polnamenew" -dhname "mydhey.key" -nomgmt -nocsw
+   ./set-nsssl -nsip 10.1.1.2 -adminaccount nsadmin -adminpassword "mysupersecretpassword" -ciphergroupname "mynewciphers" -rwactname "rw-actionnew" -rwpolname "rw-polnamenew" -dhname "mydhey.key" -mgmt -nocsw
    #>
 Param
 (
@@ -40,11 +40,11 @@ Param
     [String]$adminaccount="nsroot",
 	[String]$adminpassword="nsroot",
 	[switch]$https,
-    [string]$ciphergroupname = "claus-cipher-list-with-gcm",
+    [string]$ciphergroupname = "custom-ssllabs-cipher",
     [string]$rwactname = "act-sts-header",
     [string]$rwpolname = "pol-sts-force",
     [string]$dhname = "dhkey2048.key",
-    [switch]$nomgmt,
+    [switch]$mgmt,
     [switch]$nolb,
     [switch]$nocsw,
     [switch]$novpn
@@ -59,6 +59,7 @@ Param
 #By: Ryan Butler 2-19-16
 #3-17-16: Added port 3008 and 3009 to managment ips
 #3-28-16: Rewrite to reflect PS best practice and managment IP ciphers
+#6-13-16: Adjusted to reflect https://www.citrix.com/blogs/2016/06/09/scoring-an-a-at-ssllabs-com-with-citrix-netscaler-2016-update/. Also removed management IPS from default.  (Tested with 11.0 65.31)
 
 #Netscaler NSIP login information
 if ($https)
@@ -151,11 +152,13 @@ function CipherGroup ($Name) {
     #feel free to edit these
     Cipher $Name TLS1.2-ECDHE-RSA-AES256-GCM-SHA384
     Cipher $Name TLS1.2-ECDHE-RSA-AES128-GCM-SHA256
+    Cipher $Name TLS1.2-ECDHE-RSA-AES-256-SHA384
     Cipher $Name TLS1.2-ECDHE-RSA-AES-128-SHA256
     Cipher $Name TLS1-ECDHE-RSA-AES256-SHA
     Cipher $Name TLS1-ECDHE-RSA-AES128-SHA
     Cipher $Name TLS1.2-DHE-RSA-AES256-GCM-SHA384
     Cipher $Name TLS1.2-DHE-RSA-AES128-GCM-SHA256
+    Cipher $Name TLS1-DHE-RSA-AES-256-CBC-SHA
     Cipher $Name TLS1-DHE-RSA-AES-128-CBC-SHA
     Cipher $Name TLS1-AES-256-CBC-SHA
     Cipher $Name TLS1-AES-128-CBC-SHA
@@ -174,8 +177,14 @@ function CipherGroup-vpx ($Name) {
     Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslcipher?action=add" -body $body -WebSession $NSSession `
     -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslcipher+json"} -Method POST|Out-Null
     #feel free to edit these
+    Cipher $Name TLS1.2-ECDHE-RSA-AES256-GCM-SHA384
+    Cipher $Name TLS1.2-ECDHE-RSA-AES128-GCM-SHA256
+    Cipher $Name TLS1.2-ECDHE-RSA-AES-256-SHA384
+    Cipher $Name TLS1.2-ECDHE-RSA-AES-128-SHA256
     Cipher $Name TLS1-ECDHE-RSA-AES256-SHA
     Cipher $Name TLS1-ECDHE-RSA-AES128-SHA
+    Cipher $Name TLS1.2-DHE-RSA-AES256-GCM-SHA384
+    Cipher $Name TLS1.2-DHE-RSA-AES128-GCM-SHA256
     Cipher $Name TLS1-DHE-RSA-AES-256-CBC-SHA
     Cipher $Name TLS1-DHE-RSA-AES-128-CBC-SHA
     Cipher $Name TLS1-AES-256-CBC-SHA
@@ -261,6 +270,7 @@ function set-cipher ($Name, $cipher){
     $body = ConvertTo-JSON @{
         "sslvserver"=@{
             "vservername"="$Name";
+            "tls12"="ENABLED";
             "ssl3"="DISABLED";
             "ssl2"="DISABLED";
             "dh"="ENABLED";
@@ -556,15 +566,16 @@ write-host "Checking for rewrite policy..." -ForegroundColor DarkMagenta
     write-host $rwpolname "already present" -ForegroundColor Green
     }
 
-if ($nomgmt)
+if ($mgmt)
 {
-    write-host "Skipping SSL managment IPs..."
-    }
-    else
-    {
     write-host "Adjusting SSL managment IPs..." -ForegroundColor DarkMagenta
     #adjusts all managment IPs.  Does not adjust ciphers
     set-nsip
+    
+}
+    else
+{
+    write-host "Skipping SSL managment IPs..."
 }
 
 if($nolb)
