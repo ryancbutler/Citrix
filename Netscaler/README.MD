@@ -17,6 +17,7 @@ Based on this [Citrix blog](https://www.citrix.com/blogs/2015/05/22/scoring-an-a
 - Results in A+ on https://www.ssllabs.com/ssltest
 - HTTPS not yet implemented
 
+**USE WITH CAUTION**
 ### Changelog
 - 3-17-16: Added port 3008 and 3009 to managment ips
 - 3-28-16: Rewrite to reflect PowerShell best practice and managment IP ciphers
