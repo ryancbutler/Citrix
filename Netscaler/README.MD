@@ -29,5 +29,5 @@ Based on this [Citrix blog](https://www.citrix.com/blogs/2015/05/22/scoring-an-a
     - Removes management IPS from being adjusted by default.
     - Enables TLS 1.2
 - 6-14-16
-    - Added HTTPS
+    - Added HTTPS option to connect to NSIP
     - Added SSL renegotiation 
