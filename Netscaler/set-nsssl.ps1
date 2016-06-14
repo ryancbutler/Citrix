@@ -4,11 +4,11 @@
 .DESCRIPTION
    A PowerShell script that enables TLS 1.2, disables SSLv2 and SSLv3, creates and binds Diffie-Hellman (DH) key, creates and binds "Strict Transport Security policy" and removes all other ciphers and binds cipher group mentioned in https://www.citrix.com/blogs/2015/05/22/scoring-an-a-at-ssllabs-com-with-citrix-netscaler-the-sequel/
 .PARAMETER nsip
-	DNS Name or IP of the Netscaler that needs to be configured. (MANDATORY)
+   DNS Name or IP of the Netscaler that needs to be configured. (MANDATORY)
 .PARAMETER adminaccount
-	Netscaler admin account (Default: nsroot)
+   Netscaler admin account (Default: nsroot)
 .PARAMETER adminpassword
-	Password for the Netscaler admin account (Default: nsroot)
+   Password for the Netscaler admin account (Default: nsroot)
 .PARAMETER https
    Use HTTPS for communication
 .PARAMETER ciphergroupname
@@ -38,10 +38,10 @@
    #>
 Param
 (
-	[Parameter(Mandatory=$true)]$nsip,
+    [Parameter(Mandatory=$true)]$nsip,
     [String]$adminaccount="nsroot",
-	[String]$adminpassword="nsroot",
-	[switch]$https,
+    [String]$adminpassword="nsroot",
+    [switch]$https,
     [string]$ciphergroupname = "custom-ssllabs-cipher",
     [string]$rwactname = "act-sts-header",
     [string]$rwpolname = "pol-sts-force",
@@ -562,7 +562,7 @@ Function set-sslparams {
 write-host "Logging in..."
 Login
 
-write-host "Checking for DHKEY: " $dhname  -ForegroundColor DarkMagenta
+write-host "Checking for DHKEY: " $dhname  -ForegroundColor White
 
 
 #Checks for and creates DH key
@@ -573,7 +573,7 @@ new-dhkey $dhname
 }
 
 
-write-host "Checking for cipher group..." -ForegroundColor DarkMagenta
+write-host "Checking for cipher group..." -ForegroundColor White
 #Checks for cipher group we will be creating    
     if (((get-ciphers).ciphergroupname) -notcontains $ciphergroupname)
     {
@@ -594,7 +594,7 @@ write-host "Checking for cipher group..." -ForegroundColor DarkMagenta
     write-host $ciphergroupname "already present" -ForegroundColor Green
     }
 
-write-host "Checking for rewrite policy..." -ForegroundColor DarkMagenta
+write-host "Checking for rewrite policy..." -ForegroundColor White
 #Checks for rewrite policy
     if (((get-rewritepol).name) -notcontains $rwpolname)
     {
@@ -608,7 +608,7 @@ write-host "Checking for rewrite policy..." -ForegroundColor DarkMagenta
 
 if ($mgmt)
 {
-    write-host "Adjusting SSL managment IPs..." -ForegroundColor DarkMagenta
+    write-host "Adjusting SSL managment IPs..." -ForegroundColor White
     #adjusts all managment IPs.  Does not adjust ciphers
     set-nsip
     
@@ -620,11 +620,11 @@ if ($mgmt)
 
 if($nolb)
 {
-    write-host "Skipping LB VIPs..." -ForegroundColor DarkMagenta
+    write-host "Skipping LB VIPs..." -ForegroundColor White
     }
     else
     {
-    write-host "Checking LB VIPs..." -ForegroundColor DarkMagenta
+    write-host "Checking LB VIPs..." -ForegroundColor White
     #Gets all LB servers that are SSL and makes changes
     $lbservers = (get-vservers)
     $ssls = $lbservers|where{$_.servicetype -like "SSL"}
@@ -642,7 +642,7 @@ if($novpn)
     }
     else
     {
-    write-host "Checking VPN VIPs..." -ForegroundColor DarkMagenta
+    write-host "Checking VPN VIPs..." -ForegroundColor White
     #Gets all Netscaler Gateways and makes changes
     $vpnservers = get-vpnservers
     
@@ -656,11 +656,11 @@ if($novpn)
 
 if($nocsw)
 {
-    write-host "Skipping CSW IPs..." -ForegroundColor DarkMagenta
+    write-host "Skipping CSW IPs..." -ForegroundColor White
 }
 else
 {
-    write-host "Checking CS VIPs..." -ForegroundColor DarkMagenta
+    write-host "Checking CS VIPs..." -ForegroundColor White
     #Gets all Content Switches and makes changes
     $csservers = get-csservers
     #Filters for only SSL
@@ -674,20 +674,20 @@ else
 
 if($noneg)
 {
-    write-host "Skipping SSL renegotiation..." -ForegroundColor DarkMagenta
+    write-host "Skipping SSL renegotiation..." -ForegroundColor White
 }
 else
 {
-    write-host "Setting SSL renegotiation..."  -ForegroundColor DarkMagenta
+    write-host "Setting SSL renegotiation..."  -ForegroundColor White
     set-sslparams
 }
 
 
-write-host "Saving NS config.." -ForegroundColor DarkMagenta
+write-host "Saving NS config.." -ForegroundColor White
 #Save NS Config
 SaveConfig
 
-write-host "Logging out..." -ForegroundColor DarkMagenta
+write-host "Logging out..." -ForegroundColor White
 #Logout
 Logout
 
