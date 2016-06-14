@@ -4,29 +4,31 @@
 .DESCRIPTION
    A PowerShell script that enables TLS 1.2, disables SSLv2 and SSLv3, creates and binds Diffie-Hellman (DH) key, creates and binds "Strict Transport Security policy" and removes all other ciphers and binds cipher group mentioned in https://www.citrix.com/blogs/2015/05/22/scoring-an-a-at-ssllabs-com-with-citrix-netscaler-the-sequel/
 .PARAMETER nsip
-   DNS Name or IP of the Netscaler that needs to be configured. (MANDATORY)
+	DNS Name or IP of the Netscaler that needs to be configured. (MANDATORY)
 .PARAMETER adminaccount
-   Netscaler admin account (Default: nsroot)
+	Netscaler admin account (Default: nsroot)
 .PARAMETER adminpassword
-   Password for the Netscaler admin account (Default: nsroot)
+	Password for the Netscaler admin account (Default: nsroot)
 .PARAMETER https
    Use HTTPS for communication
 .PARAMETER ciphergroupname
-   Cipher group name to search for (Default: "claus-cipher-list-with-gcm")
+    Cipher group name to search for (Default: "claus-cipher-list-with-gcm")
 .PARAMETER rwactname
-   ReWrite action name (Default: "act-sts-header")
+    ReWrite action name (Default: "act-sts-header")
 .PARAMETER rwpolname
-   ReWrite policy name (Default: "pol-sts-force")
+    ReWrite policy name (Default: "pol-sts-force")
 .PARAMETER dhname
-   DH Key to be used (Default: "dhkey2048.key")
+    DH Key to be used (Default: "dhkey2048.key")
 .PARAMETER mgmt
-   Perform changes on Netsclaer managment IP
+    Perform changes on Netsclaer managment IP
 .PARAMETER nolb
-   Do not perform changes on Netscaler Load Balanced SSL VIPs
+    Do not perform changes on Netscaler Load Balanced SSL VIPs
 .PARAMETER nocsw
-   Do not perform changes on Netscaler Content Switch VIPs
+    Do not perform changes on Netscaler Content Switch VIPs
 .PARAMETER novpn
-   Do not perofm change on Netscaler VPN\Netscaler Gateway VIPs
+    Do not perofm change on Netscaler VPN\Netscaler Gateway VIPs
+.PARAMETER noneg
+    Do not adjust SSL renegotiation
 .EXAMPLE
    ./set-nsssl -nsip 10.1.1.2
 .EXAMPLE
@@ -36,10 +38,10 @@
    #>
 Param
 (
-    [Parameter(Mandatory=$true)]$nsip,
+	[Parameter(Mandatory=$true)]$nsip,
     [String]$adminaccount="nsroot",
-    [String]$adminpassword="nsroot",
-    [switch]$https,
+	[String]$adminpassword="nsroot",
+	[switch]$https,
     [string]$ciphergroupname = "custom-ssllabs-cipher",
     [string]$rwactname = "act-sts-header",
     [string]$rwpolname = "pol-sts-force",
@@ -47,7 +49,8 @@ Param
     [switch]$mgmt,
     [switch]$nolb,
     [switch]$nocsw,
-    [switch]$novpn
+    [switch]$novpn,
+    [switch]$noneg
 
 
 )
@@ -538,6 +541,19 @@ Catch
 Return $found
 }
 
+Function set-sslparams {
+#Allow secure renegotiation
+
+        $body = ConvertTo-JSON @{
+                "sslparameter"=@{
+                    "denysslreneg"="FRONTEND_CLIENT";
+                    }
+                }
+            Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslparameter/" -body $body -WebSession $NSSession `
+            -Headers @{"Content-Type"="application/json"} -Method PUT|Out-Null
+            
+
+}
 
 
 ###Script starts here
@@ -654,6 +670,16 @@ else
        (set-cipher $sslcs.name $ciphergroupname)
        (set-cspols $sslcs $rwpolname).message
     }
+}
+
+if($noneg)
+{
+    write-host "Skipping SSL renegotiation..." -ForegroundColor DarkMagenta
+}
+else
+{
+    write-host "Setting SSL renegotiation..."  -ForegroundColor DarkMagenta
+    set-sslparams
 }
 
 
