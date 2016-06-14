@@ -26,3 +26,4 @@ Based on this [Citrix blog](https://www.citrix.com/blogs/2015/05/22/scoring-an-a
     - Ciphers are now the same for VPX or MPX\SDX
     - Removes management IPS from being adjusted by default.
     - Enables TLS 1.2
+- 6-14-16 Added HTTPS

@@ -10,7 +10,7 @@
 .PARAMETER adminpassword
 	Password for the Netscaler admin account (Default: nsroot)
 .PARAMETER https
-   Use HTTPS for communication (NOT YET IMPLEMENTED)
+   Use HTTPS for communication
 .PARAMETER ciphergroupname
     Cipher group name to search for (Default: "claus-cipher-list-with-gcm")
 .PARAMETER rwactname
@@ -27,10 +27,10 @@
     Do not perform changes on Netscaler Content Switch VIPs
 .PARAMETER novpn
     Do not perofm change on Netscaler VPN\Netscaler Gateway VIPs
-.NOTES
-	HTTPS is currently not yet implemented
 .EXAMPLE
    ./set-nsssl -nsip 10.1.1.2
+.EXAMPLE
+   ./set-nsssl -nsip 10.1.1.2 -https
 .EXAMPLE
    ./set-nsssl -nsip 10.1.1.2 -adminaccount nsadmin -adminpassword "mysupersecretpassword" -ciphergroupname "mynewciphers" -rwactname "rw-actionnew" -rwpolname "rw-polnamenew" -dhname "mydhey.key" -mgmt -nocsw
    #>
@@ -53,30 +53,21 @@ Param
 )
 
 
-#Version 2.2
 #Tested with Windows 10 and Netscaler 11 60.63.16
 #USE AT OWN RISK
 #By: Ryan Butler 2-19-16
 #3-17-16: Added port 3008 and 3009 to managment ips
 #3-28-16: Rewrite to reflect PS best practice and managment IP ciphers
 #6-13-16: Adjusted to reflect https://www.citrix.com/blogs/2016/06/09/scoring-an-a-at-ssllabs-com-with-citrix-netscaler-2016-update/. Also removed management IPS from default.  (Tested with 11.0 65.31)
+#6-14-16: Now supports HTTPS
 
 #Netscaler NSIP login information
 if ($https)
 {
-<#
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls
+    [System.Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}
     write-host "Connecting HTTPS" -ForegroundColor Yellow
     $hostname = "https://" + $nsip
-
-[System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy
- 
-[System.Net.ServicePointManager]::CheckCertificateRevocationList = $false;
-[System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $true; };
-[System.Net.ServicePointManager]::SecurityProtocol{Tls1};
-#>
-write-host "HTTPS NOT YET IMPLEMENTED" -ForegroundColor red
-break
-
 }
 else
 {
@@ -345,6 +336,7 @@ function set-nsip {
         $body = ConvertTo-JSON @{
             "sslservice"=@{
                 "servicename"="$Name";
+                "tls12"="ENABLED";
                 "ssl3"="DISABLED";
                 "ssl2"="DISABLED";
                 "dh"="ENABLED";
