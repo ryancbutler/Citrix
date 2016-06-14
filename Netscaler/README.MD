@@ -15,7 +15,6 @@ Based on this [Citrix blog](https://www.citrix.com/blogs/2015/05/22/scoring-an-a
 - Creates and binds Diffie-Hellman (DH) 2048 bit key (Forward Secrecy)
 - Creates and binds "Strict Transport Security policy"
 - Results in A+ on https://www.ssllabs.com/ssltest
-- HTTPS not yet implemented
 
 **USE WITH CAUTION**
 ### Changelog
