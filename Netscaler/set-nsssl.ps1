@@ -512,6 +512,32 @@ Catch
 
 }
 
+function checkfordhkey ($dhname) {
+    #Checks if DHKEY is present
+    $urlstring = "$hostname" + "/nitro/v1/config/systemfile/" + $dhname + "?args=filelocation:%2Fnsconfig%2Fssl"
+try {
+    $info = Invoke-RestMethod -uri $urlstring -WebSession $NSSession `
+    -Headers @{"Content-Type"="application/json"} -Method GET
+    $msg = $info.message
+}
+Catch
+{
+    $ErrorMessage = $_.Exception.Response
+    $FailedItem = $_.Exception.ItemName
+}
+        if ($msg -like "Done")
+        {
+         write-host "DHKEY alredy present..." -ForegroundColor Green
+         $found = $true
+        }
+        else
+        {
+        write-host "DHKEY NOT present..." -ForegroundColor Yellow
+         $found = $false
+        }
+Return $found
+}
+
 
 
 ###Script starts here
@@ -520,16 +546,22 @@ Catch
 write-host "Logging in..."
 Login
 
-write-host "Creating" $dhname  -ForegroundColor DarkMagenta
-write-host "This can take a couple of minutes..." -ForegroundColor yellow
+write-host "Checking for DHKEY: " $dhname  -ForegroundColor DarkMagenta
+
+
 #Checks for and creates DH key
+if ((checkfordhkey $dhname) -eq $false)
+{
+write-host "DHKEY creation in process.  Can take a couple of minutes..." -ForegroundColor yellow
 new-dhkey $dhname
+}
+
 
 write-host "Checking for cipher group..." -ForegroundColor DarkMagenta
 #Checks for cipher group we will be creating    
     if (((get-ciphers).ciphergroupname) -notcontains $ciphergroupname)
     {
-        write-host "Creating " $ciphergroupname -ForegroundColor Gray
+        write-host "Creating" $ciphergroupname -ForegroundColor Gray
         if (checkvpx)
         {
             write-host "Creating cipher group for VPX..."
