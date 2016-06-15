@@ -19,15 +19,16 @@ Based on this [Citrix blog](https://www.citrix.com/blogs/2015/05/22/scoring-an-a
 
 **USE WITH CAUTION**
 ### Changelog
-- 3-17-16: Added port 3008 and 3009 to managment ips
+- 3-17-16: 
+    - Added port 3008 and 3009 to managment ips
 - 3-28-16: 
-    - Rewrite to reflect PowerShell best practice and 
+    - Rewrite to reflect PowerShell best practice
     - Can adjust SSL Managment IPs
 - 6-13-16 (Tested with VPX 11.0 65.31)
     - Adjusted ciphers to reflect recent 6-9-16 [Citrix blog](https://www.citrix.com/blogs/2016/06/09/scoring-an-a-at-ssllabs-com-with-citrix-netscaler-2016-update) 
     - Ciphers are now the same for VPX or MPX\SDX
-    - Removes management IPS from being adjusted by default.
+    - Removes management IPs (NSIP) from being adjusted by default.
     - Enables TLS 1.2
 - 6-14-16
-    - Added HTTPS
+    - Added HTTPS connection option
     - Added SSL renegotiation 
