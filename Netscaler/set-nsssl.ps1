@@ -12,7 +12,7 @@
 .PARAMETER https
    Use HTTPS for communication
 .PARAMETER ciphergroupname
-    Cipher group name to search for (Default: "claus-cipher-list-with-gcm")
+    Cipher group name to search for (Default: "custom-ssllabs-cipher")
 .PARAMETER rwactname
     ReWrite action name (Default: "act-sts-header")
 .PARAMETER rwpolname
