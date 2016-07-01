@@ -1,8 +1,8 @@
 ﻿<#
 .SYNOPSIS
-   A PowerShell script for upgrading Netscaler via REST (Versions greater than 11.1)
+   A PowerShell script for upgrading Netscaler via REST API (Versions greater than 11.1)
 .DESCRIPTION
-   A PowerShell script for upgrading Netscaler via REST (Firmware greater than 11.1)
+   A PowerShell script for upgrading Netscaler via REST API (Firmware greater than 11.1)
 .PARAMETER nsip
    DNS Name or IP of the Netscaler that needs to be configured. (MANDATORY)
 .PARAMETER adminaccount
