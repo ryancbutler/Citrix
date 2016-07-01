@@ -1,8 +1,8 @@
 ﻿<#
 .SYNOPSIS
-   A PowerShell script for upgrading Netscaler via REST API (Versions greater than 11.1)
+   A PowerShell script for upgrading Netscaler firmware via REST API (Versions greater than 11.1)
 .DESCRIPTION
-   A PowerShell script for upgrading Netscaler via REST API (Firmware greater than 11.1)
+   A PowerShell script for upgrading Netscaler firmware via REST API (Firmware greater than 11.1)
 .PARAMETER nsip
    DNS Name or IP of the Netscaler that needs to be configured. (MANDATORY)
 .PARAMETER adminaccount
@@ -85,6 +85,8 @@ function Login {
     }
 }
 
+
+#Upgrade the NS function
 function upgradens ($url, $callhome) {
 
     # Support function called by CipherGroup
@@ -101,9 +103,10 @@ function upgradens ($url, $callhome) {
   
 }
 
+
+#Reboots netscaler
 function reboot {
 
-    # Support function called by CipherGroup
     $body = ConvertTo-JSON @{
         "reboot"=@{
             "warm" = $false;
@@ -113,15 +116,11 @@ function reboot {
     Invoke-RestMethod -uri "$hostname/nitro/v1/config/reboot" -body $body -WebSession $NSSession `
     -Headers @{"Content-Type"="application/json"} -Method POST|Out-Null
 }
-
-
-
 ###Script starts here
 
 #Logs into netscaler
 write-host "Logging in..."
 Login
-
 
 #workaround for variable type
 if($callhome)
