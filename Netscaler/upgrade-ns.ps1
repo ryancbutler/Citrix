@@ -2,7 +2,7 @@
 .SYNOPSIS
    A PowerShell script for upgrading Netscaler via REST (Versions greater than 11.1)
 .DESCRIPTION
-   A PowerShell script for upgrading Netscaler via REST (Versions greater than 11.1)
+   A PowerShell script for upgrading Netscaler via REST (Firmware greater than 11.1)
 .PARAMETER nsip
    DNS Name or IP of the Netscaler that needs to be configured. (MANDATORY)
 .PARAMETER adminaccount
@@ -12,7 +12,7 @@
 .PARAMETER https
    Use HTTPS for communication to NSSIP
 .PARAMETER url
-   URL for Netscaler firmware (.tgz)
+   URL for Netscaler firmware (MANDATORY)
 .PARAMETER reboot
     Reboot after upgrade (Default: true)
 .PARAMETER callhome
@@ -38,7 +38,6 @@ Param
 #USE AT OWN RISK
 #By: Ryan Butler 6-30-16
 
-#[System.Net.ServicePointManager]::Expect100Continue = $false
 
 #Netscaler NSIP login information
 if ($https)
@@ -77,7 +76,7 @@ function Login {
         }
     try {
     Invoke-RestMethod -uri "$hostname/nitro/v1/config/login" -body $body -SessionVariable NSSession `
-    -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.login+json"} -Method POST|Out-Null
+    -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.login+json"} -Method POST |Out-Null
     $Script:NSSession = $local:NSSession
     }
     Catch
@@ -97,11 +96,9 @@ function upgradens ($url, $callhome) {
             }
         }
 
-       
     Invoke-RestMethod -uri "$hostname/nitro/v1/config/install" -body $body -WebSession $NSSession `
-    -Headers @{"Content-Type"="application/json"} -Method POST -TimeoutSec 600 -ErrorAction SilentlyContinue |Out-Null
-
-
+    -Headers @{"Content-Type"="application/json"} -Method POST -TimeoutSec 600 |Out-Null
+  
 }
 
 function reboot {
@@ -114,7 +111,7 @@ function reboot {
         }
 
     Invoke-RestMethod -uri "$hostname/nitro/v1/config/reboot" -body $body -WebSession $NSSession `
-    -Headers @{"Content-Type"="application/json"} -Method POST -TimeoutSec 600 |Out-Null
+    -Headers @{"Content-Type"="application/json"} -Method POST|Out-Null
 }
 
 
@@ -141,13 +138,17 @@ else
 write-host "Upgrading Netscaler $nsip..."
 $timetorun = measure-command {upgradens $url $callhome}
 
-write-host "Upgrade completed..."
+write-host "Upgrade completed..." -ForegroundColor Green
 write-host "Took $timetorun..."
 
 if(!$noreboot)
 {
 write-host "Rebooting $nsip..."
 reboot
+}
+else
+{
+write-host "Upgrade for $nsip completed. Make sure to reboot NS."
 }
 
 
