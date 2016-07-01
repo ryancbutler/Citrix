@@ -32,3 +32,10 @@ Based on this [Citrix blog](https://www.citrix.com/blogs/2015/05/22/scoring-an-a
 - 6-14-16
     - Added HTTPS connection option
     - Added SSL renegotiation 
+
+## upgrade-ns.ps1
+**CREATED: 6-30-16**
+
+Uses the 11.1 REST API to upgrade Netscaler firmware.
+
+**NOTE: This will not work with 11.0 or lower**
