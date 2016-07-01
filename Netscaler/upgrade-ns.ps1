@@ -19,8 +19,10 @@
     Enable CallHome (Default: false)
 .EXAMPLE
    ./upgrade-ns.ps1 -nsip 10.1.1.2 -url "https://mywebserver/build-11.1-47.14_nc.tgz"
+   Use the default NSROOT\NSROOT credentials and the providedd url.  Uses the default values of disabling "callhome" and rebooting after upgrade.
 .EXAMPLE
    ./upgrade-ns.ps1 -nsip 10.1.1.2 -url "https://mywebserver/build-11.1-47.14_nc.tgz" -adminaccount nsadmin -adminpassword "mysupersecretpassword" -callhome -noreboot
+   Uses a different set of Netscaler credentials, enables callhome and does not reboot after upgrade completetion
 #>
 Param
 (

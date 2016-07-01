@@ -36,6 +36,6 @@ Based on this [Citrix blog](https://www.citrix.com/blogs/2015/05/22/scoring-an-a
 ## upgrade-ns.ps1
 **CREATED: 6-30-16**
 
-Uses the 11.1 REST API to upgrade Netscaler firmware.
+Uses the 11.1 REST API to upgrade Netscaler firmware. See [Blog Post](http://techdrabble.com/citrix/20-upgrade-netscaler-via-rest-api-install-command) for more information
 
 **NOTE: This will not work with 11.0 or lower**
