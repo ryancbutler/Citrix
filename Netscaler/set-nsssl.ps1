@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
    A PowerShell script for hardening Netscaler SSL IPs
 .DESCRIPTION
@@ -29,6 +29,8 @@
     Do not perofm change on Netscaler VPN\Netscaler Gateway VIPs
 .PARAMETER noneg
     Do not adjust SSL renegotiation
+.PARAMETER nosave
+    Do not save nsconfig at the end of the script
 .EXAMPLE
    ./set-nsssl -nsip 10.1.1.2
 .EXAMPLE
@@ -50,8 +52,8 @@ Param
     [switch]$nolb,
     [switch]$nocsw,
     [switch]$novpn,
-    [switch]$noneg
-
+    [switch]$noneg,
+	[switch]$nosave
 
 )
 
@@ -63,6 +65,7 @@ Param
 #3-28-16: Rewrite to reflect PS best practice and managment IP ciphers
 #6-13-16: Adjusted to reflect https://www.citrix.com/blogs/2016/06/09/scoring-an-a-at-ssllabs-com-with-citrix-netscaler-2016-update/. Also removed management IPS from default.  (Tested with 11.0 65.31)
 #6-14-16: Now supports HTTPS
+#7-02-16: Added "nosave" paramenter
 
 #Netscaler NSIP login information
 if ($https)
@@ -682,12 +685,17 @@ else
     set-sslparams
 }
 
-
-write-host "Saving NS config.." -ForegroundColor White
-#Save NS Config
-SaveConfig
+if($nosave)
+{
+	write-host "NOT saving NS config.." -ForegroundColor White
+}
+else
+{
+	write-host "Saving NS config.." -ForegroundColor White
+	#Save NS Config
+	SaveConfig
+}
 
 write-host "Logging out..." -ForegroundColor White
 #Logout
 Logout
-
