@@ -500,20 +500,10 @@ function new-dhkey ($name) {
             "gen"="2";
             }
         }
-try {        
+       
     $body = ConvertTo-JSON $body
     Invoke-RestMethod -uri "$hostname/nitro/v1/config/ssldhparam?action=create" -body $body -WebSession $NSSession `
-    -Headers @{"Content-Type"="application/json"} -Method POST -TimeoutSec 240
-    }
-Catch
-{
-    $ErrorMessage = $_.Exception.Response
-    $FailedItem = $_.Exception.ItemName
-}
-    if ($ErrorMessage.Response.StatusCode -like "Conflict")
-    {
-    write-host $name "already present" -ForegroundColor Green
-    }
+    -Headers @{"Content-Type"="application/json"} -Method POST -TimeoutSec 600
 
 
 }
