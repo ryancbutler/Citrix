@@ -111,9 +111,27 @@ function upgradens ($url, $callhome) {
   
 }
 
+#Gets Netscaler Version
+function get-nsversion () {
+
+    # Support function called by CipherGroup
+
+
+    try {
+    $version = Invoke-RestMethod -uri "$hostname/nitro/v1/config/nsversion" -WebSession $NSSession `
+    -Headers @{"Content-Type"="application/json"} -Method GET 
+    }
+    Catch
+    {
+    throw $_
+    }
+
+return $version.nsversion  
+}
+
 
 #Reboots netscaler
-function reboot {
+function reboot-ns {
 
     $body = ConvertTo-JSON @{
         "reboot"=@{
@@ -142,7 +160,9 @@ else
     $ch = $false
 }
 
-write-host "Upgrading Netscaler $nsip..."
+$version = get-nsversion
+write-host "Netscaler Version:" $version.version
+write-host "Upgrading Netscaler at $nsip..."
 $timetorun = measure-command {upgradens $url $callhome}
 
 write-host "Upgrade completed..." -ForegroundColor Green
@@ -151,7 +171,7 @@ write-host "Took $timetorun..."
 if(!$noreboot)
 {
 write-host "Rebooting $nsip..."
-reboot
+reboot-ns
 }
 else
 {
