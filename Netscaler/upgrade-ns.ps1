@@ -100,8 +100,14 @@ function upgradens ($url, $callhome) {
             }
         }
 
+    try {
     Invoke-RestMethod -uri "$hostname/nitro/v1/config/install" -body $body -WebSession $NSSession `
     -Headers @{"Content-Type"="application/json"} -Method POST -TimeoutSec 600 |Out-Null
+    }
+    Catch
+    {
+    throw $_
+    }
   
 }
 
