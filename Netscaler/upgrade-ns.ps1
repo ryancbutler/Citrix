@@ -39,6 +39,7 @@ Param
 #Tested with Windows 10 and Netscaler 11.1_47.14
 #USE AT OWN RISK
 #By: Ryan Butler 6-30-16
+#updated: 8-11-16 added function to get NS version and some minor error checking
 
 
 #Netscaler NSIP login information
