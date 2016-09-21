@@ -150,12 +150,12 @@ $oldsfname = "OLDzonename" #zone to migrate FROM
 #get-zoneid -zonename $oldsfname
 
 ##gets current status of non-migrated Sharefile folders and users
-#get-sfusers|Export-csv -NoClobber -NoTypeInformation ($csvpath + "SFUSERS.csv")
-#get-sharedfolders|Export-csv -NoClobber -NoTypeInformation ($csvpath + "SFFOLDERS.csv")
+#get-sfusers|Export-csv -NoClobber -NoTypeInformation ($csvpath + "NonMigratedUsers.csv")
+#get-sharedfolders|Export-csv -NoClobber -NoTypeInformation ($csvpath + "NonMigratedFolders.csv")
 
 ##gets current status of migrated Sharefile folders and users
-#get-migratedsfusers|Export-csv -NoClobber -NoTypeInformation ($csvpath + "SFmigUSERS.csv")
-#get-migratedsharedfolders|Export-csv -NoClobber -NoTypeInformation ($csvpath + "SFmigFOLDERS.csv")
+#get-migratedsfusers|Export-csv -NoClobber -NoTypeInformation ($csvpath + "MigratedUsers.csv")
+#get-migratedsharedfolders|Export-csv -NoClobber -NoTypeInformation ($csvpath + "MigratedFolders.csv")
 
 ##move to zone usage
 #move-sfuser -folderid "345tonsf984iowxcvbi" -newsf $newsf
