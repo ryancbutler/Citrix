@@ -3,7 +3,7 @@
    Grabs Netscaler license expiration information via REST
 .DESCRIPTION
    Grabs Netscaler license expiration information via REST. 
-   Version: 0.8
+   Version: 0.9
    By: Ryan Butler 8-12-16 
     10-4-16: Now uses Netscaler time VS local system time
    Twitter: ryan_c_butler
