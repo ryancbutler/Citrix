@@ -5,6 +5,7 @@
    Grabs Netscaler license expiration information via REST. 
    Version: 0.8
    By: Ryan Butler 8-12-16 
+    10-4-16: Now uses Netscaler time VS local system time
    Twitter: ryan_c_butler
    Website: Techdrabble.com
    Requires: Powershell v3 or greater
@@ -160,7 +161,8 @@ Return $info
 
 function check-nslicense () {
 #Compares dates and places results into array
-$today = get-date
+$currentnstime = get-nstime
+write-host "Current NS Time:" $currentnstime
 $licenses = get-nslicenses
 $results = @()
 
@@ -178,7 +180,7 @@ $results = @()
             else
             {
                 $expires = ($date.expdate).ToShortDateString()
-                $span = (New-TimeSpan -Start $today -end ($date.expdate)).days
+                $span = (New-TimeSpan -Start $currentnstime -end ($date.expdate)).days
             }
         
         $temp = New-Object PSObject -Property @{
@@ -193,6 +195,25 @@ $results = @()
 
     }
 return $results
+}
+
+function get-nstime {
+#Gets currenttime from netscaler
+    
+    $urlstring = "$hostname" + "/nitro/v1/config/nsconfig"
+try {
+    $info = Invoke-RestMethod -uri $urlstring -WebSession $NSSession `
+    -Headers @{"Content-Type"="application/json"} -Method GET
+    $currentdatestr = $info.nsconfig.currentsytemtime
+}
+Catch
+{
+    $ErrorMessage = $_.Exception.Response
+    $FailedItem = $_.Exception.ItemName
+}
+#converts string into datetime format
+$nsdate = [DateTime]::ParseExact($currentdatestr,"ddd MMM  d HH:mm:ss yyyy",$null)
+return $nsdate
 }
 
 #Call functions here
