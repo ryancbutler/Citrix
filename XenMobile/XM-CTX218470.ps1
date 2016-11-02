@@ -10,7 +10,7 @@ $xmserver = "192.168.1.5:4443"
 #select ID,Name from RESOURCES_BAG where resources_bag.type like 'APP_FMD'
 $sfid = "" #set if not setting $runsql=$true
 
-$runsql = $true #runs SQL query from script.  Uses Windows authentication
+$runsql = $false #Set to $true to run SQL query from script.  Uses Windows authentication
 [string] $dataSource = "sqlserver" #SQL Server
 [string] $database = "xenmobiledb" #XM Database name
 
