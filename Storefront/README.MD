@@ -1,4 +1,4 @@
-# Introduction
+# Introduction (Deprecated)
 Scripts the tweak Citrix Storefront 2.6 for faster load time.
 
 ## SFTweaks.ps1
