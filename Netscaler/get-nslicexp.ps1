@@ -117,7 +117,7 @@ $licdates = @()
 foreach ($line in $lines)
 {
 $licdate = $line.Split()
-
+write-host $licdate
 
     if ($licdate[4] -like "permanent")
     {
@@ -212,7 +212,9 @@ Catch
     $FailedItem = $_.Exception.ItemName
 }
 #converts string into datetime format
-$nsdate = [DateTime]::ParseExact($currentdatestr,"ddd MMM  d HH:mm:ss yyyy",$null)
+#Fix for dates with single day integer
+$currentdatestr = $currentdatestr -replace "  "," 0"
+$nsdate = [DateTime]::ParseExact($currentdatestr,"ddd MMM dd HH:mm:ss yyyy",$null)
 return $nsdate
 }
 
