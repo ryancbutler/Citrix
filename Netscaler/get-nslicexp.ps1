@@ -117,7 +117,7 @@ $licdates = @()
 foreach ($line in $lines)
 {
 $licdate = $line.Split()
-write-host $licdate
+
 
     if ($licdate[4] -like "permanent")
     {
