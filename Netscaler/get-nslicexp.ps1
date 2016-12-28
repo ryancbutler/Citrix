@@ -3,9 +3,11 @@
    Grabs Netscaler license expiration information via REST
 .DESCRIPTION
    Grabs Netscaler license expiration information via REST. 
-   Version: 0.9
+   Version: 1.1
    By: Ryan Butler 8-12-16 
     10-4-16: Now uses Netscaler time VS local system time
+    12-14-16: Fix for double digit days
+    12-28-16: Better error handling when grabbing license files and NS version check
    Twitter: ryan_c_butler
    Website: Techdrabble.com
    Requires: Powershell v3 or greater
@@ -102,8 +104,8 @@ try {
 }
 Catch
 {
-    $ErrorMessage = $_.Exception.Response
-    $FailedItem = $_.Exception.ItemName
+    throw "Error reading license(s): " + ($_.ErrorDetails.Message|ConvertFrom-Json).message
+    
 }
 
 #Converts returned value from BASE64 to UTF8
@@ -150,8 +152,8 @@ try {
 }
 Catch
 {
-    $ErrorMessage = $_.Exception.Response
-    $FailedItem = $_.Exception.ItemName
+    throw "Error locating license(s): " + ($_.ErrorDetails.Message|ConvertFrom-Json).message
+    
 }
 
 $info = $info.systemfile|where{$_.filename -like "*.lic"}
@@ -218,7 +220,22 @@ $nsdate = [DateTime]::ParseExact($currentdatestr,"ddd MMM dd HH:mm:ss yyyy",$nul
 return $nsdate
 }
 
+function check-nsversion {
+    #Checks for supported NS version
+    $info = Invoke-RestMethod -uri "$hostname/nitro/v1/config/nsversion" -WebSession $NSSession `
+    -Headers @{"Content-Type"="application/json"} -Method GET
+    $version = $info.nsversion.version
+    $version = $version.Substring(12,4)
+
+    if ($version -lt 10.5)
+    {
+    throw "Version of Netsaler firmware must be greater or equal to 10.5"
+    }
+
+}
+
 #Call functions here
 login-ns
+check-nsversion
 return check-nslicense
 logout-ns
