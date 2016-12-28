@@ -48,5 +48,9 @@ Uses the 11.1 REST API to upgrade Netscaler firmware. See [Blog Post](http://tec
 
 Grabs Netscaler license expiration information via REST.  See [Blog Post](http://www.techdrabble.com/citrix/netscaler/23-check-netscaler-license-expiration-information-quickly-via-powershell) for more information and detailed usage.
 
+**NOTE: This will not work with 10.1.X or lower**
+
 ### Changelog
 - 8-14-16: Now compares Netscaler time VS system time of script host
+- 12-14-16: Fix for double digit days
+- 12-28-16: Better error handling when grabbing license files and NS version check
