@@ -548,12 +548,28 @@ Function set-sslparams {
 
 }
 
+function check-nsversion {
+    #Checks for supported NS version
+    $info = Invoke-RestMethod -uri "$hostname/nitro/v1/config/nsversion" -WebSession $NSSession `
+    -Headers @{"Content-Type"="application/json"} -Method GET
+    $version = $info.nsversion.version
+    $version = $version.Substring(12,4)
+
+    if ($version -lt 10.5)
+    {
+    throw "Version of Netsaler firmware must be greater or equal to 10.5"
+    }
+
+}
 
 ###Script starts here
 
 #Logs into netscaler
 write-host "Logging in..."
 Login
+
+#Checks for supported NS firmware version (10.5)
+check-nsversion
 
 write-host "Checking for DHKEY: " $dhname  -ForegroundColor White
 

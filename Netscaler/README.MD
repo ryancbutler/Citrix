@@ -20,6 +20,8 @@ Based on this [Citrix blog](https://www.citrix.com/blogs/2015/05/22/scoring-an-a
 - Allow secure renegotiation
 - Results in A+ on https://www.ssllabs.com/ssltest
 
+**NOTE: Must be firmware 10.5 or greater**
+
 **USE WITH CAUTION**
 ### Changelog
 - 3-17-16: 
@@ -34,7 +36,9 @@ Based on this [Citrix blog](https://www.citrix.com/blogs/2015/05/22/scoring-an-a
     - Enables TLS 1.2
 - 6-14-16
     - Added HTTPS connection option
-    - Added SSL renegotiation 
+    - Added SSL renegotiation
+- 12-29-16
+	- Added NS firmware version check (10.5 or greater required due to 'systemfile' API)
 
 ## upgrade-ns.ps1
 **CREATED: 6-30-16**
