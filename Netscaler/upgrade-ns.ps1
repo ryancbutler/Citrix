@@ -40,6 +40,7 @@ Param
 #USE AT OWN RISK
 #By: Ryan Butler 6-30-16
 #updated: 8-11-16 added function to get NS version and some minor error checking
+#         12-29-16: added NS version check   
 
 
 #Netscaler NSIP login information
@@ -143,11 +144,29 @@ function reboot-ns {
     Invoke-RestMethod -uri "$hostname/nitro/v1/config/reboot" -body $body -WebSession $NSSession `
     -Headers @{"Content-Type"="application/json"} -Method POST|Out-Null
 }
+
+function check-nsversion {
+    #Checks for supported NS version
+    $info = Invoke-RestMethod -uri "$hostname/nitro/v1/config/nsversion" -WebSession $NSSession `
+    -Headers @{"Content-Type"="application/json"} -Method GET
+    $version = $info.nsversion.version
+    $version = $version.Substring(12,4)
+
+    if ($version -lt 11.1)
+    {
+    throw "Version of Netsaler firmware must be greater or equal to 11.1"
+    }
+
+}
+
 ###Script starts here
 
 #Logs into netscaler
 write-host "Logging in..."
 Login
+
+#Check for supported firmware version
+check-nsversion
 
 #workaround for variable type
 if($callhome)

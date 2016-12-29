@@ -41,14 +41,17 @@ Based on this [Citrix blog](https://www.citrix.com/blogs/2015/05/22/scoring-an-a
 
 Uses the 11.1 REST API to upgrade Netscaler firmware. See [Blog Post](http://techdrabble.com/citrix/20-upgrade-netscaler-via-rest-api-install-command) for more information
 
-**NOTE: This will not work with 11.0 or lower**
+**NOTE: Must be firmware 11.1 or greater**
+
+### Changelog
+- 12-29-16: Added NS version check
 
 ## get-nslicexp.ps1
 **CREATED: 8-14-16**
 
 Grabs Netscaler license expiration information via REST.  See [Blog Post](http://www.techdrabble.com/citrix/netscaler/23-check-netscaler-license-expiration-information-quickly-via-powershell) for more information and detailed usage.
 
-**NOTE: Must be 10.5 or greater**
+**NOTE: Must be firmware 10.5 or greater**
 
 ### Changelog
 - 8-14-16: Now compares Netscaler time VS system time of script host
