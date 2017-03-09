@@ -555,12 +555,16 @@ function check-nsversion {
     $version = $info.nsversion.version
     $version = $version.Substring(12,4)
 
-    if ($version -lt 10.5)
-    {
-    throw "Version of Netsaler firmware must be greater or equal to 10.5"
-    }
-
+    return $version
 }
+
+function check-defaulprofile {
+    #Checks for SSL default profile
+    $info = Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslparameter" -WebSession $NSSession `
+    -Headers @{"Content-Type"="application/json"} -Method GET 
+    return $info.sslparameter.defaultprofile
+}  
+
 
 ###Script starts here
 
@@ -568,12 +572,44 @@ function check-nsversion {
 write-host "Logging in..."
 Login
 
+
+
 #Checks for supported NS firmware version (10.5)
-check-nsversion
+$version = check-nsversion
+
+$useprofile = $false
+switch ($version)
+    {
+        {$_ -lt 10.5}
+            {
+            throw "Netscaler MUST firmware version but be greater than 10.5"
+            exit
+            }
+        {$_ -lt 11.1}
+            {
+            write-host "$($version) has been detected"
+            $useprofile = $false
+            }
+        {$_ -ge 11.1}
+            {
+            write-host "$($version) has been detected. SSL Profiles will be used"
+                
+                #Check for SSL default profile and exit if found
+                if(check-defaulprofile)
+                {
+                CLS
+                write-host "DEFAULT SSL PROFILE IS ENABLED ON NETSCALER AND SCRIPT WILL NOW EXIT.`nPLEASE DISABLE AND RUN SCRIPT AGAIN." -ForegroundColor YELLOW  
+                write-host "CLI: set ssl parameter -defaultProfile DISABLED" -ForegroundColor DarkMagenta
+                write-host "GUI: Traffic Management > SSL > Change advanced SSL settings" -ForegroundColor DarkMagenta
+                exit
+                }  
+            $useprofile = $true
+            }
+    }
+
+
 
 write-host "Checking for DHKEY: " $dhname  -ForegroundColor White
-
-
 #Checks for and creates DH key
 if ((checkfordhkey $dhname) -eq $false)
 {
