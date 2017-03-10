@@ -19,6 +19,8 @@
     ReWrite policy name (Default: "pol-sts-force")
 .PARAMETER dhname
     DH Key to be used (Default: "dhkey2048.key")
+.PARAMETER sslprofile
+    SSL Profile to be used (11.1 or greater)(Default: "custom-ssllabs-profile")
 .PARAMETER mgmt
     Perform changes on Netsclaer managment IP
 .PARAMETER nolb
@@ -48,6 +50,7 @@ Param
     [string]$rwactname = "act-sts-header",
     [string]$rwpolname = "pol-sts-force",
     [string]$dhname = "dhkey2048.key",
+    [string]$sslprofile,
     [switch]$mgmt,
     [switch]$nolb,
     [switch]$nocsw,
@@ -563,8 +566,78 @@ function check-defaulprofile {
     $info = Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslparameter" -WebSession $NSSession `
     -Headers @{"Content-Type"="application/json"} -Method GET 
     return $info.sslparameter.defaultprofile
-}  
+}
 
+function check-sslprofile ($sslprofile) {  
+ try{   
+    #Checks for SSL default profile
+    $info = Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslprofile/$sslprofile" -WebSession $NSSession `
+    -Headers @{"Content-Type"="application/json"} -Method GET 
+    }
+    catch
+    {
+    $ErrorMessage = $_.Exception.Response
+    $FailedItem = $_.Exception.ItemName
+    }
+
+        if ($info.message -like "Done")
+        {
+         write-host "Found SSL PROFILE $sslprofile" -ForegroundColor Green
+         $found = $true
+        }
+        else
+        {
+        write-host "SSL PROFILE NOT present..." -ForegroundColor Yellow
+         $found = $false
+        }
+
+Return $found
+}
+
+function new-sslprofile ($sslprofile,$dhname) {
+$body = ConvertTo-JSON @{                   
+        "sslprofile"= @{
+      "name" = $sslprofile;
+      "sslprofiletype" = "FrontEnd";
+      "dh" = "ENABLED";
+      "dhcount" = "0";
+      "dhfile" = $dhname;
+      "ersa" = "ENABLED";
+      "ersacount" = "0";
+      "sessreuse" = "ENABLED";
+      "sesstimeout" = "120";
+      "cipherredirect" = "DISABLED";
+      "clientauth" = "DISABLED";
+      "sslredirect" = "DISABLED";
+      "redirectportrewrite" = "DISABLED";
+      "nonfipsciphers" = "DISABLED";
+      "ssl3" = "DISABLED";
+      "tls1" = "ENABLED";
+      "tls11" = "ENABLED";
+      "tls12" = "ENABLED";
+      "snienable" = "DISABLED";
+      "ocspstapling" = "DISABLED";
+      "serverauth" = "DISABLED";
+      "pushenctrigger" = "Always";
+      "sendclosenotify" = "YES";
+      "insertionencoding" = "Unicode";
+      "denysslreneg" = "FRONTEND_CLIENT";
+      "quantumsize" = "8192";
+      "strictcachecks" = "NO";
+      "encrypttriggerpktcount" = "45";
+      "pushflag" = "0";
+      "dropreqwithnohostheader" = "NO";
+      "pushenctriggertimeout" = "1";
+      "ssltriggertimeout" = "100";
+      "clientauthuseboundcachain" = "DISABLED";
+      "sessionticket" = "DISABLED";
+      "sessionticketlifetime" = "300";
+            }
+        }
+
+
+Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslprofile" -body $body -WebSession $NSSession -Headers @{"Content-Type"="application/json"} -Method POST|Out-Null
+}
 
 ###Script starts here
 
@@ -589,21 +662,27 @@ switch ($version)
             {
             write-host "$($version) has been detected"
             $useprofile = $false
+                if($sslprofile -ne "")
+                {
+                Write-Host "SSL PROFILE IGNORED DUE TO FIRMARE VERSION" -ForegroundColor Yellow
+                }
             }
         {$_ -ge 11.1}
             {
             write-host "$($version) has been detected. SSL Profiles will be used"
                 
-                #Check for SSL default profile and exit if found
+                #Check for SSL default profile. Might do something around legacy in the future
                 if(check-defaulprofile)
                 {
                 CLS
-                write-host "DEFAULT SSL PROFILE IS ENABLED ON NETSCALER AND SCRIPT WILL NOW EXIT.`nPLEASE DISABLE AND RUN SCRIPT AGAIN." -ForegroundColor YELLOW  
-                write-host "CLI: set ssl parameter -defaultProfile DISABLED" -ForegroundColor DarkMagenta
-                write-host "GUI: Traffic Management > SSL > Change advanced SSL settings" -ForegroundColor DarkMagenta
-                exit
+                write-host "DEFAULT SSL PROFILE IS ENABLED." -ForegroundColor YELLOW  
                 }  
             $useprofile = $true
+                if($sslprofile -eq "")
+                {
+                #Setting default SSL profile name
+                $sslprofile = "custom-ssllabs-profile"
+                }
             }
     }
 
@@ -616,7 +695,6 @@ if ((checkfordhkey $dhname) -eq $false)
 write-host "DHKEY creation in process.  Can take a couple of minutes..." -ForegroundColor yellow
 new-dhkey $dhname
 }
-
 
 write-host "Checking for cipher group..." -ForegroundColor White
 #Checks for cipher group we will be creating    
@@ -651,7 +729,21 @@ write-host "Checking for rewrite policy..." -ForegroundColor White
     write-host $rwpolname "already present" -ForegroundColor Green
     }
 
-if ($mgmt)
+#Checking for SSL profile and creating if needed
+if($useprofile)
+{
+    write-host "Checking for SSL Profile..." -ForegroundColor White
+    if((check-sslprofile -sslprofile $sslprofile) -eq $false)
+    {
+        write-host "Creating SSL Profile $sslprofile" -ForegroundColor Gray
+        new-sslprofile $sslprofile $dhname
+    }
+
+
+}
+
+
+if ($mgmt -and $useprofile -eq $false)
 {
     write-host "Adjusting SSL managment IPs..." -ForegroundColor White
     #adjusts all managment IPs.  Does not adjust ciphers
@@ -666,30 +758,30 @@ if ($mgmt)
 if($nolb)
 {
     write-host "Skipping LB VIPs..." -ForegroundColor White
-    }
-    else
-    {
+}
+elseif ($nolb -eq $false -and $useprofile -eq $false)
+{
     write-host "Checking LB VIPs..." -ForegroundColor White
     #Gets all LB servers that are SSL and makes changes
     $lbservers = (get-vservers)
     $ssls = $lbservers|where{$_.servicetype -like "SSL"}
     
-    foreach ($ssl in $ssls){
-        write-host $ssl.name
-        (set-cipher $ssl.name $ciphergroupname)
-        (set-lbpols $ssl $rwpolname).message
-    }
+        foreach ($ssl in $ssls){
+            write-host $ssl.name
+            (set-cipher $ssl.name $ciphergroupname)
+            (set-lbpols $ssl $rwpolname).message
+        }
 }
 
 if($novpn)
 {
     write-host "Skiping VPN VIPS..."
-    }
-    else
-    {
-    write-host "Checking VPN VIPs..." -ForegroundColor White
-    #Gets all Netscaler Gateways and makes changes
-    $vpnservers = get-vpnservers
+}
+elseif ($novpn -eq $false -and $useprofile -eq $false)
+{
+  write-host "Checking VPN VIPs..." -ForegroundColor White
+  #Gets all Netscaler Gateways and makes changes
+  $vpnservers = get-vpnservers
     
     foreach ($ssl in $vpnservers){
         write-host $ssl.name
@@ -703,7 +795,7 @@ if($nocsw)
 {
     write-host "Skipping CSW IPs..." -ForegroundColor White
 }
-else
+elseif ($nocsw -eq $false -and $useprofile -eq $false)
 {
     write-host "Checking CS VIPs..." -ForegroundColor White
     #Gets all Content Switches and makes changes
@@ -721,7 +813,7 @@ if($noneg)
 {
     write-host "Skipping SSL renegotiation..." -ForegroundColor White
 }
-else
+elseif ($noeng -eq $false -and $useprofile -eq $false)
 {
     write-host "Setting SSL renegotiation..."  -ForegroundColor White
     set-sslparams
@@ -735,9 +827,11 @@ else
 {
 	write-host "Saving NS config.." -ForegroundColor White
 	#Save NS Config
-	SaveConfig
+	#SaveConfig
 }
 
 write-host "Logging out..." -ForegroundColor White
 #Logout
+
+
 Logout
