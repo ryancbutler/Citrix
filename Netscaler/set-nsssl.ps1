@@ -51,7 +51,7 @@ Param
     [String]$adminaccount="nsroot",
     [String]$adminpassword="nsroot",
     [switch]$https,
-    [string]$ciphergroupname = "custom-ssllabs-cipher3",
+    [string]$ciphergroupname = "custom-ssllabs-cipher",
     [string]$rwactname = "act-sts-header",
     [string]$rwpolname = "pol-sts-force",
     [string]$dhname = "dhkey2048.key",
@@ -785,7 +785,7 @@ switch ($version)
                 if($sslprofile -eq "")
                 {
                 #Setting default SSL profile name
-                $sslprofile = "custom-ssllabs-profile3"
+                $sslprofile = "custom-ssllabs-profile"
                 }
             }
     }
