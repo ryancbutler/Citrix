@@ -36,11 +36,14 @@
 .PARAMETER nosave
     Do not save nsconfig at the end of the script
 .EXAMPLE
-   ./set-nsssl -nsip 10.1.1.2
+   .\set-nsssl -nsip 10.1.1.2
 .EXAMPLE
-   ./set-nsssl -nsip 10.1.1.2 -https
+   .\set-nsssl -nsip 10.1.1.2 -https
+.Example
+    Only can be used for 11.1 and greater
+   .\set-nsssl.ps1 -nsip 192.168.50 -ciphergroupname superciphergroup -sslprofile myssllabsprofile
 .EXAMPLE
-   ./set-nsssl -nsip 10.1.1.2 -adminaccount nsadmin -adminpassword "mysupersecretpassword" -ciphergroupname "mynewciphers" -rwactname "rw-actionnew" -rwpolname "rw-polnamenew" -dhname "mydhey.key" -mgmt -nocsw
+   .\set-nsssl -nsip 10.1.1.2 -adminaccount nsadmin -adminpassword "mysupersecretpassword" -ciphergroupname "mynewciphers" -rwactname "rw-actionnew" -rwpolname "rw-polnamenew" -dhname "mydhey.key" -mgmt -nocsw
    #>
 Param
 (
@@ -48,7 +51,7 @@ Param
     [String]$adminaccount="nsroot",
     [String]$adminpassword="nsroot",
     [switch]$https,
-    [string]$ciphergroupname = "custom-ssllabs-cipher",
+    [string]$ciphergroupname = "custom-ssllabs-cipher3",
     [string]$rwactname = "act-sts-header",
     [string]$rwpolname = "pol-sts-force",
     [string]$dhname = "dhkey2048.key",
@@ -72,6 +75,7 @@ Param
 #6-13-16: Adjusted to reflect https://www.citrix.com/blogs/2016/06/09/scoring-an-a-at-ssllabs-com-with-citrix-netscaler-2016-update/. Also removed management IPS from default.  (Tested with 11.0 65.31)
 #6-14-16: Now supports HTTPS
 #7-02-16: Added "nosave" paramenter
+#3-11-17: Default SSL profile additions for 11.1 and greater
 
 #Netscaler NSIP login information
 if ($https)
@@ -392,7 +396,6 @@ function set-sslprofilebind ($name,$sslprofile) {
                 -Headers @{"Content-Type"="application/json"} -Method PUT|Out-Null
 }
 
-
 function SaveConfig {
     #Saves NS config
     $body = ConvertTo-JSON @{
@@ -706,7 +709,7 @@ function set-profilecipher ($name,$cipher)
         }
         else
         {
-        write-host $cipher "already present.." -ForegroundColor Green
+        write-host "$cipher already present.." -ForegroundColor Green
         $foundflag = 1
         }
 
@@ -736,8 +739,6 @@ function set-profilecipher ($name,$cipher)
 #Logs into netscaler
 write-host "Logging in..."
 Login
-
-
 
 #Checks for supported NS firmware version (10.5)
 $version = check-nsversion
@@ -778,18 +779,16 @@ switch ($version)
                 {
                 CLS
                 write-host '11.1 or greater must have "Default SSL Profile" enabled for script to work.`nSee https://docs.citrix.com/en-us/netscaler/11-1/ssl/ssl-profiles1/ssl-enabling-the-default-profile.html' -ForegroundColor yellow
-                write-host 'Can enable with the -usesslprof switch or`n CLI: set ssl parameter -defaultProfile ENABLED`n GUI: Traffic Management > SSL > Change advanced SSL settings, scroll down, and select Enable Default Profile.' -ForegroundColor Yellow
+                write-host 'Can enable with the -usesslprof switch OR manually`nCLI: set ssl parameter -defaultProfile ENABLED`nGUI: Traffic Management > SSL > Change advanced SSL settings, scroll down, and select Enable Default Profile.' -ForegroundColor Yellow
                 }  
             
                 if($sslprofile -eq "")
                 {
                 #Setting default SSL profile name
-                $sslprofile = "custom-ssllabs-profile"
+                $sslprofile = "custom-ssllabs-profile3"
                 }
             }
     }
-
-
 
 write-host "Checking for DHKEY: " $dhname  -ForegroundColor White
 #Checks for and creates DH key
@@ -919,7 +918,7 @@ else
         write-host $sslcs.name
         if($useprofile)
         {
-            set-sslprofilebind $ssl.name $sslprofile
+            set-sslprofilebind $sslcs.name $sslprofile
         }
        (set-cipher $sslcs.name $ciphergroupname)
        (set-cspols $sslcs $rwpolname).message
@@ -928,11 +927,11 @@ else
 
 if($noneg -or$useprofile -eq $true)
 {
-    write-host "Skipping SSL renegotiation..." -ForegroundColor White
+    write-host "Skipping SSL global renegotiation..." -ForegroundColor White
 }
 else
 {
-    write-host "Setting SSL renegotiation..."  -ForegroundColor White
+    write-host "Setting SSL global renegotiation..."  -ForegroundColor White
     set-sslparams
 }
 
