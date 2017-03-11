@@ -21,6 +21,8 @@
     DH Key to be used (Default: "dhkey2048.key")
 .PARAMETER sslprofile
     SSL Profile to be used (11.1 or greater)(Default: "custom-ssllabs-profile")
+.PARAMETER usesslprof
+    Enables SSL Default Profile (11.1 or greater)
 .PARAMETER mgmt
     Perform changes on Netsclaer managment IP
 .PARAMETER nolb
@@ -51,6 +53,7 @@ Param
     [string]$rwpolname = "pol-sts-force",
     [string]$dhname = "dhkey2048.key",
     [string]$sslprofile,
+    [switch]$usesslprof,
     [switch]$mgmt,
     [switch]$nolb,
     [switch]$nocsw,
@@ -251,35 +254,37 @@ function set-cipher ($Name, $cipher){
 
     }
 
-
-    if ($foundflag -eq 0)
-        {
-        #binds new cipher group created if not already present
-        write-host "Binding $cipher" -ForegroundColor Yellow
+    #Make sure SSL profile not in use
+    if ($useprofile -eq $false)
+    {
+        if ($foundflag -eq 0)
+            {
+            #binds new cipher group created if not already present
+            write-host "Binding $cipher" -ForegroundColor Yellow
+            $body = ConvertTo-JSON @{
+                "sslvserver_sslciphersuite_binding"=@{
+                    "vservername"="$Name";
+                    "ciphername"="$Cipher";
+                    }
+                }
+            Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslvserver_sslciphersuite_binding/$Name" -body $body -WebSession $NSSession `
+            -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslvserver_sslciphersuite_binding+json"} -Method PUT|Out-Null
+            }
+    
+        #disables sslv2 and sslv3
         $body = ConvertTo-JSON @{
-            "sslvserver_sslciphersuite_binding"=@{
+            "sslvserver"=@{
                 "vservername"="$Name";
-                "ciphername"="$Cipher";
+                "tls12"="ENABLED";
+                "ssl3"="DISABLED";
+                "ssl2"="DISABLED";
+                "dh"="ENABLED";
+                "dhfile"= $dhname;
                 }
             }
-        Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslvserver_sslciphersuite_binding/$Name" -body $body -WebSession $NSSession `
-        -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslvserver_sslciphersuite_binding+json"} -Method PUT|Out-Null
-        }
-    
-    #disables sslv2 and sslv3
-    $body = ConvertTo-JSON @{
-        "sslvserver"=@{
-            "vservername"="$Name";
-            "tls12"="ENABLED";
-            "ssl3"="DISABLED";
-            "ssl2"="DISABLED";
-            "dh"="ENABLED";
-            "dhfile"= $dhname;
-            }
-        }
-    Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslvserver/$Name" -body $body -WebSession $NSSession `
-    -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslvserver+json"} -Method PUT|Out-Null
-
+        Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslvserver/$Name" -body $body -WebSession $NSSession `
+        -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslvserver+json"} -Method PUT|Out-Null
+    }
 }
 
 function set-nscipher ($Name, $cipher){
@@ -340,24 +345,52 @@ function set-nsip {
         {
         $name = $nsip.servicename
         write-host $name
+            if($useprofile)
+            {
+                #SSL Profile
+                $body = ConvertTo-JSON @{
+                    "sslservice"=@{
+                    "servicename"="$Name";
+                    "sslprofile"=$sslprofile;
+                    "ssl2"="DISABLED";
+                }}
+                Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslservice/$Name" -body $body -WebSession $NSSession `
+                -Headers @{"Content-Type"="application/json"} -Method PUT|Out-Null
 
-        #disables sslv2 and sslv3
-        $body = ConvertTo-JSON @{
-            "sslservice"=@{
-                "servicename"="$Name";
-                "tls12"="ENABLED";
-                "ssl3"="DISABLED";
-                "ssl2"="DISABLED";
-                "dh"="ENABLED";
-                "dhfile"= $dhname;
-                }
+
             }
-        Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslservice/$Name" -body $body -WebSession $NSSession `
-        -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslservice+json"} -Method PUT|Out-Null
-        set-nscipher $name $ciphergroupname
+            else
+            {
+                #No SSL Profile
+                $body = ConvertTo-JSON @{
+                    "sslservice"=@{
+                    "servicename"="$Name";
+                    "tls12"="ENABLED";
+                    "ssl3"="DISABLED";
+                    "ssl2"="DISABLED";
+                    "dh"="ENABLED";
+                    "dhfile"= $dhname;
+                    }
+                }
+                Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslservice/$Name" -body $body -WebSession $NSSession `
+                -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslservice+json"} -Method PUT|Out-Null
+                set-nscipher $name $ciphergroupname
+            }
+
         }
 }
 
+function set-sslprofilebind ($name,$sslprofile) {
+                #SSL Profile
+                $body = ConvertTo-JSON @{
+                    "sslvserver"=@{
+                    "vservername"="$Name";
+                    "sslprofile"=$sslprofile;
+                    "ssl2"="DISABLED";
+                }}
+                Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslvserver/$Name" -body $body -WebSession $NSSession `
+                -Headers @{"Content-Type"="application/json"} -Method PUT|Out-Null
+}
 
 
 function SaveConfig {
@@ -551,6 +584,20 @@ Function set-sslparams {
 
 }
 
+Function enable-sslprof {
+#Allow secure renegotiation
+
+        $body = ConvertTo-JSON @{
+                "sslparameter"=@{
+                    "defaultprofile"="ENABLED";
+                    }
+                }
+            Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslparameter/" -body $body -WebSession $NSSession `
+            -Headers @{"Content-Type"="application/json"} -Method PUT|Out-Null
+            
+
+}
+
 function check-nsversion {
     #Checks for supported NS version
     $info = Invoke-RestMethod -uri "$hostname/nitro/v1/config/nsversion" -WebSession $NSSession `
@@ -561,7 +608,7 @@ function check-nsversion {
     return $version
 }
 
-function check-defaulprofile {
+function check-defaultprofile {
     #Checks for SSL default profile
     $info = Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslparameter" -WebSession $NSSession `
     -Headers @{"Content-Type"="application/json"} -Method GET 
@@ -635,9 +682,54 @@ $body = ConvertTo-JSON @{
             }
         }
 
-
-Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslprofile" -body $body -WebSession $NSSession -Headers @{"Content-Type"="application/json"} -Method POST|Out-Null
+    Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslprofile" -body $body -WebSession $NSSession -Headers @{"Content-Type"="application/json"} -Method POST|Out-Null
 }
+
+function set-profilecipher ($name,$cipher)
+{
+    #unbinds all cipher groups
+    $foundflag = 0 #flag if cipher already found
+    $cgs = Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslprofile_sslcipher_binding/$name" -WebSession $NSSession `
+    -Headers @{"Content-Type"="application/json"} -Method GET
+
+    $cgs = $cgs.sslprofile_sslcipher_binding
+
+    foreach ($cg in $cgs)
+    {
+        
+        if ($cg.ciphername -notlike $cipher)
+        {
+        write-host "Unbinding" $cg.ciphername -ForegroundColor yellow
+
+        Invoke-RestMethod -uri ("$hostname/nitro/v1/config/sslprofile_sslcipher_binding/$Name" + "?args=cipherName:" + $cg.ciphername ) -WebSession $NSSession `
+        -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslservice_sslciphersuite_binding+json"} -Method DELETE|Out-Null
+        }
+        else
+        {
+        write-host $cipher "already present.." -ForegroundColor Green
+        $foundflag = 1
+        }
+
+    }
+
+
+    if ($foundflag -eq 0)
+        {
+        #binds new cipher group created if not already present
+        write-host "Binding $cipher" -ForegroundColor Yellow
+        $body = ConvertTo-JSON @{
+            "sslprofile_sslcipher_binding"=@{
+                "name"="$Name";
+                "ciphername"="$Cipher";
+                }
+            }
+        Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslprofile_sslcipher_binding/$Name" -body $body -WebSession $NSSession `
+        -Headers @{"Content-Type"="application/json"} -Method PUT|Out-Null
+        }
+    
+   
+}
+
 
 ###Script starts here
 
@@ -670,14 +762,25 @@ switch ($version)
         {$_ -ge 11.1}
             {
             write-host "$($version) has been detected. SSL Profiles will be used"
-                
+            $useprofile = $true    
                 #Check for SSL default profile. Might do something around legacy in the future
-                if(check-defaulprofile)
+                $testprof = check-defaultprofile
+                if($testprof)
+                {
+                    write-host "DEFAULT SSL PROFILE IS ENABLED." -ForegroundColor GREEN
+                }
+                elseif ($testprof -eq $false -and $usesslprof)
+                {
+                    write-host "Enabling Default Profile Feature" -ForegroundColor Gray
+                    enable-sslprof
+                }
+                else
                 {
                 CLS
-                write-host "DEFAULT SSL PROFILE IS ENABLED." -ForegroundColor YELLOW  
+                write-host '11.1 or greater must have "Default SSL Profile" enabled for script to work.`nSee https://docs.citrix.com/en-us/netscaler/11-1/ssl/ssl-profiles1/ssl-enabling-the-default-profile.html' -ForegroundColor yellow
+                write-host 'Can enable with the -usesslprof switch or`n CLI: set ssl parameter -defaultProfile ENABLED`n GUI: Traffic Management > SSL > Change advanced SSL settings, scroll down, and select Enable Default Profile.' -ForegroundColor Yellow
                 }  
-            $useprofile = $true
+            
                 if($sslprofile -eq "")
                 {
                 #Setting default SSL profile name
@@ -737,13 +840,15 @@ if($useprofile)
     {
         write-host "Creating SSL Profile $sslprofile" -ForegroundColor Gray
         new-sslprofile $sslprofile $dhname
+        write-host "Binding Cipher Group" -ForegroundColor Gray
+        set-profilecipher $sslprofile $ciphergroupname
     }
 
 
 }
 
 
-if ($mgmt -and $useprofile -eq $false)
+if ($mgmt)
 {
     write-host "Adjusting SSL managment IPs..." -ForegroundColor White
     #adjusts all managment IPs.  Does not adjust ciphers
@@ -759,7 +864,7 @@ if($nolb)
 {
     write-host "Skipping LB VIPs..." -ForegroundColor White
 }
-elseif ($nolb -eq $false -and $useprofile -eq $false)
+else
 {
     write-host "Checking LB VIPs..." -ForegroundColor White
     #Gets all LB servers that are SSL and makes changes
@@ -769,6 +874,10 @@ elseif ($nolb -eq $false -and $useprofile -eq $false)
         foreach ($ssl in $ssls){
             write-host $ssl.name
             (set-cipher $ssl.name $ciphergroupname)
+            if($useprofile)
+            {
+                set-sslprofilebind $ssl.name $sslprofile
+            }
             (set-lbpols $ssl $rwpolname).message
         }
 }
@@ -777,7 +886,7 @@ if($novpn)
 {
     write-host "Skiping VPN VIPS..."
 }
-elseif ($novpn -eq $false -and $useprofile -eq $false)
+else
 {
   write-host "Checking VPN VIPs..." -ForegroundColor White
   #Gets all Netscaler Gateways and makes changes
@@ -785,6 +894,10 @@ elseif ($novpn -eq $false -and $useprofile -eq $false)
     
     foreach ($ssl in $vpnservers){
         write-host $ssl.name
+        if($useprofile)
+        {
+            set-sslprofilebind $ssl.name $sslprofile
+        }
         (set-cipher $ssl.name $ciphergroupname)
         (set-vpnpols $ssl $rwpolname).message
     }
@@ -795,7 +908,7 @@ if($nocsw)
 {
     write-host "Skipping CSW IPs..." -ForegroundColor White
 }
-elseif ($nocsw -eq $false -and $useprofile -eq $false)
+else
 {
     write-host "Checking CS VIPs..." -ForegroundColor White
     #Gets all Content Switches and makes changes
@@ -804,16 +917,20 @@ elseif ($nocsw -eq $false -and $useprofile -eq $false)
     $csssls = $csservers|where{$_.servicetype -like "SSL"}
     foreach ($sslcs in $csssls){
         write-host $sslcs.name
+        if($useprofile)
+        {
+            set-sslprofilebind $ssl.name $sslprofile
+        }
        (set-cipher $sslcs.name $ciphergroupname)
        (set-cspols $sslcs $rwpolname).message
     }
 }
 
-if($noneg)
+if($noneg -or$useprofile -eq $true)
 {
     write-host "Skipping SSL renegotiation..." -ForegroundColor White
 }
-elseif ($noeng -eq $false -and $useprofile -eq $false)
+else
 {
     write-host "Setting SSL renegotiation..."  -ForegroundColor White
     set-sslparams
@@ -827,11 +944,9 @@ else
 {
 	write-host "Saving NS config.." -ForegroundColor White
 	#Save NS Config
-	#SaveConfig
+	SaveConfig
 }
 
 write-host "Logging out..." -ForegroundColor White
 #Logout
-
-
 Logout
