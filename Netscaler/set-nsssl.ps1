@@ -780,6 +780,7 @@ switch ($version)
                 CLS
                 write-host '11.1 or greater must have "Default SSL Profile" enabled for script to work.`nSee https://docs.citrix.com/en-us/netscaler/11-1/ssl/ssl-profiles1/ssl-enabling-the-default-profile.html' -ForegroundColor yellow
                 write-host 'Can enable with the -usesslprof switch OR manually`nCLI: set ssl parameter -defaultProfile ENABLED`nGUI: Traffic Management > SSL > Change advanced SSL settings, scroll down, and select Enable Default Profile.' -ForegroundColor Yellow
+                exit
                 }  
             
                 if($sslprofile -eq "")
