@@ -72,7 +72,6 @@ Param
 )
 
 
-#Tested with Windows 10 and Netscaler 11 60.63.16
 #USE AT OWN RISK
 #By: Ryan Butler 2-19-16
 #3-17-16: Added port 3008 and 3009 to managment ips
