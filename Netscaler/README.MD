@@ -4,7 +4,7 @@ Netscaler Scripts and files
 If you receive an error within PowerShell from Windows 7 or Windows 2008 R2 SP1 like the one mentioned below.  Please install [Windows Management Framework 4.0 KB2819745](https://www.microsoft.com/en-us/download/details.aspx?id=40855)
 ![Alt text](https://github.com/ryancbutler/Citrix/blob/images/images/ns-resterror.png?raw=true)
 
-## set-nsssl.ps1 
+## set-nsssl.ps1
 **CREATED: 3-17-16**
 
 Please see [My blog](http://techdrabble.com/citrix/16-getting-an-a-for-netscaler-from-ssllabs-com) for more information.
@@ -24,13 +24,13 @@ Based on this [Citrix blog](https://www.citrix.com/blogs/2015/05/22/scoring-an-a
 
 **USE WITH CAUTION**
 ### Changelog
-- 3-17-16: 
+- 3-17-16:
     - Added port 3008 and 3009 to managment ips
-- 3-28-16: 
+- 3-28-16:
     - Rewrite to reflect PowerShell best practice
     - Can adjust SSL Managment IPs
 - 6-13-16 (Tested with VPX 11.0 65.31)
-    - Adjusted ciphers to reflect recent 6-9-16 [Citrix blog](https://www.citrix.com/blogs/2016/06/09/scoring-an-a-at-ssllabs-com-with-citrix-netscaler-2016-update) 
+    - Adjusted ciphers to reflect recent 6-9-16 [Citrix blog](https://www.citrix.com/blogs/2016/06/09/scoring-an-a-at-ssllabs-com-with-citrix-netscaler-2016-update)
     - Ciphers are now the same for VPX or MPX\SDX
     - Removes management IPs (NSIP) from being adjusted by default.
     - Enables TLS 1.2
@@ -39,6 +39,9 @@ Based on this [Citrix blog](https://www.citrix.com/blogs/2015/05/22/scoring-an-a
     - Added SSL renegotiation
 - 12-29-16
 	- Added NS firmware version check (10.5 or greater required due to 'systemfile' API)
+- 03-13-16
+  - Added check for [Default SSL Profiles](https://docs.citrix.com/en-us/netscaler/11-1/ssl/ssl-profiles1/ssl-enabling-the-default-profile.html) and if enabled uses SSL profile for all VIPS
+  - Created parameter to enable default SSL profile option on 11.1 or greater
 
 ## upgrade-ns.ps1
 **CREATED: 6-30-16**

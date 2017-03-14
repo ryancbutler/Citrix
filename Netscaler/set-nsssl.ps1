@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-   A PowerShell script for hardening Netscaler SSL IPs
+   A PowerShell script for hardening Netscaler SSL IPs based off of SSL LABS
 .DESCRIPTION
    A PowerShell script that enables TLS 1.2, disables SSLv2 and SSLv3, creates and binds Diffie-Hellman (DH) key, creates and binds "Strict Transport Security policy" and removes all other ciphers and binds cipher group mentioned in https://www.citrix.com/blogs/2015/05/22/scoring-an-a-at-ssllabs-com-with-citrix-netscaler-the-sequel/
 .PARAMETER nsip
@@ -21,7 +21,7 @@
     DH Key to be used (Default: "dhkey2048.key")
 .PARAMETER sslprofile
     SSL Profile to be used (11.1 or greater)(Default: "custom-ssllabs-profile")
-.PARAMETER usesslprof
+.PARAMETER enablesslprof
     Enables SSL Default Profile (11.1 or greater)
 .PARAMETER mgmt
     Perform changes on Netsclaer managment IP
@@ -36,8 +36,13 @@
 .PARAMETER nosave
     Do not save nsconfig at the end of the script
 .EXAMPLE
+    Defaults
    .\set-nsssl -nsip 10.1.1.2
 .EXAMPLE
+    Enables Default SSL profile and configures Netscaler (11.1 or greater) with defaults using SSL profiles
+   .\set-nsssl -nsip 10.1.1.2 -enablesslprof
+.EXAMPLE
+    Uses HTTPs for NSIP communication
    .\set-nsssl -nsip 10.1.1.2 -https
 .Example
     Only can be used for 11.1 and greater
@@ -51,12 +56,12 @@ Param
     [String]$adminaccount="nsroot",
     [String]$adminpassword="nsroot",
     [switch]$https,
-    [string]$ciphergroupname = "custom-ssllabs-cipher",
+    [string]$ciphergroupname = "custom-ssllabs-cipher",   
     [string]$rwactname = "act-sts-header",
     [string]$rwpolname = "pol-sts-force",
     [string]$dhname = "dhkey2048.key",
-    [string]$sslprofile,
-    [switch]$usesslprof,
+    [string]$sslprofile = "custom-ssllabs-profile",
+    [switch]$enablesslprof,
     [switch]$mgmt,
     [switch]$nolb,
     [switch]$nocsw,
@@ -147,7 +152,6 @@ function get-ciphers ($Name) {
 }
 
 function CipherGroup ($Name) {
-    #Ciphers from https://www.citrix.com/blogs/2015/05/22/scoring-an-a-at-ssllabs-com-with-citrix-netscaler-the-sequel/
     $body = @{
         "sslcipher"=@{
             "ciphergroupname"="$Name";
@@ -173,8 +177,6 @@ function CipherGroup ($Name) {
 }
 
 function CipherGroup-vpx ($Name) {
-    #Ciphers from https://www.citrix.com/blogs/2015/05/22/scoring-an-a-at-ssllabs-com-with-citrix-netscaler-the-sequel/
-    #for VPXs had to remove TLS1.2-ECDHE-RSA-AES-128-SHA256
     $body = @{
         "sslcipher"=@{
             "ciphergroupname"="$Name";
@@ -351,7 +353,7 @@ function set-nsip {
         write-host $name
             if($useprofile)
             {
-                #SSL Profile
+                #Assigning SSL Profile and disabling SSLV2
                 $body = ConvertTo-JSON @{
                     "sslservice"=@{
                     "servicename"="$Name";
@@ -384,8 +386,8 @@ function set-nsip {
         }
 }
 
-function set-sslprofilebind ($name,$sslprofile) {
-                #SSL Profile
+function set-sslprofilebind ($name, $sslprofile) {
+                #Sets SSL Profile and disables SSLv2
                 $body = ConvertTo-JSON @{
                     "sslvserver"=@{
                     "vservername"="$Name";
@@ -588,7 +590,7 @@ Function set-sslparams {
 }
 
 Function enable-sslprof {
-#Allow secure renegotiation
+#Enables default SSL profile https://docs.citrix.com/en-us/netscaler/11-1/ssl/ssl-profiles1/ssl-enabling-the-default-profile.html 
 
         $body = ConvertTo-JSON @{
                 "sslparameter"=@{
@@ -597,9 +599,7 @@ Function enable-sslprof {
                 }
             Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslparameter/" -body $body -WebSession $NSSession `
             -Headers @{"Content-Type"="application/json"} -Method PUT|Out-Null
-            
-
-}
+            }
 
 function check-nsversion {
     #Checks for supported NS version
@@ -630,7 +630,7 @@ function check-sslprofile ($sslprofile) {
     $FailedItem = $_.Exception.ItemName
     }
 
-        if ($info.message -like "Done")
+        if ($info.sslprofile)
         {
          write-host "Found SSL PROFILE $sslprofile" -ForegroundColor Green
          $found = $true
@@ -742,61 +742,60 @@ Login
 
 #Checks for supported NS firmware version (10.5)
 $version = check-nsversion
-
-$useprofile = $false
 switch ($version)
     {
         {$_ -lt 10.5}
             {
-            throw "Netscaler MUST firmware version but be greater than 10.5"
+            throw "Netscaler firmware version MUST be greater than 10.5"
             exit
             }
         {$_ -lt 11.1}
             {
             write-host "$($version) has been detected"
             $useprofile = $false
-                if($sslprofile -ne "")
+                if($sslprofile -notlike "custom-ssllabs-profile" -or $enablesslprof)
                 {
                 Write-Host "SSL PROFILE IGNORED DUE TO FIRMARE VERSION" -ForegroundColor Yellow
                 }
             }
         {$_ -ge 11.1}
             {
-            write-host "$($version) has been detected. SSL Profiles will be used"
-            $useprofile = $true    
+            write-host "$($version) has been detected."
+                
                 #Check for SSL default profile. Might do something around legacy in the future
                 $testprof = check-defaultprofile
-                if($testprof)
+                if($testprof -like "ENABLED")
                 {
                     write-host "DEFAULT SSL PROFILE IS ENABLED." -ForegroundColor GREEN
+                    $useprofile = $true
                 }
-                elseif ($testprof -eq $false -and $usesslprof)
+                elseif ($testprof -like "DISABLED" -and $enablesslprof)
                 {
                     write-host "Enabling Default Profile Feature" -ForegroundColor Gray
+                    $useprofile = $true
                     enable-sslprof
                 }
                 else
                 {
-                CLS
-                write-host '11.1 or greater must have "Default SSL Profile" enabled for script to work.`nSee https://docs.citrix.com/en-us/netscaler/11-1/ssl/ssl-profiles1/ssl-enabling-the-default-profile.html' -ForegroundColor yellow
-                write-host 'Can enable with the -usesslprof switch OR manually`nCLI: set ssl parameter -defaultProfile ENABLED`nGUI: Traffic Management > SSL > Change advanced SSL settings, scroll down, and select Enable Default Profile.' -ForegroundColor Yellow
-                exit
+                    CLS
+                    write-host '"Default SSL Profile" is recommended for 11.1 or greater.  Running in LEGACY mode for this run.' -ForegroundColor Yellow
+                    write-host 'See https://docs.citrix.com/en-us/netscaler/11-1/ssl/ssl-profiles1/ssl-enabling-the-default-profile.html' -ForegroundColor yellow
+                    write-host 'Can enable with the -enablesslprof switch OR manually' -ForegroundColor Yellow
+                    write-host 'CLI: set ssl parameter -defaultProfile ENABLED' -ForegroundColor Yellow
+                    write-host 'GUI: Traffic Management > SSL > Change advanced SSL settings, scroll down, and select Enable Default Profile.' -ForegroundColor Yellow
+                    Start-Sleep -Seconds 5
+                    $useprofile = $false
                 }  
             
-                if($sslprofile -eq "")
-                {
-                #Setting default SSL profile name
-                $sslprofile = "custom-ssllabs-profile"
-                }
             }
     }
-
+    
 write-host "Checking for DHKEY: " $dhname  -ForegroundColor White
 #Checks for and creates DH key
 if ((checkfordhkey $dhname) -eq $false)
 {
-write-host "DHKEY creation in process.  Can take a couple of minutes..." -ForegroundColor yellow
-new-dhkey $dhname
+    write-host "DHKEY creation in process.  Can take a couple of minutes..." -ForegroundColor yellow
+    new-dhkey $dhname
 }
 
 write-host "Checking for cipher group..." -ForegroundColor White
@@ -926,7 +925,8 @@ else
     }
 }
 
-if($noneg -or$useprofile -eq $true)
+#SSL Global Params
+if($noneg -or $useprofile -eq $true)
 {
     write-host "Skipping SSL global renegotiation..." -ForegroundColor White
 }
@@ -936,6 +936,7 @@ else
     set-sslparams
 }
 
+#Save config
 if($nosave)
 {
 	write-host "NOT saving NS config.." -ForegroundColor White
