@@ -1,5 +1,5 @@
 # Introduction
-XenMobile Scripts
+XenDesktop Scripts
 
-## XM-CTX218470.ps1
-Script for ShareFile missing in XM 10.4 workaround [CTX218470](https://support.citrix.com/article/CTX218470)
+## vcenterperms.ps1
+Verifies and sets vCenter role permissions for XenDesktop 7.x (https://support.citrix.com/article/CTX214389)
