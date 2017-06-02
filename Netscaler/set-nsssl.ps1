@@ -83,6 +83,7 @@ Param
 #6-14-16: Now supports HTTPS
 #7-02-16: Added "nosave" paramenter
 #3-11-17: Default SSL profile additions for 11.1 and greater
+#6-02-17: Changes for default profile and add for policy priority argument.  Also added some error handling
 
 #Netscaler NSIP login information
 if ($https)
@@ -142,14 +143,27 @@ function Cipher ($Name, $Cipher) {
             }
         }
     $body = ConvertTo-JSON $body
-    Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslcipher_binding/$Name" -body $body -WebSession $NSSession `
-    -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslcipher_binding+json"} -Method PUT|Out-Null
+        try {
+        Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslcipher_binding/$Name" -body $body -WebSession $NSSession `
+        -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslcipher_binding+json"} -Method PUT|Out-Null
+         }
+        catch
+        {
+        Write-Warning ($_.ErrorDetails|convertfrom-json).message
+        }
 }
 
 function get-ciphers ($Name) {
     #Get cipher groups already on netscaler
-    $ciphers = Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslcipher" -WebSession $NSSession `
-    -Headers @{"Content-Type"="application/json"} -Method GET
+        try {
+        $ciphers = Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslcipher" -WebSession $NSSession `
+        -Headers @{"Content-Type"="application/json"} -Method GET
+         }
+        catch
+        {
+        Write-Warning ($_.ErrorDetails|convertfrom-json).message
+        }
+    
     return $ciphers.sslcipher
 }
 
@@ -160,8 +174,14 @@ function CipherGroup ($Name) {
             }
         }
     $body = ConvertTo-JSON $body
-    Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslcipher?action=add" -body $body -WebSession $NSSession `
-    -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslcipher+json"} -Method POST|Out-Null
+        try{
+        Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslcipher?action=add" -body $body -WebSession $NSSession `
+        -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslcipher+json"} -Method POST|Out-Null
+        }
+        catch
+        {
+        Write-Warning ($_.ErrorDetails|convertfrom-json).message
+        }
     #feel free to edit these
     Cipher $Name TLS1.2-ECDHE-RSA-AES256-GCM-SHA384
     Cipher $Name TLS1.2-ECDHE-RSA-AES128-GCM-SHA256
@@ -185,42 +205,66 @@ function CipherGroup-vpx ($Name) {
             }
         }
     $body = ConvertTo-JSON $body
-    Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslcipher?action=add" -body $body -WebSession $NSSession `
-    -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslcipher+json"} -Method POST|Out-Null
-    #feel free to edit these
-    Cipher $Name TLS1.2-ECDHE-RSA-AES256-GCM-SHA384
-    Cipher $Name TLS1.2-ECDHE-RSA-AES128-GCM-SHA256
-    Cipher $Name TLS1.2-ECDHE-RSA-AES-256-SHA384
-    Cipher $Name TLS1.2-ECDHE-RSA-AES-128-SHA256
-    Cipher $Name TLS1-ECDHE-RSA-AES256-SHA
-    Cipher $Name TLS1-ECDHE-RSA-AES128-SHA
-    Cipher $Name TLS1.2-DHE-RSA-AES256-GCM-SHA384
-    Cipher $Name TLS1.2-DHE-RSA-AES128-GCM-SHA256
-    Cipher $Name TLS1-DHE-RSA-AES-256-CBC-SHA
-    Cipher $Name TLS1-DHE-RSA-AES-128-CBC-SHA
-    Cipher $Name TLS1-AES-256-CBC-SHA
-    Cipher $Name TLS1-AES-128-CBC-SHA
-    Cipher $Name SSL3-DES-CBC3-SHA
+        try {
+        Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslcipher?action=add" -body $body -WebSession $NSSession `
+        -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslcipher+json"} -Method POST|Out-Null
+        #feel free to edit these
+        }
+        catch
+        {
+        Write-Warning ($_.ErrorDetails|convertfrom-json).message
+        }
+        Cipher $Name TLS1.2-ECDHE-RSA-AES256-GCM-SHA384
+        Cipher $Name TLS1.2-ECDHE-RSA-AES128-GCM-SHA256
+        Cipher $Name TLS1.2-ECDHE-RSA-AES-256-SHA384
+        Cipher $Name TLS1.2-ECDHE-RSA-AES-128-SHA256
+        Cipher $Name TLS1-ECDHE-RSA-AES256-SHA
+        Cipher $Name TLS1-ECDHE-RSA-AES128-SHA
+        Cipher $Name TLS1.2-DHE-RSA-AES256-GCM-SHA384
+        Cipher $Name TLS1.2-DHE-RSA-AES128-GCM-SHA256
+        Cipher $Name TLS1-DHE-RSA-AES-256-CBC-SHA
+        Cipher $Name TLS1-DHE-RSA-AES-128-CBC-SHA
+        Cipher $Name TLS1-AES-256-CBC-SHA
+        Cipher $Name TLS1-AES-128-CBC-SHA
+        Cipher $Name SSL3-DES-CBC3-SHA
 }
 
 function get-vpnservers{
     #gets netscaler gateway VIPs
-    $vips = Invoke-RestMethod -uri "$hostname/nitro/v1/config/vpnvserver" -WebSession $NSSession `
-    -Headers @{"Content-Type"="application/json"} -Method GET
+        try{
+        $vips = Invoke-RestMethod -uri "$hostname/nitro/v1/config/vpnvserver" -WebSession $NSSession `
+        -Headers @{"Content-Type"="application/json"} -Method GET
+        }
+        catch
+        {
+        Write-Warning ($_.ErrorDetails|convertfrom-json).message
+        }
     return $vips.vpnvserver
 }
 
 function get-vservers {
     #gets load balancers
-    $vips = Invoke-RestMethod -uri "$hostname/nitro/v1/config/lbvserver" -WebSession $NSSession `
-    -Headers @{"Content-Type"="application/json"} -Method GET
+        try {
+        $vips = Invoke-RestMethod -uri "$hostname/nitro/v1/config/lbvserver" -WebSession $NSSession `
+        -Headers @{"Content-Type"="application/json"} -Method GET
+        }
+        catch
+        {
+        Write-Warning ($_.ErrorDetails|convertfrom-json).message
+        }    
     return $vips.lbvserver
 }
 
 function get-csservers {
     #gets content switches
+    try {
     $vips = Invoke-RestMethod -uri "$hostname/nitro/v1/config/csvserver" -WebSession $NSSession `
     -Headers @{"Content-Type"="application/json"} -Method GET
+    }
+    catch
+    {
+    Write-Warning ($_.ErrorDetails|convertfrom-json).message
+    }
     return $vips.csvserver
 }
 
@@ -230,8 +274,14 @@ function Logout {
         "logout"=@{
             }
         }
+    try {
     Invoke-RestMethod -uri "$hostname/nitro/v1/config/logout" -body $body -WebSession $NSSession `
     -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.logout+json"} -Method POST|Out-Null
+    }
+    catch
+    {
+    Write-Warning ($_.ErrorDetails|convertfrom-json).message
+    }
 }
 
 function set-cipher ($Name, $cipher){
@@ -250,9 +300,14 @@ function set-cipher ($Name, $cipher){
         if ($cg.ciphername -notlike $cipher)
         {
         write-host "Unbinding" $cg.ciphername -ForegroundColor yellow
-
-        Invoke-RestMethod -uri ("$hostname/nitro/v1/config/sslvserver_sslciphersuite_binding/$Name" + "?args=cipherName:" + $cg.ciphername ) -WebSession $NSSession `
-        -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslvserver_sslciphersuite_binding+json"} -Method DELETE|Out-Null
+            try {
+            Invoke-RestMethod -uri ("$hostname/nitro/v1/config/sslvserver_sslciphersuite_binding/$Name" + "?args=cipherName:" + $cg.ciphername ) -WebSession $NSSession `
+            -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslvserver_sslciphersuite_binding+json"} -Method DELETE|Out-Null
+             }
+             catch
+             {
+             Write-Warning ($_.ErrorDetails|convertfrom-json).message
+             }
         }
         else
         {
@@ -275,8 +330,14 @@ function set-cipher ($Name, $cipher){
                     "ciphername"="$Cipher";
                     }
                 }
-            Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslvserver_sslciphersuite_binding/$Name" -body $body -WebSession $NSSession `
-            -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslvserver_sslciphersuite_binding+json"} -Method PUT|Out-Null
+            try {
+                Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslvserver_sslciphersuite_binding/$Name" -body $body -WebSession $NSSession `
+                -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslvserver_sslciphersuite_binding+json"} -Method PUT|Out-Null
+                }
+                catch
+                {
+                Write-Warning ($_.ErrorDetails|convertfrom-json).message
+                }
             }
     
         #disables sslv2 and sslv3
@@ -290,8 +351,14 @@ function set-cipher ($Name, $cipher){
                 "dhfile"= $dhname;
                 }
             }
+        try {
         Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslvserver/$Name" -body $body -WebSession $NSSession `
         -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslvserver+json"} -Method PUT|Out-Null
+        }
+        catch
+        {
+        Write-Warning ($_.ErrorDetails|convertfrom-json).message
+        }
     }
 }
 
@@ -311,9 +378,14 @@ function set-nscipher ($Name, $cipher){
         if ($cg.ciphername -notlike $cipher)
         {
         write-host "Unbinding" $cg.ciphername -ForegroundColor yellow
-
-        Invoke-RestMethod -uri ("$hostname/nitro/v1/config/sslservice_sslciphersuite_binding/$Name" + "?args=cipherName:" + $cg.ciphername ) -WebSession $NSSession `
-        -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslservice_sslciphersuite_binding+json"} -Method DELETE|Out-Null
+            try{
+            Invoke-RestMethod -uri ("$hostname/nitro/v1/config/sslservice_sslciphersuite_binding/$Name" + "?args=cipherName:" + $cg.ciphername ) -WebSession $NSSession `
+            -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslservice_sslciphersuite_binding+json"} -Method DELETE|Out-Null
+            }
+            catch
+            {
+            Write-Warning ($_.ErrorDetails|convertfrom-json).message
+            }
         }
         else
         {
@@ -334,8 +406,14 @@ function set-nscipher ($Name, $cipher){
                 "ciphername"="$Cipher";
                 }
             }
+        try {
         Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslservice_sslciphersuite_binding/$Name" -body $body -WebSession $NSSession `
         -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslservice_sslciphersuite_binding+json"} -Method PUT|Out-Null
+                 }
+                catch
+                {
+                Write-Warning ($_.ErrorDetails|convertfrom-json).message
+                }       
         }
     
    
@@ -362,8 +440,14 @@ function set-nsip {
                     "sslprofile"=$sslprofile;
                     "ssl2"="DISABLED";
                 }}
+                try {
                 Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslservice/$Name" -body $body -WebSession $NSSession `
                 -Headers @{"Content-Type"="application/json"} -Method PUT|Out-Null
+                }
+                catch
+                {
+                Write-Warning ($_.ErrorDetails|convertfrom-json).message
+                }
 
 
             }
@@ -380,8 +464,14 @@ function set-nsip {
                     "dhfile"= $dhname;
                     }
                 }
+                try {
                 Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslservice/$Name" -body $body -WebSession $NSSession `
-                -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslservice+json"} -Method PUT|Out-Null
+                -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslservice+json"} -Method PUT|Out-Null               
+                }
+                catch
+                {
+                Write-Warning ($_.ErrorDetails|convertfrom-json).message
+                }
                 set-nscipher $name $ciphergroupname
             }
 
@@ -396,8 +486,15 @@ function set-sslprofilebind ($name, $sslprofile) {
                     "sslprofile"=$sslprofile;
                     "ssl2"="DISABLED";
                 }}
+                
+                try {
                 Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslvserver/$Name" -body $body -WebSession $NSSession `
                 -Headers @{"Content-Type"="application/json"} -Method PUT|Out-Null
+                 }
+                catch
+                {
+                Write-Warning ($_.ErrorDetails|convertfrom-json).message
+                }
 }
 
 function SaveConfig {
@@ -406,14 +503,26 @@ function SaveConfig {
         "nsconfig"=@{
             }
         }
+    try {
     Invoke-RestMethod -uri "$hostname/nitro/v1/config/nsconfig?action=save" -body $body -WebSession $NSSession `
     -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.nsconfig+json"} -Method POST|Out-Null
+    }
+    catch
+    {
+    Write-Warning ($_.ErrorDetails|convertfrom-json).message
+    }
 }
 
 function get-rewritepol {
     #gets rewrite policies
+    try{
     $pols = Invoke-RestMethod -uri "$hostname/nitro/v1/config/rewritepolicy" -WebSession $NSSession `
     -Headers @{"Content-Type"="application/json"} -Method GET
+    }
+    catch
+    {
+    Write-Warning ($_.ErrorDetails|convertfrom-json).message
+    }
     return $pols.rewritepolicy
 }
 
@@ -425,8 +534,14 @@ function EnableFeature ($feature) {
             }
         }
     $body = ConvertTo-JSON $body
+    try {
     Invoke-RestMethod -uri "$hostname/nitro/v1/config/nsfeature?action=enable" -body $body -WebSession $NSSession `
     -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.nsfeature+json"} -Method POST|Out-Null
+    }
+    catch
+    {
+    Write-Warning ($_.ErrorDetails|convertfrom-json).message
+    }
 }
 
 Function SetupSTS ($rwactname, $rwpolname) {
@@ -444,8 +559,14 @@ Function SetupSTS ($rwactname, $rwpolname) {
                 "stringbuilderexpr"='"max-age=157680000"';
                 }
             }
+        try {
         Invoke-RestMethod -uri "$hostname/nitro/v1/config/rewriteaction?action=add" -body $body -WebSession $NSSession `
         -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.rewriteaction+json"} -Method POST|Out-Null
+            }
+            catch
+            {
+            Write-Warning ($_.ErrorDetails|convertfrom-json).message
+            }
 
         $body = ConvertTo-JSON @{
             "rewritepolicy"=@{
@@ -454,9 +575,14 @@ Function SetupSTS ($rwactname, $rwpolname) {
                 "rule"='true';
                 }
             }
+        try {
         Invoke-RestMethod -uri "$hostname/nitro/v1/config/rewritepolicy?action=add" -body $body -WebSession $NSSession `
         -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.rewritepolicy+json"} -Method POST|Out-Null
-        
+        }
+        catch
+        {
+        Write-Warning ($_.ErrorDetails|convertfrom-json).message
+        }
     
 }
 
@@ -472,8 +598,14 @@ Function set-lbpols ($vip, $rwpolname,$rwpolpri){
                     "bindpoint" = "RESPONSE";
                     }
                 }
+            try {
             Invoke-RestMethod -uri "$hostname/nitro/v1/config/lbvserver_rewritepolicy_binding/$Name" -body $body -WebSession $NSSession `
             -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.lbvserver_rewritepolicy_binding+json"} -Method POST|Out-Null
+            }
+            catch
+            {
+            Write-Warning ($_.ErrorDetails|convertfrom-json).message
+            }
             
 
 }
@@ -490,8 +622,14 @@ Function set-cspols ($vip, $rwpolname, $rwpolpri){
                     "bindpoint" = "RESPONSE";
                     }
                 }
+            try {
             Invoke-RestMethod -uri "$hostname/nitro/v1/config/csvserver_rewritepolicy_binding/$Name" -body $body -WebSession $NSSession `
             -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.csvserver_rewritepolicy_binding+json"} -Method PUT|Out-Null
+            }
+            catch
+            {
+            Write-Warning ($_.ErrorDetails|convertfrom-json).message
+            }
             
 
 }
@@ -509,8 +647,14 @@ Function set-vpnpols ($vip, $rwpolname, $rwpolpri){
                     "bindpoint" = "RESPONSE";
                     }
                 }
+            try {
             Invoke-RestMethod -uri "$hostname/nitro/v1/config/vpnvserver_rewritepolicy_binding/$Name" -body $body -WebSession $NSSession `
             -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.vpnvserver_rewritepolicy_binding+json"} -Method POST|Out-Null
+            }
+            catch
+            {
+            Write-Warning ($_.ErrorDetails|convertfrom-json).message
+            }
             
 
 }
@@ -894,7 +1038,8 @@ else
             {
                 set-sslprofilebind $ssl.name $sslprofile
             }
-            (set-lbpols $ssl $rwpolname $rwpolpri).message
+            write-host "Binding STS policy"
+            set-lbpols $ssl $rwpolname $rwpolpri
         }
 }
 
@@ -915,7 +1060,8 @@ else
             set-sslprofilebind $ssl.name $sslprofile
         }
         (set-cipher $ssl.name $ciphergroupname)
-        (set-vpnpols $ssl $rwpolname $rwpolpri).message
+        write-host "Binding STS policy"
+        set-vpnpols $ssl $rwpolname $rwpolpri
     }
 }
 
@@ -938,7 +1084,8 @@ else
             set-sslprofilebind $sslcs.name $sslprofile
         }
        (set-cipher $sslcs.name $ciphergroupname)
-       (set-cspols $sslcs $rwpolname $rwpolpri).message
+       write-host "Binding STS policy"
+       set-cspols $sslcs $rwpolname $rwpolpri
     }
 }
 

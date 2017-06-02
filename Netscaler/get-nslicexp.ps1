@@ -1,4 +1,7 @@
-﻿<#
+﻿#Requires -Version 3
+#Set-StrictMode -Version Latest
+
+<#
 .SYNOPSIS
    Grabs Netscaler license expiration information via REST
 .DESCRIPTION

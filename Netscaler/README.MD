@@ -42,6 +42,10 @@ Based on this [Citrix blog](https://www.citrix.com/blogs/2015/05/22/scoring-an-a
 - 03-13-16
   - Added check for [Default SSL Profiles](https://docs.citrix.com/en-us/netscaler/11-1/ssl/ssl-profiles1/ssl-enabling-the-default-profile.html) and if enabled uses SSL profile for all VIPS
   - Created parameter to enable default SSL profile option on 11.1 or greater
+- 06-02-17
+  - Added Error handling
+  - Changed how default profiles bind cipher groups
+  - Added a policy priority argument
 
 ## upgrade-ns.ps1
 **CREATED: 6-30-16**
