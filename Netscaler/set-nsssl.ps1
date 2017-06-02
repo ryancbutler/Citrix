@@ -17,6 +17,8 @@
     ReWrite action name (Default: "act-sts-header")
 .PARAMETER rwpolname
     ReWrite policy name (Default: "pol-sts-force")
+.PARAMETER rwpolpri
+    ReWrite policy bind priority (Default: 50)
 .PARAMETER dhname
     DH Key to be used (Default: "dhkey2048.key")
 .PARAMETER sslprofile
@@ -59,6 +61,7 @@ Param
     [string]$ciphergroupname = "custom-ssllabs-cipher",   
     [string]$rwactname = "act-sts-header",
     [string]$rwpolname = "pol-sts-force",
+    [string]$rwpolpri = "100",
     [string]$dhname = "dhkey2048.key",
     [string]$sslprofile = "custom-ssllabs-profile",
     [switch]$enablesslprof,
@@ -457,7 +460,7 @@ Function SetupSTS ($rwactname, $rwpolname) {
     
 }
 
-Function set-lbpols ($vip, $rwpolname){
+Function set-lbpols ($vip, $rwpolname,$rwpolpri){
 #binds LB policy
     $name = $vip.name
 
@@ -465,7 +468,7 @@ Function set-lbpols ($vip, $rwpolname){
                 "lbvserver_rewritepolicy_binding"=@{
                     "name"=$Name;
                     "policyname"=$rwpolname;
-                    "priority"=100;
+                    "priority"=$rwpolpri;
                     "bindpoint" = "RESPONSE";
                     }
                 }
@@ -475,7 +478,7 @@ Function set-lbpols ($vip, $rwpolname){
 
 }
 
-Function set-cspols ($vip, $rwpolname){
+Function set-cspols ($vip, $rwpolname, $rwpolpri){
 #binds CS policy
     $name = $vip.name
 
@@ -483,7 +486,7 @@ Function set-cspols ($vip, $rwpolname){
                 "csvserver_rewritepolicy_binding"=@{
                     "name"=$Name;
                     "policyname"=$rwpolname;
-                    "priority"=100;
+                    "priority"=$rwpolpri;
                     "bindpoint" = "RESPONSE";
                     }
                 }
@@ -493,7 +496,7 @@ Function set-cspols ($vip, $rwpolname){
 
 }
 
-Function set-vpnpols ($vip, $rwpolname){
+Function set-vpnpols ($vip, $rwpolname, $rwpolpri){
 #binds NG policy
     $name = $vip.name
 
@@ -501,7 +504,7 @@ Function set-vpnpols ($vip, $rwpolname){
                 "vpnvserver_rewritepolicy_binding"=@{
                     "name"=$Name;
                     "policy"=$rwpolname;
-                    "priority"=100;
+                    "priority"=$rwpolpri;
                     "gotopriorityexpression" = "END";
                     "bindpoint" = "RESPONSE";
                     }
@@ -687,6 +690,20 @@ $body = ConvertTo-JSON @{
     Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslprofile" -body $body -WebSession $NSSession -Headers @{"Content-Type"="application/json"} -Method POST|Out-Null
 }
 
+function set-profilecipherbinding ($name,$cipher)
+{
+    write-host "Binding $cipher" -ForegroundColor Yellow
+    $body = ConvertTo-JSON @{
+           "sslprofile_sslcipher_binding"=@{
+                "name"="$Name";
+                "ciphername"="$Cipher";
+                }
+          }
+    Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslprofile_sslcipher_binding/$Name" -body $body -WebSession $NSSession `
+    -Headers @{"Content-Type"="application/json"} -Method PUT|Out-Null
+
+}
+
 function set-profilecipher ($name,$cipher)
 {
     #unbinds all cipher groups
@@ -696,38 +713,39 @@ function set-profilecipher ($name,$cipher)
 
     $cgs = $cgs.sslprofile_sslcipher_binding
 
+   #Check for cipher
+    $found = 0
+    foreach ($cg in $cgs)
+    {
+
+        if ($cg.cipheraliasname -like $cipher)
+        {
+        Write-Host "Cipher Present"
+        $found = 1
+        }
+    
+    }
+
+    if ($found -eq 0)
+        {
+        #binds new cipher group created if not already present
+        set-profilecipherbinding -name $name -cipher $cipher
+        }
+
+    
+    #Remove other ciphers
     foreach ($cg in $cgs)
     {
         
-        if ($cg.ciphername -notlike $cipher)
+        if ($cg.cipheraliasname -notlike $cipher)
         {
-        write-host "Unbinding" $cg.ciphername -ForegroundColor yellow
+        write-host "Unbinding" $cg.cipheraliasname -ForegroundColor yellow
 
-        Invoke-RestMethod -uri ("$hostname/nitro/v1/config/sslprofile_sslcipher_binding/$Name" + "?args=cipherName:" + $cg.ciphername ) -WebSession $NSSession `
+        Invoke-RestMethod -uri ("$hostname/nitro/v1/config/sslprofile_sslcipher_binding/$Name" + "?args=cipherName:" + $cg.cipheraliasname ) -WebSession $NSSession `
         -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.sslservice_sslciphersuite_binding+json"} -Method DELETE|Out-Null
-        }
-        else
-        {
-        write-host "$cipher already present.." -ForegroundColor Green
-        $foundflag = 1
         }
 
     }
-
-
-    if ($foundflag -eq 0)
-        {
-        #binds new cipher group created if not already present
-        write-host "Binding $cipher" -ForegroundColor Yellow
-        $body = ConvertTo-JSON @{
-            "sslprofile_sslcipher_binding"=@{
-                "name"="$Name";
-                "ciphername"="$Cipher";
-                }
-            }
-        Invoke-RestMethod -uri "$hostname/nitro/v1/config/sslprofile_sslcipher_binding/$Name" -body $body -WebSession $NSSession `
-        -Headers @{"Content-Type"="application/json"} -Method PUT|Out-Null
-        }
     
    
 }
@@ -876,7 +894,7 @@ else
             {
                 set-sslprofilebind $ssl.name $sslprofile
             }
-            (set-lbpols $ssl $rwpolname).message
+            (set-lbpols $ssl $rwpolname $rwpolpri).message
         }
 }
 
@@ -897,7 +915,7 @@ else
             set-sslprofilebind $ssl.name $sslprofile
         }
         (set-cipher $ssl.name $ciphergroupname)
-        (set-vpnpols $ssl $rwpolname).message
+        (set-vpnpols $ssl $rwpolname $rwpolpri).message
     }
 }
 
@@ -920,7 +938,7 @@ else
             set-sslprofilebind $sslcs.name $sslprofile
         }
        (set-cipher $sslcs.name $ciphergroupname)
-       (set-cspols $sslcs $rwpolname).message
+       (set-cspols $sslcs $rwpolname $rwpolpri).message
     }
 }
 
