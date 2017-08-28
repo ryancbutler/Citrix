@@ -1,19 +1,42 @@
-﻿#Requires -Version 3
-#Set-StrictMode -Version Latest
+<#PSScriptInfo
+
+.VERSION 1.2
+
+.GUID 39040cec-77cd-48c0-8f25-4f8a19568740
+
+.AUTHOR @ryan_c_butler
+
+.COMPANYNAME Techdrabble.com
+
+.COPYRIGHT 2016
+
+.TAGS Netscaler REST License
+
+.LICENSEURI https://github.com/ryancbutler/Citrix/blob/master/License.txt
+
+.PROJECTURI https://github.com/ryancbutler/Citrix
+
+.ICONURI 
+
+.EXTERNALMODULEDEPENDENCIES 
+
+.REQUIREDSCRIPTS 
+
+.EXTERNALSCRIPTDEPENDENCIES 
+
+.RELEASENOTES
+10-4-16: Now uses Netscaler time VS local system time
+12-14-16: Fix for double digit days
+12-28-16: Better error handling when grabbing license files and NS version check
+08-27-17: Formatting for PS Gallery
+
+#> 
 
 <#
 .SYNOPSIS
    Grabs Netscaler license expiration information via REST
 .DESCRIPTION
-   Grabs Netscaler license expiration information via REST. 
-   Version: 1.1
-   By: Ryan Butler 8-12-16 
-    10-4-16: Now uses Netscaler time VS local system time
-    12-14-16: Fix for double digit days
-    12-28-16: Better error handling when grabbing license files and NS version check
-   Twitter: ryan_c_butler
-   Website: Techdrabble.com
-   Requires: Powershell v3 or greater
+   Grabs Netscaler license expiration information via REST.
 .PARAMETER nsip
    DNS Name or IP of the Netscaler that needs to be configured. (MANDATORY)
 .PARAMETER adminaccount

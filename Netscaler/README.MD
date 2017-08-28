@@ -46,6 +46,21 @@ Based on this [Citrix blog](https://www.citrix.com/blogs/2015/05/22/scoring-an-a
   - Added Error handling
   - Changed how default profiles bind cipher groups
   - Added a policy priority argument
+- 08-28-17
+  - Formatted and added to PS gallery
+
+### PS Gallery
+If running PowerShell version 5 or above you can install via [Microsoft PowerShell Gallery](https://www.powershellgallery.com/)
+
+#### Install
+```
+Install-Script -Name set-nsssl -Scope currentuser
+```
+
+#### Update
+```
+Update-Script set-nsssl
+```
 
 ## upgrade-ns.ps1
 **CREATED: 6-30-16**
@@ -68,3 +83,17 @@ Grabs Netscaler license expiration information via REST.  See [Blog Post](http:/
 - 8-14-16: Now compares Netscaler time VS system time of script host
 - 12-14-16: Fix for double digit days
 - 12-28-16: Better error handling when grabbing license files and NS version check
+- 08-28-17: Formatted and added to PS gallery
+
+### PS Gallery
+If running PowerShell version 5 or above you can install via [Microsoft PowerShell Gallery](https://www.powershellgallery.com/)
+
+#### Install
+```
+Install-Script -Name get-nslicexp -Scope currentuser
+```
+
+#### Update
+```
+Update-Script get-nslicexp
+```

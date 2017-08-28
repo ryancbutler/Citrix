@@ -1,3 +1,43 @@
+<#PSScriptInfo
+
+.VERSION 1.2
+
+.GUID 2a8be02b-621b-46be-9f20-c373a3882927
+
+.AUTHOR @ryan_c_butler
+
+.COMPANYNAME Techdrabble.com
+
+.COPYRIGHT 2016
+
+.TAGS Netscaler REST SSL A SSLLABS
+
+.LICENSEURI https://github.com/ryancbutler/Citrix/blob/master/License.txt
+
+.PROJECTURI https://github.com/ryancbutler/Citrix
+
+.ICONURI 
+
+.EXTERNALMODULEDEPENDENCIES 
+
+.REQUIREDSCRIPTS 
+
+.EXTERNALSCRIPTDEPENDENCIES 
+
+.RELEASENOTES
+03-17-16: Added port 3008 and 3009 to managment ips
+03-28-16: Rewrite to reflect PS best practice and managment IP ciphers
+06-13-16: Adjusted to reflect https://www.citrix.com/blogs/2016/06/09/scoring-an-a-at-ssllabs-com-with-citrix-netscaler-2016-update/. Also removed management IPS from default.  (Tested with 11.0 65.31)
+06-14-16: Now supports HTTPS
+07-02-16: Added "nosave" paramenter
+03-11-17: Default SSL profile additions for 11.1 and greater
+06-02-17: Changes for default profile and add for policy priority argument.  Also added some error handling
+08-27-17: Formatting for PS Gallery
+
+#> 
+
+
+ 
 <#
 .SYNOPSIS
    A PowerShell script for hardening Netscaler SSL IPs based off of SSL LABS
@@ -75,15 +115,6 @@ Param
 )
 
 
-#USE AT OWN RISK
-#By: Ryan Butler 2-19-16
-#3-17-16: Added port 3008 and 3009 to managment ips
-#3-28-16: Rewrite to reflect PS best practice and managment IP ciphers
-#6-13-16: Adjusted to reflect https://www.citrix.com/blogs/2016/06/09/scoring-an-a-at-ssllabs-com-with-citrix-netscaler-2016-update/. Also removed management IPS from default.  (Tested with 11.0 65.31)
-#6-14-16: Now supports HTTPS
-#7-02-16: Added "nosave" paramenter
-#3-11-17: Default SSL profile additions for 11.1 and greater
-#6-02-17: Changes for default profile and add for policy priority argument.  Also added some error handling
 
 #Netscaler NSIP login information
 if ($https)
