@@ -57,6 +57,11 @@ If running PowerShell version 5 or above you can install via [Microsoft PowerShe
 Install-Script -Name set-nsssl -Scope currentuser
 ```
 
+### Inspect
+```
+Save-Script -Name set-nsssl -Path <path>
+```
+
 #### Update
 ```
 Update-Script set-nsssl
@@ -92,7 +97,10 @@ If running PowerShell version 5 or above you can install via [Microsoft PowerShe
 ```
 Install-Script -Name get-nslicexp -Scope currentuser
 ```
-
+### Inspect
+```
+Save-Script -Name get-nslicexp -Path <path>
+```
 #### Update
 ```
 Update-Script get-nslicexp
