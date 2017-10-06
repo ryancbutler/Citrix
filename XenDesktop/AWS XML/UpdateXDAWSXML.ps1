@@ -28,7 +28,7 @@ foreach ($prod in $products)
   
     $inner = $awsxml.CreateElement('Name',$instance.NamespaceURI)
     $inner = $instance.AppendChild($inner)
-    $inner.InnerText = $attr.instanceType
+    $inner.InnerText = "$($attr.instanceType) (vCPU:$($attr.vcpu))"
 
     $inner = $awsxml.CreateElement('MemoryMiB',$instance.NamespaceURI)
     $inner = $instance.AppendChild($inner)

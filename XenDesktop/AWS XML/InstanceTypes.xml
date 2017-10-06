@@ -16,7 +16,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
 -->
 <InstanceTypes xmlns="http://www.citrix.com/2013/xd/AWSInstanceTypes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.citrix.com/2013/xd/AWSInstanceTypes InstanceTypes.xsd">
   <InstanceType>
-    <Name>c3.2xlarge</Name>
+    <Name>c3.2xlarge (vCPU:8)</Name>
     <MemoryMiB>15360</MemoryMiB>
     <EC2ComputeUnits>28</EC2ComputeUnits>
     <VirtualCores>8</VirtualCores>
@@ -29,7 +29,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>High</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>c3.4xlarge</Name>
+    <Name>c3.4xlarge (vCPU:16)</Name>
     <MemoryMiB>30720</MemoryMiB>
     <EC2ComputeUnits>55</EC2ComputeUnits>
     <VirtualCores>16</VirtualCores>
@@ -42,7 +42,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>High</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>c3.8xlarge</Name>
+    <Name>c3.8xlarge (vCPU:32)</Name>
     <MemoryMiB>61440</MemoryMiB>
     <EC2ComputeUnits>108</EC2ComputeUnits>
     <VirtualCores>32</VirtualCores>
@@ -55,7 +55,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>10 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>c3.large</Name>
+    <Name>c3.large (vCPU:2)</Name>
     <MemoryMiB>3840.00</MemoryMiB>
     <EC2ComputeUnits>7</EC2ComputeUnits>
     <VirtualCores>2</VirtualCores>
@@ -68,7 +68,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>Moderate</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>c3.xlarge</Name>
+    <Name>c3.xlarge (vCPU:4)</Name>
     <MemoryMiB>7680.0</MemoryMiB>
     <EC2ComputeUnits>14</EC2ComputeUnits>
     <VirtualCores>4</VirtualCores>
@@ -81,7 +81,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>Moderate</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>c4.2xlarge</Name>
+    <Name>c4.2xlarge (vCPU:8)</Name>
     <MemoryMiB>15360</MemoryMiB>
     <EC2ComputeUnits>31</EC2ComputeUnits>
     <VirtualCores>8</VirtualCores>
@@ -94,7 +94,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>High</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>c4.4xlarge</Name>
+    <Name>c4.4xlarge (vCPU:16)</Name>
     <MemoryMiB>30720</MemoryMiB>
     <EC2ComputeUnits>62</EC2ComputeUnits>
     <VirtualCores>16</VirtualCores>
@@ -107,7 +107,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>High</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>c4.8xlarge</Name>
+    <Name>c4.8xlarge (vCPU:36)</Name>
     <MemoryMiB>61440</MemoryMiB>
     <EC2ComputeUnits>132</EC2ComputeUnits>
     <VirtualCores>36</VirtualCores>
@@ -120,7 +120,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>10 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>c4.large</Name>
+    <Name>c4.large (vCPU:2)</Name>
     <MemoryMiB>3840.00</MemoryMiB>
     <EC2ComputeUnits>8</EC2ComputeUnits>
     <VirtualCores>2</VirtualCores>
@@ -133,7 +133,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>Moderate</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>c4.xlarge</Name>
+    <Name>c4.xlarge (vCPU:4)</Name>
     <MemoryMiB>7680.0</MemoryMiB>
     <EC2ComputeUnits>16</EC2ComputeUnits>
     <VirtualCores>4</VirtualCores>
@@ -146,7 +146,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>High</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>d2.2xlarge</Name>
+    <Name>d2.2xlarge (vCPU:8)</Name>
     <MemoryMiB>62464</MemoryMiB>
     <EC2ComputeUnits>28</EC2ComputeUnits>
     <VirtualCores>8</VirtualCores>
@@ -159,7 +159,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>High</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>d2.4xlarge</Name>
+    <Name>d2.4xlarge (vCPU:16)</Name>
     <MemoryMiB>124928</MemoryMiB>
     <EC2ComputeUnits>56</EC2ComputeUnits>
     <VirtualCores>16</VirtualCores>
@@ -172,7 +172,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>High</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>d2.8xlarge</Name>
+    <Name>d2.8xlarge (vCPU:36)</Name>
     <MemoryMiB>249856</MemoryMiB>
     <EC2ComputeUnits>116</EC2ComputeUnits>
     <VirtualCores>36</VirtualCores>
@@ -185,7 +185,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>10 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>d2.xlarge</Name>
+    <Name>d2.xlarge (vCPU:4)</Name>
     <MemoryMiB>31232.0</MemoryMiB>
     <EC2ComputeUnits>14</EC2ComputeUnits>
     <VirtualCores>4</VirtualCores>
@@ -198,7 +198,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>Moderate</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>f1.16xlarge</Name>
+    <Name>f1.16xlarge (vCPU:64)</Name>
     <MemoryMiB>999424</MemoryMiB>
     <EC2ComputeUnits>188</EC2ComputeUnits>
     <VirtualCores>64</VirtualCores>
@@ -211,7 +211,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>20 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>f1.2xlarge</Name>
+    <Name>f1.2xlarge (vCPU:8)</Name>
     <MemoryMiB>124928</MemoryMiB>
     <EC2ComputeUnits>26</EC2ComputeUnits>
     <VirtualCores>8</VirtualCores>
@@ -224,7 +224,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>g2.2xlarge</Name>
+    <Name>g2.2xlarge (vCPU:8)</Name>
     <MemoryMiB>15360</MemoryMiB>
     <EC2ComputeUnits>26</EC2ComputeUnits>
     <VirtualCores>8</VirtualCores>
@@ -237,7 +237,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>High</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>g2.8xlarge</Name>
+    <Name>g2.8xlarge (vCPU:32)</Name>
     <MemoryMiB>61440</MemoryMiB>
     <EC2ComputeUnits>104</EC2ComputeUnits>
     <VirtualCores>32</VirtualCores>
@@ -250,7 +250,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>10 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>g3.16xlarge</Name>
+    <Name>g3.16xlarge (vCPU:64)</Name>
     <MemoryMiB>499712</MemoryMiB>
     <EC2ComputeUnits>188</EC2ComputeUnits>
     <VirtualCores>64</VirtualCores>
@@ -263,7 +263,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>20 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>g3.4xlarge</Name>
+    <Name>g3.4xlarge (vCPU:16)</Name>
     <MemoryMiB>124928</MemoryMiB>
     <EC2ComputeUnits>0</EC2ComputeUnits>
     <VirtualCores>16</VirtualCores>
@@ -276,7 +276,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>g3.8xlarge</Name>
+    <Name>g3.8xlarge (vCPU:32)</Name>
     <MemoryMiB>249856</MemoryMiB>
     <EC2ComputeUnits>0</EC2ComputeUnits>
     <VirtualCores>32</VirtualCores>
@@ -289,7 +289,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>10 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>i3.16xlarge</Name>
+    <Name>i3.16xlarge (vCPU:64)</Name>
     <MemoryMiB>499712</MemoryMiB>
     <EC2ComputeUnits>27</EC2ComputeUnits>
     <VirtualCores>64</VirtualCores>
@@ -302,7 +302,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>20 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>i3.2xlarge</Name>
+    <Name>i3.2xlarge (vCPU:8)</Name>
     <MemoryMiB>62464</MemoryMiB>
     <EC2ComputeUnits>53</EC2ComputeUnits>
     <VirtualCores>8</VirtualCores>
@@ -315,7 +315,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>i3.4xlarge</Name>
+    <Name>i3.4xlarge (vCPU:16)</Name>
     <MemoryMiB>124928</MemoryMiB>
     <EC2ComputeUnits>99</EC2ComputeUnits>
     <VirtualCores>16</VirtualCores>
@@ -328,7 +328,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>i3.8xlarge</Name>
+    <Name>i3.8xlarge (vCPU:32)</Name>
     <MemoryMiB>249856</MemoryMiB>
     <EC2ComputeUnits>7</EC2ComputeUnits>
     <VirtualCores>32</VirtualCores>
@@ -341,7 +341,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>10 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>i3.large</Name>
+    <Name>i3.large (vCPU:2)</Name>
     <MemoryMiB>15616.00</MemoryMiB>
     <EC2ComputeUnits>13</EC2ComputeUnits>
     <VirtualCores>2</VirtualCores>
@@ -354,7 +354,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>i3.xlarge</Name>
+    <Name>i3.xlarge (vCPU:4)</Name>
     <MemoryMiB>31232.0</MemoryMiB>
     <EC2ComputeUnits>26</EC2ComputeUnits>
     <VirtualCores>4</VirtualCores>
@@ -367,7 +367,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>m3.2xlarge</Name>
+    <Name>m3.2xlarge (vCPU:8)</Name>
     <MemoryMiB>30720</MemoryMiB>
     <EC2ComputeUnits>26</EC2ComputeUnits>
     <VirtualCores>8</VirtualCores>
@@ -380,7 +380,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>High</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>m3.large</Name>
+    <Name>m3.large (vCPU:2)</Name>
     <MemoryMiB>7680.0</MemoryMiB>
     <EC2ComputeUnits>6.5</EC2ComputeUnits>
     <VirtualCores>2</VirtualCores>
@@ -393,7 +393,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>Moderate</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>m3.medium</Name>
+    <Name>m3.medium (vCPU:1)</Name>
     <MemoryMiB>3840.00</MemoryMiB>
     <EC2ComputeUnits>3</EC2ComputeUnits>
     <VirtualCores>1</VirtualCores>
@@ -406,7 +406,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>Moderate</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>m3.xlarge</Name>
+    <Name>m3.xlarge (vCPU:4)</Name>
     <MemoryMiB>15360</MemoryMiB>
     <EC2ComputeUnits>13</EC2ComputeUnits>
     <VirtualCores>4</VirtualCores>
@@ -419,7 +419,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>High</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>m4.10xlarge</Name>
+    <Name>m4.10xlarge (vCPU:40)</Name>
     <MemoryMiB>163840</MemoryMiB>
     <EC2ComputeUnits>124.5</EC2ComputeUnits>
     <VirtualCores>40</VirtualCores>
@@ -432,7 +432,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>10 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>m4.16xlarge</Name>
+    <Name>m4.16xlarge (vCPU:64)</Name>
     <MemoryMiB>262144</MemoryMiB>
     <EC2ComputeUnits>188</EC2ComputeUnits>
     <VirtualCores>64</VirtualCores>
@@ -445,7 +445,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>20 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>m4.2xlarge</Name>
+    <Name>m4.2xlarge (vCPU:8)</Name>
     <MemoryMiB>32768</MemoryMiB>
     <EC2ComputeUnits>26</EC2ComputeUnits>
     <VirtualCores>8</VirtualCores>
@@ -458,7 +458,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>High</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>m4.4xlarge</Name>
+    <Name>m4.4xlarge (vCPU:16)</Name>
     <MemoryMiB>65536</MemoryMiB>
     <EC2ComputeUnits>53.5</EC2ComputeUnits>
     <VirtualCores>16</VirtualCores>
@@ -471,7 +471,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>High</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>m4.large</Name>
+    <Name>m4.large (vCPU:2)</Name>
     <MemoryMiB>8192</MemoryMiB>
     <EC2ComputeUnits>6.5</EC2ComputeUnits>
     <VirtualCores>2</VirtualCores>
@@ -484,7 +484,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>Moderate</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>m4.xlarge</Name>
+    <Name>m4.xlarge (vCPU:4)</Name>
     <MemoryMiB>16384</MemoryMiB>
     <EC2ComputeUnits>13</EC2ComputeUnits>
     <VirtualCores>4</VirtualCores>
@@ -497,7 +497,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>High</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>p2.16xlarge</Name>
+    <Name>p2.16xlarge (vCPU:64)</Name>
     <MemoryMiB>786432</MemoryMiB>
     <EC2ComputeUnits>188</EC2ComputeUnits>
     <VirtualCores>64</VirtualCores>
@@ -510,7 +510,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>20 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>p2.8xlarge</Name>
+    <Name>p2.8xlarge (vCPU:32)</Name>
     <MemoryMiB>499712</MemoryMiB>
     <EC2ComputeUnits>94</EC2ComputeUnits>
     <VirtualCores>32</VirtualCores>
@@ -523,7 +523,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>10 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>p2.xlarge</Name>
+    <Name>p2.xlarge (vCPU:4)</Name>
     <MemoryMiB>62464</MemoryMiB>
     <EC2ComputeUnits>12</EC2ComputeUnits>
     <VirtualCores>4</VirtualCores>
@@ -536,7 +536,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>High</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>r3.2xlarge</Name>
+    <Name>r3.2xlarge (vCPU:8)</Name>
     <MemoryMiB>62464</MemoryMiB>
     <EC2ComputeUnits>26</EC2ComputeUnits>
     <VirtualCores>8</VirtualCores>
@@ -549,7 +549,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>High</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>r3.4xlarge</Name>
+    <Name>r3.4xlarge (vCPU:16)</Name>
     <MemoryMiB>124928</MemoryMiB>
     <EC2ComputeUnits>52</EC2ComputeUnits>
     <VirtualCores>16</VirtualCores>
@@ -562,7 +562,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>High</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>r3.8xlarge</Name>
+    <Name>r3.8xlarge (vCPU:32)</Name>
     <MemoryMiB>249856</MemoryMiB>
     <EC2ComputeUnits>104</EC2ComputeUnits>
     <VirtualCores>32</VirtualCores>
@@ -575,7 +575,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>10 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>r3.large</Name>
+    <Name>r3.large (vCPU:2)</Name>
     <MemoryMiB>15616.00</MemoryMiB>
     <EC2ComputeUnits>6.5</EC2ComputeUnits>
     <VirtualCores>2</VirtualCores>
@@ -588,7 +588,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>Moderate</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>r3.xlarge</Name>
+    <Name>r3.xlarge (vCPU:4)</Name>
     <MemoryMiB>31232.0</MemoryMiB>
     <EC2ComputeUnits>13</EC2ComputeUnits>
     <VirtualCores>4</VirtualCores>
@@ -601,7 +601,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>Moderate</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>r4.16xlarge</Name>
+    <Name>r4.16xlarge (vCPU:64)</Name>
     <MemoryMiB>499712</MemoryMiB>
     <EC2ComputeUnits>27</EC2ComputeUnits>
     <VirtualCores>64</VirtualCores>
@@ -614,7 +614,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>20 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>r4.2xlarge</Name>
+    <Name>r4.2xlarge (vCPU:8)</Name>
     <MemoryMiB>62464</MemoryMiB>
     <EC2ComputeUnits>53</EC2ComputeUnits>
     <VirtualCores>8</VirtualCores>
@@ -627,7 +627,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>r4.4xlarge</Name>
+    <Name>r4.4xlarge (vCPU:16)</Name>
     <MemoryMiB>124928</MemoryMiB>
     <EC2ComputeUnits>99</EC2ComputeUnits>
     <VirtualCores>16</VirtualCores>
@@ -640,7 +640,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>r4.8xlarge</Name>
+    <Name>r4.8xlarge (vCPU:32)</Name>
     <MemoryMiB>249856</MemoryMiB>
     <EC2ComputeUnits>7</EC2ComputeUnits>
     <VirtualCores>32</VirtualCores>
@@ -653,7 +653,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>10 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>r4.large</Name>
+    <Name>r4.large (vCPU:2)</Name>
     <MemoryMiB>15616.00</MemoryMiB>
     <EC2ComputeUnits>135</EC2ComputeUnits>
     <VirtualCores>2</VirtualCores>
@@ -666,7 +666,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>r4.xlarge</Name>
+    <Name>r4.xlarge (vCPU:4)</Name>
     <MemoryMiB>31232.0</MemoryMiB>
     <EC2ComputeUnits>0</EC2ComputeUnits>
     <VirtualCores>4</VirtualCores>
@@ -679,7 +679,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>t2.2xlarge</Name>
+    <Name>t2.2xlarge (vCPU:8)</Name>
     <MemoryMiB>32768</MemoryMiB>
     <EC2ComputeUnits>0</EC2ComputeUnits>
     <VirtualCores>8</VirtualCores>
@@ -692,7 +692,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>Moderate</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>t2.large</Name>
+    <Name>t2.large (vCPU:2)</Name>
     <MemoryMiB>8192</MemoryMiB>
     <EC2ComputeUnits>0</EC2ComputeUnits>
     <VirtualCores>2</VirtualCores>
@@ -705,7 +705,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>Low to Moderate</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>t2.medium</Name>
+    <Name>t2.medium (vCPU:2)</Name>
     <MemoryMiB>4096</MemoryMiB>
     <EC2ComputeUnits>0</EC2ComputeUnits>
     <VirtualCores>2</VirtualCores>
@@ -718,7 +718,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>Low to Moderate</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>t2.micro</Name>
+    <Name>t2.micro (vCPU:1)</Name>
     <MemoryMiB>1024</MemoryMiB>
     <EC2ComputeUnits>0</EC2ComputeUnits>
     <VirtualCores>1</VirtualCores>
@@ -731,7 +731,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>Low to Moderate</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>t2.nano</Name>
+    <Name>t2.nano (vCPU:1)</Name>
     <MemoryMiB>512.0</MemoryMiB>
     <EC2ComputeUnits>0</EC2ComputeUnits>
     <VirtualCores>1</VirtualCores>
@@ -744,7 +744,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>Low</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>t2.small</Name>
+    <Name>t2.small (vCPU:1)</Name>
     <MemoryMiB>2048</MemoryMiB>
     <EC2ComputeUnits>0</EC2ComputeUnits>
     <VirtualCores>1</VirtualCores>
@@ -757,7 +757,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>Low to Moderate</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>t2.xlarge</Name>
+    <Name>t2.xlarge (vCPU:4)</Name>
     <MemoryMiB>16384</MemoryMiB>
     <EC2ComputeUnits>0</EC2ComputeUnits>
     <VirtualCores>4</VirtualCores>
@@ -770,7 +770,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>Moderate</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>x1.16xlarge</Name>
+    <Name>x1.16xlarge (vCPU:64)</Name>
     <MemoryMiB>999424</MemoryMiB>
     <EC2ComputeUnits>124.5</EC2ComputeUnits>
     <VirtualCores>64</VirtualCores>
@@ -783,7 +783,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>High</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>x1.32xlarge</Name>
+    <Name>x1.32xlarge (vCPU:128)</Name>
     <MemoryMiB>1998848</MemoryMiB>
     <EC2ComputeUnits>349</EC2ComputeUnits>
     <VirtualCores>128</VirtualCores>
@@ -796,7 +796,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>High</NetworkPerformance>
   </InstanceType>
   <InstanceType>
-    <Name>x1e.32xlarge</Name>
+    <Name>x1e.32xlarge (vCPU:128)</Name>
     <MemoryMiB>3997696</MemoryMiB>
     <EC2ComputeUnits>340</EC2ComputeUnits>
     <VirtualCores>128</VirtualCores>
