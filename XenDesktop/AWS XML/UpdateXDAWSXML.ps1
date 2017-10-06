@@ -23,10 +23,6 @@ foreach ($prod in $products)
   [decimal]$mem = ($mem) -replace ",",""
   $mem = $mem * 1024
 
-
- 
-  
-
   $add = $awsxml.CreateElement('InstanceType',$config.NamespaceURI)
   $instance = $config.AppendChild($add)
   
