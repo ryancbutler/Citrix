@@ -13,7 +13,7 @@ $products= @()
 
 $return.products.psobject.Properties|%{$products += $_.value}
 
-$products = $products|where{$_.attributes.currentGeneration -eq "Yes" -and $_.attributes.operatingsystem -eq "Windows"}|sort-object {$_.attributes.instanceType} -Unique
+$products = $products|where{$_.attributes.currentGeneration -eq "Yes" -and $_.attributes.operatingsystem -eq "Windows"}
 
 foreach ($prod in $products)
 {
