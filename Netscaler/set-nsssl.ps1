@@ -1,6 +1,6 @@
 <#PSScriptInfo
 
-.VERSION 1.2
+.VERSION 1.3
 
 .GUID 2a8be02b-621b-46be-9f20-c373a3882927
 
@@ -33,6 +33,7 @@
 03-11-17: Default SSL profile additions for 11.1 and greater
 06-02-17: Changes for default profile and add for policy priority argument.  Also added some error handling
 08-27-17: Formatting for PS Gallery
+01-27-18: Adjustment for default profile version https://support.citrix.com/article/CTX205291
 
 #> 
 
@@ -783,7 +784,9 @@ function check-nsversion {
     $info = Invoke-RestMethod -uri "$hostname/nitro/v1/config/nsversion" -WebSession $NSSession `
     -Headers @{"Content-Type"="application/json"} -Method GET
     $version = $info.nsversion.version
-    $version = $version.Substring(12,4)
+    [regex]$majorreg = "(?<=NS).*?(?=:)"
+    [regex]$minorreg = "(?<=Build ).*?(?=.n)"
+    [version]$version = ($majorreg.match($version)).value + "." + ($minorreg.match($version)).value
 
     return $version
 }
@@ -941,18 +944,18 @@ switch ($version)
             throw "Netscaler firmware version MUST be greater than 10.5"
             exit
             }
-        {$_ -lt 11.1}
+        {$_ -lt "11.0.64.34"}
             {
-            write-host "$($version) has been detected"
+            write-host "$($version.ToString()) has been detected. Default SSL profile not supported."
             $useprofile = $false
                 if($sslprofile -notlike "custom-ssllabs-profile" -or $enablesslprof)
                 {
                 Write-Host "SSL PROFILE IGNORED DUE TO FIRMARE VERSION" -ForegroundColor Yellow
                 }
             }
-        {$_ -ge 11.1}
+        {$_ -ge "11.0.64.34"}
             {
-            write-host "$($version) has been detected."
+            write-host "$($version.ToString()) has been detected. Default SSL profile supported."
                 
                 #Check for SSL default profile. Might do something around legacy in the future
                 $testprof = check-defaultprofile
@@ -970,7 +973,7 @@ switch ($version)
                 else
                 {
                     CLS
-                    write-host '"Default SSL Profile" is recommended for 11.1 or greater.  Running in LEGACY mode for this run.' -ForegroundColor Yellow
+                    write-host '"Default SSL Profile" is recommended for 11.0.64.34 or greater.  Running in LEGACY mode for this run.' -ForegroundColor Yellow
                     write-host 'See https://docs.citrix.com/en-us/netscaler/11-1/ssl/ssl-profiles1/ssl-enabling-the-default-profile.html' -ForegroundColor yellow
                     write-host 'Can enable with the -enablesslprof switch OR manually' -ForegroundColor Yellow
                     write-host 'CLI: set ssl parameter -defaultProfile ENABLED' -ForegroundColor Yellow
