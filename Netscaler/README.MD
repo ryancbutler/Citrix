@@ -48,6 +48,8 @@ Based on this [Citrix blog](https://www.citrix.com/blogs/2015/05/22/scoring-an-a
   - Added a policy priority argument
 - 08-28-17
   - Formatted and added to PS gallery
+- 01-27-18 
+  - Adjustment for default profile firmware version https://support.citrix.com/article/CTX205291
 
 ### PS Gallery
 If running PowerShell version 5 or above you can install via [Microsoft PowerShell Gallery](https://www.powershellgallery.com/)
