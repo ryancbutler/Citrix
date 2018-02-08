@@ -107,3 +107,6 @@ Save-Script -Name get-nslicexp -Path <path>
 ```
 Update-Script get-nslicexp
 ```
+## NSBestPractices.ps1
+**CREATED: 2-8-18**
+Configures Netscaler for [CTX121149](https://support.citrix.com/article/CTX121149) and [CTX232321](https://support.citrix.com/article/CTX232321)
