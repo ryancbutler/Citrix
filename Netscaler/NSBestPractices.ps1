@@ -63,6 +63,16 @@ $payload = ConvertTo-JSON @{
         }
 Invoke-RestMethod -Uri ("$($session.Uri)/config/nstcpprofile") -Method Put -WebSession $session.WebSession -ContentType "application/json" -Body $payload
 
+#Disable External Authentication for NSROOT
+$payload = ConvertTo-JSON @{
+    "systemuser"=@{
+        "username"="nsroot";
+        "externalauth"="DISABLED";
+        }
+    }
+Invoke-RestMethod -Uri ("$($session.Uri)/config/systemuser") -Method Put -WebSession $session.WebSession -ContentType "application/json" -Body $payload
+
+
 #Save and logoff
 Save-NSConfig -session $session
 Disconnect-NetScaler -session $session
