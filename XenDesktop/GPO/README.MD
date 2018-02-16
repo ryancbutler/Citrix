@@ -2,4 +2,4 @@ Edited [Citrix Group Policy PowerShell module](https://support.citrix.com/articl
 
 See Example.ps1 for usage.
 
-**Curently does not work with CIDR (192.168.1.0/24) in ClientIP filters**
+Will see errors if attempting to create OU errors.
