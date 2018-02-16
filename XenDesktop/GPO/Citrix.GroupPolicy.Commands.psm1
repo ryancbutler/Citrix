@@ -2,7 +2,7 @@
 # 
 # Version   Date            Details
 # 7.1       01.21.14        Fixes LA5474 ('Enabled' type change) and LA5584 (AccessControl Filter Import)
-#           02.14.18        Edited to work with XenDesktop 7.15
+#           02.14.18        Edited to work with XenDesktop 7.16
 
 <#
 $snapin = "Citrix.Common.GroupPolicy"
@@ -745,13 +745,20 @@ Function Set-CtxGroupPolicyFilter
             if ($FilterType -eq "AccessControl" -or $FilterType -eq "BranchRepeater")
             {
                 write-verbose "it is an access control filter named $FilterName"
-                $item = New-Item "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterName"
+                #$item = New-Item "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterName"
             }
             else 
             {
                 write-verbose "Filter named $FilterName with a value of $FilterValue"
                 #$item = New-Item "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterName" $FilterValue -ErrorAction Stop
-				$item = New-Item -Path "$($DriveName):\$Type\$PolicyName\Filters" -Name $filtervalue -ItemType $filtertype
+				if($filtertype -eq "ClientIP")
+                {
+                $item = set-Item "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterName" $FilterValue
+                }
+                else
+                {
+                $item = set-Item -Path "$($DriveName):\$Type\$PolicyName\Filters" -Name $filtervalue -ItemType $filtertype
+                }
 				
             }
 
@@ -761,7 +768,7 @@ Function Set-CtxGroupPolicyFilter
                 {
                     write-verbose "$prop :  $($params.$prop) $FilterType"
                     #Set-ItemProperty "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterName" $prop $params.$prop
-					if($FilterType -ne "BranchRepeater" -AND $FilterType -ne "AccessControl")
+					if($FilterType -ne "BranchRepeater" -AND $FilterType -ne "AccessControl" -AND $FilterType -ne "ClientIP")
                     {
                     Set-ItemProperty -path "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterValue" -Name $prop -value $params.$prop
                     }
@@ -852,7 +859,15 @@ Function Add-CtxGroupPolicyFilter
             {
                 write-verbose "Filter named $FilterName with a value of $FilterValue"
                 #$item = New-Item "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterName" $FilterValue -ErrorAction Stop
-				$item = New-Item -Path "$($DriveName):\$Type\$PolicyName\Filters" -Name $filtervalue -ItemType $filtertype
+				if($filtertype -eq "ClientIP")
+                {
+                $item = New-Item "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterName" $FilterValue
+                }
+                else
+                {
+                $item = New-Item -Path "$($DriveName):\$Type\$PolicyName\Filters" -Name $filtervalue -ItemType $filtertype
+                }
+
 				
             }
 
@@ -862,7 +877,7 @@ Function Add-CtxGroupPolicyFilter
                 {
                     write-verbose "$prop :  $($params.$prop)"
                     #Set-ItemProperty "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterName" $prop $params.$prop
-					if($FilterType -ne "BranchRepeater" -AND $FilterType -ne "AccessControl")
+					if($FilterType -ne "BranchRepeater" -AND $FilterType -ne "AccessControl" -AND $FilterType -ne "ClientIP")
                     {
                     Set-ItemProperty -path "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterValue" -Name $prop -value $params.$prop
                     }
