@@ -3,9 +3,10 @@
    Verifies and sets vCenter role permissions for XenDesktop 7.x (https://support.citrix.com/article/CTX214389)
 .DESCRIPTION
    Verifies and sets vCenter role permissions for XenDesktop 7.x (https://support.citrix.com/article/CTX214389)   
-   Version: 1.5
+   Version: 1.6
    By: Ryan Butler 05-03-17
    Updated: Ryan Butler 07-20-18
+   Updated: Ryan Butler 07-23-18: Disable propagation for account
 .NOTES 
    Twitter: ryan_c_butler
    Website: Techdrabble.com
@@ -168,7 +169,7 @@ return $found
 function Set-DatacenterPerm
 {
     write-host "Assigning $user to $role on $($datacenter.name)" -ForegroundColor yellow
-    New-VIPermission -entity $datacenter -Principal $user -Role $role -ErrorAction Stop -Propagate $true|Out-Null
+    New-VIPermission -entity $datacenter -Principal $user -Role $role -ErrorAction Stop -Propagate $false|Out-Null
 }
 
 $svcrole = Test-role $role
