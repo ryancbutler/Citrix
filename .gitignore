@@ -1,0 +1,3 @@
+#ignore the output directory. This is a artifact of
+#creating the script package
+output
