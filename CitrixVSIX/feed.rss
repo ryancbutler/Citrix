@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Citrix Script packages</title>
+    <description>Custom feed for Citrix Script packages</description>
+    <link>http://developer.citrix.com</link>
+    <item>
+      <title>RyanCButler</title>
+      <description>A set of admin type scripts by Ryan C. Butler</description>
+      <author>Ryan C Butler</author>
+      <link>https://github.com/ryancbutler/Citrix/CitrixVSIX/RyanCButler.vsix?raw=true</link>
+    </item>
+  </channel>
+</rss>
