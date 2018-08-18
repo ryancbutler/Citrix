@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+AWS Instance Types
+
+This configuration file describes the AWS instance types.
+
+AWS instance types are documented by Amazon, but they are not available through the API, so XenDesktop services
+are unable to discover them dynamically at run time. This configuration file stores the descriptions in such a way
+that they can be ammended manually.
+
+As with all system configuration formats, this file must be edited with care. Please ensure that the rules of the
+XSD schema file are followed. (The XSD schema file can be found in the same folder as this XML file within your
+installation.) Mistakes in this file could result in no service offerings being available for AWS-based cloud
+connections, or in exceptions being thrown from the Citrix Host Service.
+
+-->
+
+<InstanceTypes xmlns="http://www.citrix.com/2013/xd/AWSInstanceTypes"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="http://www.citrix.com/2013/xd/AWSInstanceTypes InstanceTypes.xsd">
+
+</InstanceTypes>
+
