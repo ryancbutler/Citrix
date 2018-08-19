@@ -1,0 +1,8 @@
+{
+    "packageId":"citrix.scripts.ryancbutler",
+    "packageName":"RyanCButler",
+    "packageDescription":"A set of admin type scripts by Ryan C. Butler",
+    "version":"1.0.0",
+    "author":"Ryan C Butler",
+    "mainFile":""
+}
