@@ -2,8 +2,17 @@
 #Can be used as part of a pipeline or MDT task sequence.
 #Ryan Butler TechDrabble.com @ryan_c_butler 07/19/2019
 
-$CitrixUserName = "myusername"
-$CitrixPassword =  "mypassword"
+#Uncomment to use plain text or env variables
+#$CitrixUserName = $env:citrixusername
+#$CitrixPassword = $env:citrixpassword
+
+#Uncomment to use credential object
+$creds = get-credential
+$CitrixUserName = $creds.UserName
+$CitrixPassword = $creds.GetNetworkCredential().Password
+
+$downloadpath = "C:\temp\CitrixOptimizer.zip"
+$unzippath = "C:\temp\opt"
 
 #Initialize Session 
 $R=Invoke-WebRequest "https://identity.citrix.com/Utility/STS/Sign-In" -SessionVariable websession
@@ -21,4 +30,7 @@ $form.Fields["errorURL"]='https://www.citrix.com/login?url=https%3A%2F%2Fsupport
 $R=Invoke-WebRequest -Uri ("https://identity.citrix.com/Utility/STS/Sign-In") -WebSession $websession -Method POST -Body $form.Fields -contentType "application/x-www-form-urlencoded" -UseBasicParsing
 
 #Download File
-Invoke-WebRequest -WebSession $websession -Uri "https://phoenix.citrix.com/supportkc/filedownload?uri=/filedownload/CTX224676/CitrixOptimizer.zip" -OutFile "CitrixOptimizer.zip"
+Invoke-WebRequest -WebSession $websession -Uri "https://phoenix.citrix.com/supportkc/filedownload?uri=/filedownload/CTX224676/CitrixOptimizer.zip" -OutFile $downloadpath -Verbose
+
+#Unzip Optimizer. Requires 7-zip!
+7z.exe x $downloadpath -o"$unzippath" -y
