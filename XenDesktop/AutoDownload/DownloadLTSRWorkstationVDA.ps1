@@ -7,7 +7,7 @@
 #$CitrixPassword = $env:citrixpassword
 
 #Uncomment to use credential object
-#$creds = get-credential
+$creds = get-credential
 $CitrixUserName = $creds.UserName
 $CitrixPassword = $creds.GetNetworkCredential().Password
 
