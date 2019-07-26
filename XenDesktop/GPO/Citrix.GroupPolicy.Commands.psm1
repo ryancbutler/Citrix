@@ -43,35 +43,35 @@ if (!(Get-PSSnapin $snapin))
     .LINK
         Import-CtxGroupPolicy
 #>
-Function Export-CtxGroupPolicy
+function Export-CtxGroupPolicy
 {
-    [CmdletBinding()]
-    param(
-        [Parameter(Position=0, Mandatory=$true)]
-        [string] $FolderPath,
-        [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
-        [string[]] $PolicyName = "*",
-        [Parameter(Position=2, ValueFromPipelineByPropertyName=$true)]
-        [string] [ValidateSet("Computer", "User")] $Type,
-        [Parameter()]
-        [string] $DriveName = "LocalFarmGpo"
-    )
+	[CmdletBinding()]
+	param(
+		[Parameter(Position = 0,Mandatory = $true)]
+		[string]$FolderPath,
+		[Parameter(Position = 1,ValueFromPipelineByPropertyName = $true)]
+		[string[]]$PolicyName = "*",
+		[Parameter(Position = 2,ValueFromPipelineByPropertyName = $true)]
+		[string][ValidateSet("Computer","User")] $Type,
+		[Parameter()]
+		[string]$DriveName = "LocalFarmGpo"
+	)
 
-    process
-    {
-        if (!(Test-Path $FolderPath))
-        {
-            $dir = New-Item $FolderPath -Type Directory -Force -ErrorAction Stop
-        }
+	process
+	{
+		if (!(Test-Path $FolderPath))
+		{
+			$dir = New-Item $FolderPath -Type Directory -Force -ErrorAction Stop
+		}
 
-        $pols = Get-CtxGroupPolicy $PolicyName $Type -DriveName $DriveName
-        $configs = $pols | Get-CtxGroupPolicyConfiguration -DriveName $DriveName
-        $filters = $pols | Get-CtxGroupPolicyFilter -DriveName $DriveName
+		$pols = Get-CtxGroupPolicy $PolicyName $Type -DriveName $DriveName
+		$configs = $pols | Get-CtxGroupPolicyConfiguration -DriveName $DriveName
+		$filters = $pols | Get-CtxGroupPolicyFilter -DriveName $DriveName
 
-        $pols | Export-CliXml "$FolderPath\GroupPolicy.xml"
-        $configs | Export-CliXml "$FolderPath\GroupPolicyConfiguration.xml"
-        $filters | Export-CliXml "$FolderPath\GroupPolicyFilter.xml"
-    }
+		$pols | Export-Clixml "$FolderPath\GroupPolicy.xml"
+		$configs | Export-Clixml "$FolderPath\GroupPolicyConfiguration.xml"
+		$filters | Export-Clixml "$FolderPath\GroupPolicyFilter.xml"
+	}
 }
 
 <#
@@ -102,61 +102,61 @@ Function Export-CtxGroupPolicy
     .LINK
         Export-CtxGroupPolicy
 #>
-Function Import-CtxGroupPolicy
+function Import-CtxGroupPolicy
 {
-    [CmdletBinding()]
-    param(
-        [Parameter(Position=0, Mandatory=$true)]
-        [string] $FolderPath,
-        [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
-        [string[]] $PolicyName = "*",
-        [Parameter(Position=2, ValueFromPipelineByPropertyName=$true)]
-        [string] [ValidateSet("Computer", "User")] $Type,
-        [Parameter()]
-        [string] $DriveName = "LocalFarmGpo"
-    )
+	[CmdletBinding()]
+	param(
+		[Parameter(Position = 0,Mandatory = $true)]
+		[string]$FolderPath,
+		[Parameter(Position = 1,ValueFromPipelineByPropertyName = $true)]
+		[string[]]$PolicyName = "*",
+		[Parameter(Position = 2,ValueFromPipelineByPropertyName = $true)]
+		[string][ValidateSet("Computer","User")] $Type,
+		[Parameter()]
+		[string]$DriveName = "LocalFarmGpo"
+	)
 
-    process
-    {
-        $types = if (!$Type) { @("Computer", "User") } else { @($Type) }
-        if (!(Test-Path $FolderPath)) { throw "Invalid folder path" }
+	process
+	{
+		$types = if (!$Type) { @("Computer","User") } else { @($Type) }
+		if (!(Test-Path $FolderPath)) { throw "Invalid folder path" }
 
-        $pols = Import-CliXml "$FolderPath\GroupPolicy.xml" -ErrorAction Stop
-        $configs = Import-CliXml "$FolderPath\GroupPolicyConfiguration.xml" -ErrorAction Stop
-        $filters = Import-CliXml "$FolderPath\GroupPolicyFilter.xml" -ErrorAction Stop
+		$pols = Import-Clixml "$FolderPath\GroupPolicy.xml" -ErrorAction Stop
+		$configs = Import-Clixml "$FolderPath\GroupPolicyConfiguration.xml" -ErrorAction Stop
+		$filters = Import-Clixml "$FolderPath\GroupPolicyFilter.xml" -ErrorAction Stop
 
-        foreach( $pol in @($pols | Where { (FilterString $_.PolicyName $PolicyName) -and (FilterString $_.Type $types) } ))
-        {
-            Write-Verbose "Importing $($pol.PolicyName) $($pol.Type)"
-            if ($pol | Get-CtxGroupPolicy -DriveName $DriveName -ea 0)
-            {
-                Write-Verbose "Updating existing policy $($pol.PolicyName)"
-                $pol | Set-CtxGroupPolicy -DriveName $DriveName
-            }
-            else
-            {
-                Write-Verbose "Creating new policy $($pol.PolicyName)"
-                $pol | New-CtxGroupPolicy -DriveName $DriveName
-            }
+		foreach ($pol in @($pols | Where-Object { (FilterString $_.PolicyName $PolicyName) -and (FilterString $_.Type $types) }))
+		{
+			Write-Verbose "Importing $($pol.PolicyName) $($pol.Type)"
+			if ($pol | Get-CtxGroupPolicy -DriveName $DriveName -ea 0)
+			{
+				Write-Verbose "Updating existing policy $($pol.PolicyName)"
+				$pol | Set-CtxGroupPolicy -DriveName $DriveName
+			}
+			else
+			{
+				Write-Verbose "Creating new policy $($pol.PolicyName)"
+				$pol | New-CtxGroupPolicy -DriveName $DriveName
+			}
 
-            $configs | Where { ($_.PolicyName -eq $pol.PolicyName) -and ($_.Type -eq $pol.Type ) } |
-                Set-CtxGroupPolicyConfiguration -DriveName $DriveName
+			$configs | Where-Object { ($_.PolicyName -eq $pol.PolicyName) -and ($_.Type -eq $pol.Type) } |
+			Set-CtxGroupPolicyConfiguration -DriveName $DriveName
 
-            foreach( $filter in @($filters | Where { (FilterString $_.PolicyName $pol.PolicyName) -and (FilterString $_.Type $pol.Type) }))
-            {
-                if ($filter | Get-CtxGroupPolicyFilter -DriveName $DriveName -ea 0)
-                {
-                    Write-Verbose "Updating existing filter $($filter.FilterName)"
-                    $filter | Set-CtxGroupPolicyFilter -DriveName $DriveName
-                }
-                else
-                {
-                    Write-Verbose "Creating new filter $($filter.FilterName)"
-                    $filter | Add-CtxGroupPolicyFilter -DriveName $DriveName
-                }
-            }
-        }
-    }
+			foreach ($filter in @($filters | Where-Object { (FilterString $_.PolicyName $pol.PolicyName) -and (FilterString $_.Type $pol.Type) }))
+			{
+				if ($filter | Get-CtxGroupPolicyFilter -DriveName $DriveName -ea 0)
+				{
+					Write-Verbose "Updating existing filter $($filter.FilterName)"
+					$filter | Set-CtxGroupPolicyFilter -DriveName $DriveName
+				}
+				else
+				{
+					Write-Verbose "Creating new filter $($filter.FilterName)"
+					$filter | Add-CtxGroupPolicyFilter -DriveName $DriveName
+				}
+			}
+		}
+	}
 }
 
 <#
@@ -184,36 +184,36 @@ Function Import-CtxGroupPolicy
     .LINK
         Set-CtxGroupPolicy
 #>
-Function Get-CtxGroupPolicy
+function Get-CtxGroupPolicy
 {
-    [CmdletBinding()]
-    param(
-        [Parameter(Position=0, ValueFromPipelineByPropertyName=$true)]
-        [string[]] $PolicyName = "*",
-        [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
-        [string] [ValidateSet("Computer", "User", $null)] $Type,
-        [Parameter()]
-        [string] $DriveName = "LocalFarmGpo"
-    )
+	[CmdletBinding()]
+	param(
+		[Parameter(Position = 0,ValueFromPipelineByPropertyName = $true)]
+		[string[]]$PolicyName = "*",
+		[Parameter(Position = 1,ValueFromPipelineByPropertyName = $true)]
+		[string][ValidateSet("Computer","User",$null)] $Type,
+		[Parameter()]
+		[string]$DriveName = "LocalFarmGpo"
+	)
 
-    process
-    {
-        $types = if (!$Type) { @("Computer", "User") } else { @($Type) }
-        foreach($polType in $types)
-        {
-            $pols = @(Get-ChildItem "$($DriveName):\$polType" | Where-Object { FilterString $_.Name $PolicyName })
-            foreach ($pol in $pols)
-            {
-               $props = CreateDictionary
-               $props.PolicyName = $pol.Name
-               $props.Type = $poltype
-               $props.Description = $pol.Description
-               $props.Enabled = $pol.Enabled
-               $props.Priority = $pol.Priority
-               CreateObject $props $pol.Name
-            }
-        }
-    }
+	process
+	{
+		$types = if (!$Type) { @("Computer","User") } else { @($Type) }
+		foreach ($polType in $types)
+		{
+			$pols = @(Get-ChildItem "$($DriveName):\$polType" | Where-Object { FilterString $_.Name $PolicyName })
+			foreach ($pol in $pols)
+			{
+				$props = CreateDictionary
+				$props.PolicyName = $pol.Name
+				$props.Type = $poltype
+				$props.Description = $pol.Description
+				$props.enabled = $pol.enabled
+				$props.Priority = $pol.Priority
+				CreateObject $props $pol.Name
+			}
+		}
+	}
 }
 
 <#
@@ -243,50 +243,50 @@ Function Get-CtxGroupPolicy
     .LINK
         Set-CtxGroupPolicyConfiguration
 #>
-Function Get-CtxGroupPolicyConfiguration
+function Get-CtxGroupPolicyConfiguration
 {
-    [CmdletBinding()]
-    param(
-        [Parameter(Position=0, ValueFromPipelineByPropertyName=$true)]
-        [String[]] $PolicyName = "*",
-        [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
-        [ValidateSet("Computer", "User", $null)] [String] $Type,
-        [Parameter()]
-        [Switch] $ConfiguredOnly,
-        [Parameter()]
-        [string] $DriveName = "LocalFarmGpo"
-    )
+	[CmdletBinding()]
+	param(
+		[Parameter(Position = 0,ValueFromPipelineByPropertyName = $true)]
+		[String[]]$PolicyName = "*",
+		[Parameter(Position = 1,ValueFromPipelineByPropertyName = $true)]
+		[ValidateSet("Computer","User",$null)] [string]$Type,
+		[Parameter()]
+		[switch]$ConfiguredOnly,
+		[Parameter()]
+		[string]$DriveName = "LocalFarmGpo"
+	)
 
-    process
-    {
-        $types = if (!$Type) { @("Computer", "User") } else { @($Type) }
-        foreach ($poltype in $types)
-        {
-            $pols = @(Get-ChildItem "$($DriveName):\$poltype" | Where-Object { FilterString $_.Name $PolicyName })
-            foreach ($pol in $pols)
-            {
-                $props = CreateDictionary
-                $props.PolicyName = $pol.Name
-                $props.Type = $poltype
+	process
+	{
+		$types = if (!$Type) { @("Computer","User") } else { @($Type) }
+		foreach ($poltype in $types)
+		{
+			$pols = @(Get-ChildItem "$($DriveName):\$poltype" | Where-Object { FilterString $_.Name $PolicyName })
+			foreach ($pol in $pols)
+			{
+				$props = CreateDictionary
+				$props.PolicyName = $pol.Name
+				$props.Type = $poltype
 
-                foreach ($setting in @(Get-ChildItem "$($DriveName):\$poltype\$($pol.Name)\Settings" -Recurse |
-                    Where-Object { $_.State -ne $null }))
-                {
-                    if (!$ConfiguredOnly -or $setting.State -ne "NotConfigured")
-                    {
-                        $setname = $setting.PSChildName
-                        $config = CreateDictionary
-                        $config.State = $setting.State.ToString()
-                        if ($setting.Values -ne $null) { $config.Values = ([array]($setting.Values)) }
-                        if ($setting.Value -ne $null) { $config.Value = ([string]($setting.Value)) }
-                        $config.Path = $setting.PSPath.Substring($setting.PSPath.IndexOf("\Settings\")+10)
-                        $props.$setname = CreateObject $config
-                    }
-                }
-                CreateObject $props $pol.Name
-            }
-        }
-    }
+				foreach ($setting in @(Get-ChildItem "$($DriveName):\$poltype\$($pol.Name)\Settings" -Recurse |
+						Where-Object { $_.State -ne $null }))
+				{
+					if (!$ConfiguredOnly -or $setting.State -ne "NotConfigured")
+					{
+						$setname = $setting.PSChildName
+						$config = CreateDictionary
+						$config.State = $setting.State.ToString()
+						if ($setting.Values -ne $null) { $config.Values = ([array]($setting.Values)) }
+						if ($setting.value -ne $null) { $config.value = ([string]($setting.value)) }
+						$config.path = $setting.PSPath.Substring($setting.PSPath.IndexOf("\Settings\") + 10)
+						$props.$setname = CreateObject $config
+					}
+				}
+				CreateObject $props $pol.Name
+			}
+		}
+	}
 }
 
 <#
@@ -320,52 +320,52 @@ Function Get-CtxGroupPolicyConfiguration
         Add-CtxGroupPolicyFilter
         Remove-CtxGroupPolicyFilter
 #>
-Function Get-CtxGroupPolicyFilter
+function Get-CtxGroupPolicyFilter
 {
-    [CmdletBinding()]
-    param(
-        [Parameter(Position=0, ValueFromPipelineByPropertyName=$true)]
-        [String[]] $PolicyName = "*",
-        [Parameter(Position=1, ValueFromPipelineByPropertyName=$true)]
-        [ValidateSet("Computer", "User", $null)] [String] $Type,
-        [Parameter(Position=2, ValueFromPipelineByPropertyName=$true)]
-        [String[]] $FilterName = "*",
-        [Parameter(Position=3, ValueFromPipelineByPropertyName=$true)]
-        [string] $FilterType = "*",
-        [Parameter()]
-        [string] $DriveName = "LocalFarmGpo"
-    )
+	[CmdletBinding()]
+	param(
+		[Parameter(Position = 0,ValueFromPipelineByPropertyName = $true)]
+		[String[]]$PolicyName = "*",
+		[Parameter(Position = 1,ValueFromPipelineByPropertyName = $true)]
+		[ValidateSet("Computer","User",$null)] [string]$Type,
+		[Parameter(Position = 2,ValueFromPipelineByPropertyName = $true)]
+		[String[]]$FilterName = "*",
+		[Parameter(Position = 3,ValueFromPipelineByPropertyName = $true)]
+		[string]$FilterType = "*",
+		[Parameter()]
+		[string]$DriveName = "LocalFarmGpo"
+	)
 
-    process
-    {
-        $types = if (!$Type) { @("Computer", "User") } else { @($Type) }
-        foreach ($poltype in $types)
-        {
-            $pols = @(Get-ChildItem "$($DriveName):\$poltype" | Where-Object { ($_.Name -ne "Unfiltered") -and (FilterString $_.Name $PolicyName) })
-            foreach ($pol in $pols)
-            {
-                foreach ($filter in @(Get-ChildItem "$($DriveName):\$poltype\$($pol.Name)\Filters" -Recurse |
-                    Where-Object { ($_.FilterType -ne $null) -and (FilterString $_.Name $FilterName) -and (FilterString $_.FilterType $FilterType)}))
-                {
-                    $props = CreateDictionary
-                    $props.PolicyName = $pol.Name
-                    $props.Type = $poltype
-                    $props.FilterName = $filter.Name
-                    $props.FilterType = $filter.FilterType
-                    $props.Enabled = $filter.Enabled
-                    $props.Mode = [string]($filter.Mode)
-                    $props.FilterValue = $filter.FilterValue
-                    if($filter.FilterType -eq "AccessControl")
-                    {
-                        $props.ConnectionType = $filter.ConnectionType
-                        $props.AccessGatewayFarm = $filter.AccessGatewayFarm
-                        $props.AccessCondition = $filter.AccessCondition
-                    }
-                    CreateObject $props $filter.Name
-                }
-            }
-        }
-    }
+	process
+	{
+		$types = if (!$Type) { @("Computer","User") } else { @($Type) }
+		foreach ($poltype in $types)
+		{
+			$pols = @(Get-ChildItem "$($DriveName):\$poltype" | Where-Object { ($_.Name -ne "Unfiltered") -and (FilterString $_.Name $PolicyName) })
+			foreach ($pol in $pols)
+			{
+				foreach ($filter in @(Get-ChildItem "$($DriveName):\$poltype\$($pol.Name)\Filters" -Recurse |
+						Where-Object { ($_.FilterType -ne $null) -and (FilterString $_.Name $FilterName) -and (FilterString $_.FilterType $FilterType) }))
+				{
+					$props = CreateDictionary
+					$props.PolicyName = $pol.Name
+					$props.Type = $poltype
+					$props.FilterName = $filter.Name
+					$props.FilterType = $filter.FilterType
+					$props.enabled = $filter.enabled
+					$props.Mode = [string]($filter.Mode)
+					$props.FilterValue = $filter.FilterValue
+					if ($filter.FilterType -eq "AccessControl")
+					{
+						$props.ConnectionType = $filter.ConnectionType
+						$props.AccessGatewayFarm = $filter.AccessGatewayFarm
+						$props.AccessCondition = $filter.AccessCondition
+					}
+					CreateObject $props $filter.Name
+				}
+			}
+		}
+	}
 }
 
 <#
@@ -397,37 +397,37 @@ Function Get-CtxGroupPolicyFilter
         Set-CtxGroupPolicy
         Remove-CtxGroupPolicy
 #>
-Function New-CtxGroupPolicy
+function New-CtxGroupPolicy
 {
-    [CmdletBinding(SupportsShouldProcess=$true)]
-    param(
-        [Parameter(Position = 0, Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
-        [String] $PolicyName,
-        [Parameter(Position = 1, Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
-        [String] [ValidateSet("Computer", "User")] $Type,
-        [Parameter(ValueFromPipelineByPropertyName=$true)]
-        [String] $Description,
-        [Parameter(ValueFromPipelineByPropertyName=$true)]
-        [Boolean] $Enabled,
-        [Parameter(ValueFromPipelineByPropertyName=$true)]
-        [Int] $Priority,
-        [Parameter()]
-        [string] $DriveName = "LocalFarmGpo"
-    )
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	param(
+		[Parameter(Position = 0,Mandatory = $true,ValueFromPipelineByPropertyName = $true)]
+		[string]$PolicyName,
+		[Parameter(Position = 1,Mandatory = $true,ValueFromPipelineByPropertyName = $true)]
+		[string][ValidateSet("Computer","User")] $Type,
+		[Parameter(ValueFromPipelineByPropertyName = $true)]
+		[string]$Description,
+		[Parameter(ValueFromPipelineByPropertyName = $true)]
+		[Boolean]$Enabled,
+		[Parameter(ValueFromPipelineByPropertyName = $true)]
+		[int]$Priority,
+		[Parameter()]
+		[string]$DriveName = "LocalFarmGpo"
+	)
 
-    process
-    {
-        $params = $PSCmdlet.MyInvocation.BoundParameters
-        if ($PsCmdlet.ShouldProcess($PolicyName))
-        {
-            $item = New-Item "$($DriveName):\$Type\$PolicyName"
-            foreach ($prop in "Description", "Enabled", "Priority")
-            {
-                if ($params.ContainsKey($prop)) { Set-ItemProperty "$($DriveName):\$Type\$PolicyName" $prop $params.$prop }
-            }
-            Get-CtxGroupPolicy $PolicyName $Type -DriveName $DriveName
-        }
-    }
+	process
+	{
+		$params = $PSCmdlet.MyInvocation.BoundParameters
+		if ($PsCmdlet.ShouldProcess($PolicyName))
+		{
+			$item = New-Item "$($DriveName):\$Type\$PolicyName"
+			foreach ($prop in "Description","Enabled","Priority")
+			{
+				if ($params.ContainsKey($prop)) { Set-ItemProperty "$($DriveName):\$Type\$PolicyName" $prop $params.$prop }
+			}
+			Get-CtxGroupPolicy $PolicyName $Type -DriveName $DriveName
+		}
+	}
 }
 
 <#
@@ -461,47 +461,47 @@ Function New-CtxGroupPolicy
         New-CtxGroupPolicy
         Remove-CtxGroupPolicy
 #>
-Function Set-CtxGroupPolicy
+function Set-CtxGroupPolicy
 {
-    [CmdletBinding(SupportsShouldProcess=$true)]
-    param(
-        [Parameter(Position=0, Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
-        [String[]] $PolicyName,
-        [Parameter(Position=1, Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
-        [String] [ValidateSet("Computer", "User")] $Type,
-        [Parameter(ValueFromPipelineByPropertyName=$true)]
-        [String] $Description,
-        [Parameter(ValueFromPipelineByPropertyName=$true)]
-        [Boolean] $Enabled,
-        [Parameter(ValueFromPipelineByPropertyName=$true)]
-        [Int] $Priority,
-        [Parameter()]
-        [string] $DriveName = "LocalFarmGpo",
-        [Parameter()]
-        [Switch] $Passthru
-    )
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	param(
+		[Parameter(Position = 0,Mandatory = $true,ValueFromPipelineByPropertyName = $true)]
+		[String[]]$PolicyName,
+		[Parameter(Position = 1,Mandatory = $true,ValueFromPipelineByPropertyName = $true)]
+		[string][ValidateSet("Computer","User")] $Type,
+		[Parameter(ValueFromPipelineByPropertyName = $true)]
+		[string]$Description,
+		[Parameter(ValueFromPipelineByPropertyName = $true)]
+		[Boolean]$Enabled,
+		[Parameter(ValueFromPipelineByPropertyName = $true)]
+		[int]$Priority,
+		[Parameter()]
+		[string]$DriveName = "LocalFarmGpo",
+		[Parameter()]
+		[switch]$Passthru
+	)
 
-    process
-    {
-        $params = $PSCmdlet.MyInvocation.BoundParameters
-        $pols = Get-CtxGroupPolicy $PolicyName $Type -DriveName $DriveName
+	process
+	{
+		$params = $PSCmdlet.MyInvocation.BoundParameters
+		$pols = Get-CtxGroupPolicy $PolicyName $Type -DriveName $DriveName
 
-        foreach ($pol in $pols)
-        {
-            if ($PsCmdlet.ShouldProcess($pol.PolicyName))
-            {
-                foreach ($prop in "Description", "Enabled", "Priority")
-                {
-                    if ($params.ContainsKey($prop) -and ($pol.$prop -ne $params.$prop))
-                    {
-                        Write-Verbose ("Setting {0} to {1}" -f $prop, $params.$prop)
-                        Set-ItemProperty "$($DriveName):\$Type\$($pol.PolicyName)" $prop $params.$prop
-                    }
-                }
-                if ($Passthru) { Get-CtxGroupPolicy $($pol.PolicyName) -Type $Type -DriveName $DriveName }
-            }
-        }
-    }
+		foreach ($pol in $pols)
+		{
+			if ($PsCmdlet.ShouldProcess($pol.PolicyName))
+			{
+				foreach ($prop in "Description","Enabled","Priority")
+				{
+					if ($params.ContainsKey($prop) -and ($pol.$prop -ne $params.$prop))
+					{
+						Write-Verbose ("Setting {0} to {1}" -f $prop,$params.$prop)
+						Set-ItemProperty "$($DriveName):\$Type\$($pol.PolicyName)" $prop $params.$prop
+					}
+				}
+				if ($Passthru) { Get-CtxGroupPolicy $($pol.PolicyName) -Type $Type -DriveName $DriveName }
+			}
+		}
+	}
 }
 
 <#
@@ -529,32 +529,32 @@ Function Set-CtxGroupPolicy
         New-CtxGroupPolicy
         Set-CtxGroupPolicy
 #>
-Function Remove-CtxGroupPolicy
+function Remove-CtxGroupPolicy
 {
-    [CmdletBinding(SupportsShouldProcess=$true)]
-    param(
-        [Parameter(Position=0, Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
-        [String[]] $PolicyName,
-        [Parameter(Position=1, Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
-        [String] [ValidateSet("Computer", "User")] $Type,
-        [Parameter()]
-        [string] $DriveName = "LocalFarmGpo",
-        [Parameter()]
-        [Switch] $Passthru
-    )
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	param(
+		[Parameter(Position = 0,Mandatory = $true,ValueFromPipelineByPropertyName = $true)]
+		[String[]]$PolicyName,
+		[Parameter(Position = 1,Mandatory = $true,ValueFromPipelineByPropertyName = $true)]
+		[string][ValidateSet("Computer","User")] $Type,
+		[Parameter()]
+		[string]$DriveName = "LocalFarmGpo",
+		[Parameter()]
+		[switch]$Passthru
+	)
 
-    process
-    {
-        $pols = @(Get-CtxGroupPolicy $PolicyName $Type -DriveName $DriveName)
-        foreach ($pol in $pols)
-        {
-            if ($PSCmdlet.ShouldProcess($pol.PolicyName))
-            {
-                Remove-Item "$($DriveName):\$Type\$($pol.PolicyName)" -Recurse -Force
-                if ($Passthru) { $pol }
-            }
-        }
-    }
+	process
+	{
+		$pols = @(Get-CtxGroupPolicy $PolicyName $Type -DriveName $DriveName)
+		foreach ($pol in $pols)
+		{
+			if ($PSCmdlet.ShouldProcess($pol.PolicyName))
+			{
+				Remove-Item "$($DriveName):\$Type\$($pol.PolicyName)" -Recurse -Force
+				if ($Passthru) { $pol }
+			}
+		}
+	}
 }
 
 <#
@@ -596,81 +596,81 @@ Function Remove-CtxGroupPolicy
 #>
 function Set-CtxGroupPolicyConfiguration
 {
-    [CmdletBinding(SupportsShouldProcess=$true)]
-    param(
-        [Parameter(ParameterSetName = "Config", Position=0, Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
-        [String[]] $PolicyName,
-        [Parameter(ParameterSetName = "Config", Position=1, Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
-        [String] [ValidateSet("Computer", "User")] $Type,
-        [Parameter(ParameterSetName = "Config", Position=2, Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
-        [string] $ConfigurationName,
-        [Parameter(ParameterSetName = "Config", Position=3, ValueFromPipelineByPropertyName=$true)]
-        [string] [ValidateSet("Enabled", "Disabled", "NotConfigured", "Allowed", "Prohibited", "UseDefault")] $State,
-        [Parameter(ParameterSetName = "Config", Position=4, ValueFromPipelineByPropertyName=$true)]
-        [string] $Value,
-        [Parameter(ParameterSetName = "Object", Position=0, Mandatory=$true, ValueFromPipeline=$true)]
-        [PSObject] $InputObject,
-        [Parameter()]
-        [string] $DriveName = "LocalFarmGpo",
-        [Parameter()]
-        [Switch] $Passthru
-    )
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	param(
+		[Parameter(ParameterSetName = "Config",Position = 0,Mandatory = $true,ValueFromPipelineByPropertyName = $true)]
+		[String[]]$PolicyName,
+		[Parameter(ParameterSetName = "Config",Position = 1,Mandatory = $true,ValueFromPipelineByPropertyName = $true)]
+		[string][ValidateSet("Computer","User")] $Type,
+		[Parameter(ParameterSetName = "Config",Position = 2,Mandatory = $true,ValueFromPipelineByPropertyName = $true)]
+		[string]$ConfigurationName,
+		[Parameter(ParameterSetName = "Config",Position = 3,ValueFromPipelineByPropertyName = $true)]
+		[string][ValidateSet("Enabled","Disabled","NotConfigured","Allowed","Prohibited","UseDefault")] $State,
+		[Parameter(ParameterSetName = "Config",Position = 4,ValueFromPipelineByPropertyName = $true)]
+		[string]$Value,
+		[Parameter(ParameterSetName = "Object",Position = 0,Mandatory = $true,ValueFromPipeline = $true)]
+		[psobject]$InputObject,
+		[Parameter()]
+		[string]$DriveName = "LocalFarmGpo",
+		[Parameter()]
+		[switch]$Passthru
+	)
 
-    process
-    {
-        Write-Verbose "ParameterSetName=$($PSCmdlet.ParameterSetName)"
-        if ($PSCmdlet.ParameterSetName -eq "Object")
-        {
-            $obj = $InputObject
-            $PolicyName = $obj.PolicyName
-            $poltype = $obj.Type
+	process
+	{
+		Write-Verbose "ParameterSetName=$($PSCmdlet.ParameterSetName)"
+		if ($PSCmdlet.ParameterSetName -eq "Object")
+		{
+			$obj = $InputObject
+			$PolicyName = $obj.PolicyName
+			$poltype = $obj.Type
 
-            if ($PsCmdlet.ShouldProcess($PolicyName))
-            {
-                $current = $obj | Get-CtxGroupPolicyconfiguration -DriveName $DriveName
-                if ($current -eq $null) { throw "Policy not found" }
+			if ($PsCmdlet.ShouldProcess($PolicyName))
+			{
+				$current = $obj | Get-CtxGroupPolicyConfiguration -DriveName $DriveName
+				if ($current -eq $null) { throw "Policy not found" }
 
-                $ConfigurationObject = CompareObject $obj $current
-                if ($ConfigurationObject -ne $null)
-                {
-                    foreach ($prop in @($ConfigurationObject | Get-Member -Type Properties | Select -Expand Name))
-                    {
-                        Write-Verbose "Processing setting $prop"
-                        $config = $ConfigurationObject.$prop
-                        $path = $config.Path
-                        $state = $config.State.ToString()
-                        if ($state -ne "NotConfigured")
-                        {
-                            if ($config.Values -ne $null)
-                                { Set-ItemProperty "$($DriveName):\$poltype\$PolicyName\Settings\$path" Values ([object[]]($config.Values)) }
-                            if ($config.Value -ne $null)
-                                { Set-ItemProperty "$($DriveName):\$poltype\$PolicyName\Settings\$path" Value ([string]($config.Value)) }
-                        }
-                        Set-ItemProperty "$($DriveName):\$poltype\$PolicyName\Settings\$path" State $state
-                    }
-                }
-                if ($Passthru) { $obj | Get-CtxGroupPolicyConfiguration -ConfiguredOnly -DriveName $DriveName }
-            }
-        }
-        else
-        {
-            if ($PsCmdlet.ShouldProcess($PolicyName))
-            {
-                $pol = Get-CtxGroupPolicy $PolicyName $Type -EA Stop
-                $setting = Get-ChildItem "$($DriveName):\$Type\unfiltered\Settings" -Recurse | Where { ($_.State -ne $null) -and ($_.PSChildName -eq $ConfigurationName) }
-                if ($setting -eq $null)
-                {
-                    throw "Invalid configuration name"
-                }
-                $path = $setting.PSPath.Substring($setting.PSPath.IndexOf("\Settings\")+10)
-                if ($State)
-                    { Set-ItemProperty "$($DriveName):\$Type\$PolicyName\Settings\$path" State $state }
-                if ($Value)
-                    { Set-ItemProperty "$($DriveName):\$Type\$PolicyName\Settings\$path" Value $value }
-                if ($Passthru) { Get-CtxGroupPolicyConfiguration $PolicyName $Type -ConfiguredOnly -DriveName $DriveName }
-            }
-        }
-    }
+				$ConfigurationObject = CompareObject $obj $current
+				if ($ConfigurationObject -ne $null)
+				{
+					foreach ($prop in @($ConfigurationObject | Get-Member -Type Properties | Select-Object -Expand Name))
+					{
+						Write-Verbose "Processing setting $prop"
+						$config = $ConfigurationObject.$prop
+						$path = $config.path
+						$state = $config.State.ToString()
+						if ($state -ne "NotConfigured")
+						{
+							if ($config.Values -ne $null)
+							{ Set-ItemProperty "$($DriveName):\$poltype\$PolicyName\Settings\$path" Values ([object[]]($config.Values)) }
+							if ($config.value -ne $null)
+							{ Set-ItemProperty "$($DriveName):\$poltype\$PolicyName\Settings\$path" Value ([string]($config.value)) }
+						}
+						Set-ItemProperty "$($DriveName):\$poltype\$PolicyName\Settings\$path" State $state
+					}
+				}
+				if ($Passthru) { $obj | Get-CtxGroupPolicyConfiguration -ConfiguredOnly -DriveName $DriveName }
+			}
+		}
+		else
+		{
+			if ($PsCmdlet.ShouldProcess($PolicyName))
+			{
+				$pol = Get-CtxGroupPolicy $PolicyName $Type -ea Stop
+				$setting = Get-ChildItem "$($DriveName):\$Type\unfiltered\Settings" -Recurse | Where-Object { ($_.State -ne $null) -and ($_.PSChildName -eq $ConfigurationName) }
+				if ($setting -eq $null)
+				{
+					throw "Invalid configuration name"
+				}
+				$path = $setting.PSPath.Substring($setting.PSPath.IndexOf("\Settings\") + 10)
+				if ($State)
+				{ Set-ItemProperty "$($DriveName):\$Type\$PolicyName\Settings\$path" State $state }
+				if ($Value)
+				{ Set-ItemProperty "$($DriveName):\$Type\$PolicyName\Settings\$path" Value $value }
+				if ($Passthru) { Get-CtxGroupPolicyConfiguration $PolicyName $Type -ConfiguredOnly -DriveName $DriveName }
+			}
+		}
+	}
 }
 
 <#
@@ -707,82 +707,82 @@ function Set-CtxGroupPolicyConfiguration
         Add-CtxGroupPolicyFilter
         Remove-CtxGroupPolicyFilter
 #>
-Function Set-CtxGroupPolicyFilter
+function Set-CtxGroupPolicyFilter
 {
-    [CmdletBinding(SupportsShouldProcess=$true)]
-    param(
-        [Parameter(Position=0, Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
-        [string] $PolicyName,
-        [Parameter(Position=1, Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
-        [String] [ValidateSet("Computer", "User")] $Type,
-        [Parameter(Position=2, Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
-        [string] $FilterName,
-        [Parameter(Position=3, Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
-        [string] $FilterType,
-        [Parameter(Position=4, Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
-        [string] $FilterValue,
-        [Parameter(ValueFromPipelineByPropertyName=$true)]
-        [string] $Enabled,
-        [Parameter(ValueFromPipelineByPropertyName=$true)]
-        [string] [ValidateSet("Allow", "Deny")] $Mode,
-        [Parameter(ValueFromPipelineByPropertyName=$true)]
-        [string] $AccessGatewayFarm,
-        [Parameter(ValueFromPipelineByPropertyName=$true)]
-        [string] $AccessCondition,
-        [Parameter()]
-        [string] $DriveName = "LocalFarmGpo",
-        [Parameter()]
-        [Switch] $Passthru
-    )
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	param(
+		[Parameter(Position = 0,Mandatory = $true,ValueFromPipelineByPropertyName = $true)]
+		[string]$PolicyName,
+		[Parameter(Position = 1,Mandatory = $true,ValueFromPipelineByPropertyName = $true)]
+		[string][ValidateSet("Computer","User")] $Type,
+		[Parameter(Position = 2,Mandatory = $true,ValueFromPipelineByPropertyName = $true)]
+		[string]$FilterName,
+		[Parameter(Position = 3,Mandatory = $true,ValueFromPipelineByPropertyName = $true)]
+		[string]$FilterType,
+		[Parameter(Position = 4,Mandatory = $false,ValueFromPipelineByPropertyName = $true)]
+		[string]$FilterValue,
+		[Parameter(ValueFromPipelineByPropertyName = $true)]
+		[string]$Enabled,
+		[Parameter(ValueFromPipelineByPropertyName = $true)]
+		[string][ValidateSet("Allow","Deny")] $Mode,
+		[Parameter(ValueFromPipelineByPropertyName = $true)]
+		[string]$AccessGatewayFarm,
+		[Parameter(ValueFromPipelineByPropertyName = $true)]
+		[string]$AccessCondition,
+		[Parameter()]
+		[string]$DriveName = "LocalFarmGpo",
+		[Parameter()]
+		[switch]$Passthru
+	)
 
-    process
-    {
-        $params = $PSCmdlet.MyInvocation.BoundParameters
-        $filters = Get-CtxGroupPolicyFilter $PolicyName $Type $FilterName $FilterType -DriveName $DriveName -ErrorAction Stop
+	process
+	{
+		$params = $PSCmdlet.MyInvocation.BoundParameters
+		$filters = Get-CtxGroupPolicyFilter $PolicyName $Type $FilterName $FilterType -DriveName $DriveName -ErrorAction Stop
 
-        if ($PsCmdlet.ShouldProcess($FilterName))
-        {
-            if ($FilterType -eq "AccessControl" -or $FilterType -eq "BranchRepeater")
-            {
-                write-verbose "it is an access control filter named $FilterName"
-                #$item = New-Item "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterName"
-            }
-            else 
-            {
-                write-verbose "Filter named $FilterName with a value of $FilterValue"
-                #$item = New-Item "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterName" $FilterValue -ErrorAction Stop
-				if($filtertype -eq "ClientIP")
-                {
-                $item = set-Item "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterName" $FilterValue
-                }
-                else
-                {
-                $item = set-Item -Path "$($DriveName):\$Type\$PolicyName\Filters" -Name $filtervalue -ItemType $filtertype
-                }
-				
-            }
+		if ($PsCmdlet.ShouldProcess($FilterName))
+		{
+			if ($FilterType -eq "AccessControl" -or $FilterType -eq "BranchRepeater")
+			{
+				Write-Verbose "it is an access control filter named $FilterName"
+				#$item = New-Item "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterName"
+			}
+			else
+			{
+				Write-Verbose "Filter named $FilterName with a value of $FilterValue"
+				#$item = New-Item "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterName" $FilterValue -ErrorAction Stop
+				if ($filtertype -eq "ClientIP")
+				{
+					$item = Set-Item "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterName" $FilterValue
+				}
+				else
+				{
+					$item = Set-Item -Path "$($DriveName):\$Type\$PolicyName\Filters" -Name $filtervalue -ItemType $filtertype
+				}
 
-            foreach ($prop in  "Enabled", "Mode", "AccessGatewayFarm", "AccessCondition","ConnectionType")
-            {
-                if ($params.ContainsKey($prop)) 
-                {
-                    write-verbose "$prop :  $($params.$prop) $FilterType"
-                    #Set-ItemProperty "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterName" $prop $params.$prop
-					if($FilterType -ne "BranchRepeater" -AND $FilterType -ne "AccessControl" -AND $FilterType -ne "ClientIP")
-                    {
-                    Set-ItemProperty -path "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterValue" -Name $prop -value $params.$prop
-                    }
-                    else
-                    {
-                    Set-ItemProperty "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterName" -Name $prop -Value $params.$prop
-                    }
-                }
-            }
-                
-                if ($Passthru) { Get-CtxGroupPolicyFilter $PolicyName $FilterName -Type $Type -DriveName $DriveName }
-            }
-        }
-    
+			}
+
+			foreach ($prop in "Enabled","Mode","AccessGatewayFarm","AccessCondition","ConnectionType")
+			{
+				if ($params.ContainsKey($prop))
+				{
+					Write-Verbose "$prop :  $($params.$prop) $FilterType"
+					#Set-ItemProperty "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterName" $prop $params.$prop
+					if ($FilterType -ne "BranchRepeater" -and $FilterType -ne "AccessControl" -and $FilterType -ne "ClientIP")
+					{
+						Set-ItemProperty -Path "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterValue" -Name $prop -Value $params.$prop
+					}
+					else
+					{
+						Set-ItemProperty "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterName" -Name $prop -Value $params.$prop
+					}
+				}
+			}
+
+			if ($Passthru) { Get-CtxGroupPolicyFilter $PolicyName $FilterName -Type $Type -DriveName $DriveName }
+		}
+	}
+
 }
 
 <#
@@ -819,77 +819,77 @@ Function Set-CtxGroupPolicyFilter
         Set-CtxGroupPolicyFilter
         Remove-CtxGroupPolicyFilter
 #>
-Function Add-CtxGroupPolicyFilter
+function Add-CtxGroupPolicyFilter
 {
-    [CmdletBinding(SupportsShouldProcess=$true)]
-    param(
-        [Parameter(Position=0, Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
-        [string] $PolicyName,
-        [Parameter(Position=1, Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
-        [String] [ValidateSet("Computer", "User")] $Type,
-        [Parameter(Position=2, Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
-        [string] $FilterName,
-        [Parameter(Position=3, Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
-        [string] $FilterType,
-        [Parameter(Position=4, Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
-        [string] $FilterValue="",
-        [Parameter(ValueFromPipelineByPropertyName=$true)]
-        [string] $Enabled,
-        [Parameter(ValueFromPipelineByPropertyName=$true)]
-        [string] [ValidateSet("Allow", "Deny")] $Mode,
-        [Parameter(ValueFromPipelineByPropertyName=$true)]
-        [string] $AccessGatewayFarm,
-        [Parameter(ValueFromPipelineByPropertyName=$true)]
-        [string] $AccessCondition,
-        [Parameter()]
-        [string] $DriveName = "LocalFarmGpo"
-    )
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	param(
+		[Parameter(Position = 0,Mandatory = $true,ValueFromPipelineByPropertyName = $true)]
+		[string]$PolicyName,
+		[Parameter(Position = 1,Mandatory = $true,ValueFromPipelineByPropertyName = $true)]
+		[string][ValidateSet("Computer","User")] $Type,
+		[Parameter(Position = 2,Mandatory = $true,ValueFromPipelineByPropertyName = $true)]
+		[string]$FilterName,
+		[Parameter(Position = 3,Mandatory = $true,ValueFromPipelineByPropertyName = $true)]
+		[string]$FilterType,
+		[Parameter(Position = 4,Mandatory = $false,ValueFromPipelineByPropertyName = $true)]
+		[string]$FilterValue = "",
+		[Parameter(ValueFromPipelineByPropertyName = $true)]
+		[string]$Enabled,
+		[Parameter(ValueFromPipelineByPropertyName = $true)]
+		[string][ValidateSet("Allow","Deny")] $Mode,
+		[Parameter(ValueFromPipelineByPropertyName = $true)]
+		[string]$AccessGatewayFarm,
+		[Parameter(ValueFromPipelineByPropertyName = $true)]
+		[string]$AccessCondition,
+		[Parameter()]
+		[string]$DriveName = "LocalFarmGpo"
+	)
 
-    process
-    {
-        $params = $PSCmdlet.MyInvocation.BoundParameters
-        if ($PsCmdlet.ShouldProcess($FilterName))
-        {
-            if ($FilterType -eq "AccessControl" -or $FilterType -eq "BranchRepeater")
-            {
-                write-verbose "it is an access control filter named $FilterName"
-                $item = New-Item "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterName"
-            }
-            else 
-            {
-                write-verbose "Filter named $FilterName with a value of $FilterValue"
-                #$item = New-Item "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterName" $FilterValue -ErrorAction Stop
-				if($filtertype -eq "ClientIP")
-                {
-                $item = New-Item "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterName" $FilterValue
-                }
-                else
-                {
-                $item = New-Item -Path "$($DriveName):\$Type\$PolicyName\Filters" -Name $filtervalue -ItemType $filtertype
-                }
+	process
+	{
+		$params = $PSCmdlet.MyInvocation.BoundParameters
+		if ($PsCmdlet.ShouldProcess($FilterName))
+		{
+			if ($FilterType -eq "AccessControl" -or $FilterType -eq "BranchRepeater")
+			{
+				Write-Verbose "it is an access control filter named $FilterName"
+				$item = New-Item "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterName"
+			}
+			else
+			{
+				Write-Verbose "Filter named $FilterName with a value of $FilterValue"
+				#$item = New-Item "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterName" $FilterValue -ErrorAction Stop
+				if ($filtertype -eq "ClientIP")
+				{
+					$item = New-Item "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterName" $FilterValue
+				}
+				else
+				{
+					$item = New-Item -Path "$($DriveName):\$Type\$PolicyName\Filters" -Name $filtervalue -ItemType $filtertype
+				}
 
-				
-            }
 
-            foreach ($prop in  "Enabled", "Mode", "AccessGatewayFarm", "AccessCondition","ConnectionType")
-            {
-                if ($params.ContainsKey($prop)) 
-                {
-                    write-verbose "$prop :  $($params.$prop)"
-                    #Set-ItemProperty "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterName" $prop $params.$prop
-					if($FilterType -ne "BranchRepeater" -AND $FilterType -ne "AccessControl" -AND $FilterType -ne "ClientIP")
-                    {
-                    Set-ItemProperty -path "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterValue" -Name $prop -value $params.$prop
-                    }
-                    else
-                    {
-                    Set-ItemProperty "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterName" -Name $prop -Value $params.$prop
-                    }
-                }
-            }
-            Get-CtxGroupPolicyFilter $PolicyName $FilterName -Type $Type -DriveName $DriveName
-        }
-    }
+			}
+
+			foreach ($prop in "Enabled","Mode","AccessGatewayFarm","AccessCondition","ConnectionType")
+			{
+				if ($params.ContainsKey($prop))
+				{
+					Write-Verbose "$prop :  $($params.$prop)"
+					#Set-ItemProperty "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterName" $prop $params.$prop
+					if ($FilterType -ne "BranchRepeater" -and $FilterType -ne "AccessControl" -and $FilterType -ne "ClientIP")
+					{
+						Set-ItemProperty -Path "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterValue" -Name $prop -Value $params.$prop
+					}
+					else
+					{
+						Set-ItemProperty "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterName" -Name $prop -Value $params.$prop
+					}
+				}
+			}
+			Get-CtxGroupPolicyFilter $PolicyName $FilterName -Type $Type -DriveName $DriveName
+		}
+	}
 }
 
 <#
@@ -920,117 +920,117 @@ Function Add-CtxGroupPolicyFilter
         Add-CtxGroupPolicyFilter
         Set-CtxGroupPolicyFilter
 #>
-Function Remove-CtxGroupPolicyFilter
+function Remove-CtxGroupPolicyFilter
 {
-    [CmdletBinding(SupportsShouldProcess=$true)]
-    param(
-        [Parameter(Position=0, Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
-        [String[]] $PolicyName,
-        [Parameter(Position=1, Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
-        [ValidateSet("Computer", "User")] [String] $Type,
-        [Parameter(Position=2, Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
-        [String[]] $FilterName,
-        [Parameter(Position=3, Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
-        [string] $FilterType,
-        [Parameter()]
-        [string] $DriveName = "LocalFarmGpo",
-        [Parameter()]
-        [Switch] $Passthru
-    )
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	param(
+		[Parameter(Position = 0,Mandatory = $true,ValueFromPipelineByPropertyName = $true)]
+		[String[]]$PolicyName,
+		[Parameter(Position = 1,Mandatory = $true,ValueFromPipelineByPropertyName = $true)]
+		[ValidateSet("Computer","User")] [string]$Type,
+		[Parameter(Position = 2,Mandatory = $true,ValueFromPipelineByPropertyName = $true)]
+		[String[]]$FilterName,
+		[Parameter(Position = 3,Mandatory = $true,ValueFromPipelineByPropertyName = $true)]
+		[string]$FilterType,
+		[Parameter()]
+		[string]$DriveName = "LocalFarmGpo",
+		[Parameter()]
+		[switch]$Passthru
+	)
 
-    process
-    {
-        $filters = Get-CtxGroupPolicyFilter $PolicyName $Type $FilterName $FilterType -DriveName $DriveName -ErrorAction Stop
-        foreach ($filter in $filters)
-        {
-            if ($PSCmdlet.ShouldProcess($filter.FilterName))
-            {
-                Remove-Item "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterName"
-                if ($Passthru) { $filter }
-            }
-        }
-    }
+	process
+	{
+		$filters = Get-CtxGroupPolicyFilter $PolicyName $Type $FilterName $FilterType -DriveName $DriveName -ErrorAction Stop
+		foreach ($filter in $filters)
+		{
+			if ($PSCmdlet.ShouldProcess($filter.FilterName))
+			{
+				Remove-Item "$($DriveName):\$Type\$PolicyName\Filters\$FilterType\$FilterName"
+				if ($Passthru) { $filter }
+			}
+		}
+	}
 }
 
 #############################################
 
-Function FilterString
+function FilterString
 {
-    param([string] $value, [string[]] $wildcards)
+	param([string]$value,[string[]]$wildcards)
 
-    $wildcards | Where { $value -like $_ }
+	$wildcards | Where-Object { $value -like $_ }
 }
 
-Function CreateDictionary
+function CreateDictionary
 {
-    return New-Object "System.Collections.Generic.Dictionary``2[System.String,System.Object]"
+	return New-Object "System.Collections.Generic.Dictionary``2[System.String,System.Object]"
 }
 
-Function CreateObject
+function CreateObject
 {
-    param([System.Collections.IDictionary]$props, [string]$name)
+	param([System.Collections.IDictionary]$props,[string]$name)
 
-    $obj = New-Object PSObject
-    foreach ($prop in $props.Keys)
-    {
-        $obj | Add-Member NoteProperty -Name $prop -Value $props.$prop
-    }
-    if ($name)
-    {
-        $obj | Add-Member ScriptMethod -Name "ToString" -Value $executioncontext.invokecommand.NewScriptBlock('"{0}"' -f $name) -Force
-    }
-    return $obj
+	$obj = New-Object PSObject
+	foreach ($prop in $props.Keys)
+	{
+		$obj | Add-Member NoteProperty -Name $prop -Value $props.$prop
+	}
+	if ($name)
+	{
+		$obj | Add-Member ScriptMethod -Name "ToString" -Value $executioncontext.invokecommand.NewScriptBlock('"{0}"' -f $name) -Force
+	}
+	return $obj
 }
 
-Function CompareObject
+function CompareObject
 {
-    param([PSObject] $NewObject, [PSObject] $CurrentObject)
+	param([psobject]$NewObject,[psobject]$CurrentObject)
 
-    $props = CreateDictionary
+	$props = CreateDictionary
 
-    $oldprops = $CurrentObject | Get-Member -MemberType Properties | Select-Object -Expand Name
-    $newprops = $NewObject | Get-Member -MemberType Properties | Select-Object -Expand Name
-    ForEach($prop in $newprops)
-    {
-        if ($oldprops -contains $prop)
-        {
-            if (-not (AreValuesEqual $prop $NewObject.$prop $CurrentObject.$prop))
-            {
-                $props.$prop = $NewObject.$prop
-            }
-        }
-    }
-    if ($props.Keys.Count -gt 0)
-    {
-        CreateObject $props
-    }
+	$oldprops = $CurrentObject | Get-Member -MemberType Properties | Select-Object -Expand Name
+	$newprops = $NewObject | Get-Member -MemberType Properties | Select-Object -Expand Name
+	foreach ($prop in $newprops)
+	{
+		if ($oldprops -contains $prop)
+		{
+			if (-not (AreValuesEqual $prop $NewObject.$prop $CurrentObject.$prop))
+			{
+				$props.$prop = $NewObject.$prop
+			}
+		}
+	}
+	if ($props.Keys.Count -gt 0)
+	{
+		CreateObject $props
+	}
 }
 
-Function AreValuesEqual
+function AreValuesEqual
 {
-    param($prop, $new, $old)
+	param($prop,$new,$old)
 
-    if ($new -eq $null) { return $true }
-    if ($old -eq $null) { return $false }
+	if ($new -eq $null) { return $true }
+	if ($old -eq $null) { return $false }
 
-    if ($new -is [array])
-    {
-        return (Compare-Object $new $old | Measure-Object).Count -eq 0
-    }
-    if ($new -is [PSObject])
-    {
-        return (CompareObject $new $old) -eq $null
-    }
-    $equal = $new -eq $old
-    if ($prop -eq "State")
-    {
-        switch($new)
-        {
-            "Enabled" { $equal = "Enabled", "Allowed" -contains $old }
-            "Disabled" { $equal = "Disabled", "Prohibited", "UseDefault" -contains $old }
-        }
-    }
-    return $equal
+	if ($new -is [array])
+	{
+		return (Compare-Object $new $old | Measure-Object).Count -eq 0
+	}
+	if ($new -is [psobject])
+	{
+		return (CompareObject $new $old) -eq $null
+	}
+	$equal = $new -eq $old
+	if ($prop -eq "State")
+	{
+		switch ($new)
+		{
+			"Enabled" { $equal = "Enabled","Allowed" -contains $old }
+			"Disabled" { $equal = "Disabled","Prohibited","UseDefault" -contains $old }
+		}
+	}
+	return $equal
 }
 
 #################################

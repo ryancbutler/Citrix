@@ -40,136 +40,136 @@
    .\vcenterperms.ps1 -vcenter vcenter.lab.com -role MYROLE -creds $creds
    Checks for role "MYROLE" for proper permissions. Does not set anything.  Uses $creds for authentication
 #>
-[cmdletbinding()]
-Param
+[CmdletBinding()]
+param
 (
-    [Parameter(Position=0,Mandatory=$true)]
-    [string]$vcenter,
-    [Parameter(Position=1,Mandatory=$true)]
-    [String]$role,
-    [Parameter(Position=2,Mandatory=$false)]
-    [System.Management.Automation.PSCredential]$Creds=(get-credential),
-    [Parameter(Position=3,Mandatory=$false)]
-    [string]$user,
-    [Parameter(Position=4,Mandatory=$false)]
-    [switch]$checkdatacenter,
-    [switch]$set
+	[Parameter(Position = 0,Mandatory = $true)]
+	[string]$vcenter,
+	[Parameter(Position = 1,Mandatory = $true)]
+	[string]$role,
+	[Parameter(Position = 2,Mandatory = $false)]
+	[System.Management.Automation.PSCredential]$Creds = (Get-Credential),
+	[Parameter(Position = 3,Mandatory = $false)]
+	[string]$user,
+	[Parameter(Position = 4,Mandatory = $false)]
+	[switch]$checkdatacenter,
+	[switch]$set
 )
 
 Import-Module VMware.PowerCLI -ErrorAction Stop
 
 $privs = @("Datastore.AllocateSpace",
-"Datastore.Browse",
-"Datastore.FileManagement",
-"Global.ManageCustomFields",
-"Global.SetCustomField",
-"Network.Assign",
-"Resource.AssignVMToPool",
-"System.Anonymous",
-"System.Read",
-"System.View",
-"VirtualMachine.Config.AddExistingDisk",
-"VirtualMachine.Config.AddNewDisk",
-"VirtualMachine.Config.AddRemoveDevice",
-"VirtualMachine.Config.AdvancedConfig",
-"VirtualMachine.Config.CPUCount",
-"VirtualMachine.Config.EditDevice",
-"VirtualMachine.Config.Memory",
-"VirtualMachine.Config.RemoveDisk",
-"VirtualMachine.Config.Settings",
-"VirtualMachine.Interact.PowerOff",
-"VirtualMachine.Interact.PowerOn",
-"VirtualMachine.Interact.Reset",
-"VirtualMachine.Interact.Suspend",
-"VirtualMachine.Inventory.Create",
-"VirtualMachine.Inventory.CreateFromExisting",
-"VirtualMachine.Inventory.Delete",
-"VirtualMachine.Provisioning.Clone",
-"VirtualMachine.Provisioning.CloneTemplate",
-"VirtualMachine.Provisioning.DeployTemplate",
-"VirtualMachine.State.CreateSnapshot")
+	"Datastore.Browse",
+	"Datastore.FileManagement",
+	"Global.ManageCustomFields",
+	"Global.SetCustomField",
+	"Network.Assign",
+	"Resource.AssignVMToPool",
+	"System.Anonymous",
+	"System.Read",
+	"System.View",
+	"VirtualMachine.Config.AddExistingDisk",
+	"VirtualMachine.Config.AddNewDisk",
+	"VirtualMachine.Config.AddRemoveDevice",
+	"VirtualMachine.Config.AdvancedConfig",
+	"VirtualMachine.Config.CPUCount",
+	"VirtualMachine.Config.EditDevice",
+	"VirtualMachine.Config.Memory",
+	"VirtualMachine.Config.RemoveDisk",
+	"VirtualMachine.Config.Settings",
+	"VirtualMachine.Interact.PowerOff",
+	"VirtualMachine.Interact.PowerOn",
+	"VirtualMachine.Interact.Reset",
+	"VirtualMachine.Interact.Suspend",
+	"VirtualMachine.Inventory.Create",
+	"VirtualMachine.Inventory.CreateFromExisting",
+	"VirtualMachine.Inventory.Delete",
+	"VirtualMachine.Provisioning.Clone",
+	"VirtualMachine.Provisioning.CloneTemplate",
+	"VirtualMachine.Provisioning.DeployTemplate",
+	"VirtualMachine.State.CreateSnapshot")
 
 
 #Connects to vCenter
-connect-viserver -Server $vcenter -Credential ($creds) -ErrorAction Stop
+Connect-VIServer -Server $vcenter -Credential ($creds) -ErrorAction Stop
 
 #Tests to see if the role exists
 function Test-role ($role)
 {
-    Try
-    {
-        $svcrole = get-virole -Name $role -ErrorAction stop
-    }
-    Catch
-    {
-        $svcrole = $false
-    }
-    return $svcrole
+	try
+	{
+		$svcrole = Get-VIRole -Name $role -ErrorAction stop
+	}
+	catch
+	{
+		$svcrole = $false
+	}
+	return $svcrole
 }
 
 #Sets ROLE permissions
 function set-perms
 {
-    $results = @()
-    foreach ($priv in $privs)
-    {
-        $temp = New-Object PSCustomObject
-        $addpriv = Get-VIPrivilege -Id $priv
-        if ($svcsperms -notcontains $priv)
-            {
-            $found = $false
-                if($set)
-                {
-                write-host "Missing $($addpriv.id)" -ForegroundColor Yellow
-                Set-VIRole -AddPrivilege $addpriv -Role $role
-                }
-            }
-            else
-            {
-            write-host "$($addpriv.id) present" -ForegroundColor Green
-            $found = $true
-            }
+	$results = @()
+	foreach ($priv in $privs)
+	{
+		$temp = New-Object PSCustomObject
+		$addpriv = Get-VIPrivilege -Id $priv
+		if ($svcsperms -notcontains $priv)
+		{
+			$found = $false
+			if ($set)
+			{
+				Write-Host "Missing $($addpriv.id)" -ForegroundColor Yellow
+				Set-VIRole -AddPrivilege $addpriv -Role $role
+			}
+		}
+		else
+		{
+			Write-Host "$($addpriv.id) present" -ForegroundColor Green
+			$found = $true
+		}
 
-        $temp|Add-Member -NotePropertyName "Name" -NotePropertyValue $addpriv.Name
-        $temp|Add-Member -NotePropertyName "ID" -NotePropertyValue $priv
-        $temp|Add-Member -NotePropertyName "Found" -NotePropertyValue $found
+		$temp | Add-Member -NotePropertyName "Name" -NotePropertyValue $addpriv.Name
+		$temp | Add-Member -NotePropertyName "ID" -NotePropertyValue $priv
+		$temp | Add-Member -NotePropertyName "Found" -NotePropertyValue $found
 
-        $results += $temp
-    }
-    return $results
+		$results += $temp
+	}
+	return $results
 }
 
 #Tests for principal and role assigned to datacenter
 function Test-Datacenter
 {
-    try{
-      $perms = get-vipermission -Entity $datacenter -Principal $user -ErrorAction Stop|Where-Object{$_.role -eq $role}
-    }
-    Catch
-    {
-        Write-host "$user not found. Check username and run again." -ForegroundColor yellow
-        $found = $false
-        return $found
-    }
+	try {
+		$perms = Get-VIPermission -Entity $datacenter -Principal $user -ErrorAction Stop | Where-Object { $_.role -eq $role }
+	}
+	catch
+	{
+		Write-Host "$user not found. Check username and run again." -ForegroundColor yellow
+		$found = $false
+		return $found
+	}
 
-    if($perms -eq $null)
-    {
-      write-host "$user found but not assigned to specific $role" -ForegroundColor Yellow
-      $found = $false
-    }
-    else {
-      write-host "$user found and assigned to $role on $($datacenter.name)" -ForegroundColor Green
-      $found = $true
-    }
+	if ($perms -eq $null)
+	{
+		Write-Host "$user found but not assigned to specific $role" -ForegroundColor Yellow
+		$found = $false
+	}
+	else {
+		Write-Host "$user found and assigned to $role on $($datacenter.name)" -ForegroundColor Green
+		$found = $true
+	}
 
-return $found
+	return $found
 }
 
 #Assigns principal and role to datacenter
 function Set-DatacenterPerm
 {
-    write-host "Assigning $user to $role on $($datacenter.name)" -ForegroundColor yellow
-    New-VIPermission -entity $datacenter -Principal $user -Role $role -ErrorAction Stop -Propagate $false|Out-Null
+	Write-Host "Assigning $user to $role on $($datacenter.name)" -ForegroundColor yellow
+	New-VIPermission -Entity $datacenter -Principal $user -Role $role -ErrorAction Stop -Propagate $false | Out-Null
 }
 
 $svcrole = Test-role $role
@@ -177,44 +177,44 @@ $svcsperms = $svcrole.PrivilegeList
 
 if ($svcrole)
 {
-    write-host "$($role) role found" -ForegroundColor Green
-    $results = set-perms
-    if(-not [string]::IsNullOrWhiteSpace($user))
-    {
-        $datacenter = get-datacenter|Out-GridView -PassThru
-        $dctest = Test-Datacenter
-        if($dctest -eq $false -and $set -eq $true)
-        {
-        Set-DatacenterPerm
-        }
-    }
+	Write-Host "$($role) role found" -ForegroundColor Green
+	$results = set-perms
+	if (-not [string]::IsNullOrWhiteSpace($user))
+	{
+		$datacenter = Get-Datacenter | Out-GridView -Passthru
+		$dctest = Test-Datacenter
+		if ($dctest -eq $false -and $set -eq $true)
+		{
+			Set-DatacenterPerm
+		}
+	}
 }
-elseif($svcrole -eq $false -and $set)
+elseif ($svcrole -eq $false -and $set)
 {
-    write-host "$($role) role not found and creating" -ForegroundColor Yellow
-    #Creates ROLE
-    New-VIRole -Name $role|Out-Null
-    $results = set-perms
-    if(-not [string]::IsNullOrWhiteSpace($user))
-    {
-        $datacenter = get-datacenter|Out-GridView -PassThru
-        $dctest = Test-Datacenter
-        if($dctest -eq $false -and $set -eq $true)
-        {
-        Set-DatacenterPerm
-        }
-    }
+	Write-Host "$($role) role not found and creating" -ForegroundColor Yellow
+	#Creates ROLE
+	New-VIRole -Name $role | Out-Null
+	$results = set-perms
+	if (-not [string]::IsNullOrWhiteSpace($user))
+	{
+		$datacenter = Get-Datacenter | Out-GridView -Passthru
+		$dctest = Test-Datacenter
+		if ($dctest -eq $false -and $set -eq $true)
+		{
+			Set-DatacenterPerm
+		}
+	}
 }
 else
 {
-    write-host "$($role) role not found and NOT creating. Use -set switch." -ForegroundColor Yellow
+	Write-Host "$($role) role not found and NOT creating. Use -set switch." -ForegroundColor Yellow
 }
 
 #disconnect vCenter
-Disconnect-VIServer -Confirm:$false|Out-Null
+Disconnect-VIServer -Confirm:$false | Out-Null
 
 #Returns table if permissions aren't set correctly
-if($set -eq $false -and $svcrole -ne $false)
+if ($set -eq $false -and $svcrole -ne $false)
 {
-    $results|Out-GridView
+	$results | Out-GridView
 }

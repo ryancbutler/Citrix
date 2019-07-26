@@ -24,15 +24,15 @@
    ./upgrade-ns.ps1 -nsip 10.1.1.2 -url "https://mywebserver/build-11.1-47.14_nc.tgz" -adminaccount nsadmin -adminpassword "mysupersecretpassword" -callhome -noreboot
    Uses a different set of Netscaler credentials, enables callhome and does not reboot after upgrade completetion
 #>
-Param
+param
 (
-    [Parameter(Mandatory=$true)]$nsip,
-    [String]$adminaccount="nsroot",
-    [String]$adminpassword="nsroot",
-    [switch]$https,
-    [Parameter(Mandatory=$true)]$url,
-    [switch]$noreboot,
-    [switch]$callhome
+	[Parameter(Mandatory = $true)] $nsip,
+	[string]$adminaccount = "nsroot",
+	[string]$adminpassword = "nsroot",
+	[switch]$https,
+	[Parameter(Mandatory = $true)] $url,
+	[switch]$noreboot,
+	[switch]$callhome
 )
 
 
@@ -46,15 +46,15 @@ Param
 #Netscaler NSIP login information
 if ($https)
 {
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls
-    [System.Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}
-    write-host "Connecting HTTPS" -ForegroundColor Yellow
-    $hostname = "https://" + $nsip
+	[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls
+	[System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $true }
+	Write-Host "Connecting HTTPS" -ForegroundColor Yellow
+	$hostname = "https://" + $nsip
 }
 else
 {
-    write-host "Connecting HTTP" -ForegroundColor Yellow
-    $hostname = "http://" + $nsip
+	Write-Host "Connecting HTTP" -ForegroundColor Yellow
+	$hostname = "http://" + $nsip
 }
 
 
@@ -71,131 +71,131 @@ $password = $adminpassword
 
 function Login {
 
-    # Login to NetScaler and save session to global variable
-    $body = ConvertTo-JSON @{
-        "login"=@{
-            "username"="$username";
-            "password"="$password"
-            }
-        }
-    try {
-    Invoke-RestMethod -uri "$hostname/nitro/v1/config/login" -body $body -SessionVariable NSSession `
-    -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.login+json"} -Method POST |Out-Null
-    $Script:NSSession = $local:NSSession
-    }
-    Catch
-    {
-    throw $_
-    }
+	# Login to NetScaler and save session to global variable
+	$body = ConvertTo-Json @{
+		"login" = @{
+			"username" = "$username";
+			"password" = "$password"
+		}
+	}
+	try {
+		Invoke-RestMethod -Uri "$hostname/nitro/v1/config/login" -Body $body -SessionVariable NSSession `
+ 			-Headers @{ "Content-Type" = "application/vnd.com.citrix.netscaler.login+json" } -Method POST | Out-Null
+		$Script:NSSession = $local:NSSession
+	}
+	catch
+	{
+		throw $_
+	}
 }
 
 
 #Upgrade the NS function
-function upgradens ($url, $callhome) {
+function upgradens ($url,$callhome) {
 
-    # Support function called by CipherGroup
-    $body = ConvertTo-JSON @{
-        "install"=@{
-            "url" = $url;
-            "y" = $false;
-            "l" = $ch;
-            }
-        }
+	# Support function called by CipherGroup
+	$body = ConvertTo-Json @{
+		"install" = @{
+			"url" = $url;
+			"y" = $false;
+			"l" = $ch;
+		}
+	}
 
-    try {
-    Invoke-RestMethod -uri "$hostname/nitro/v1/config/install" -body $body -WebSession $NSSession `
-    -Headers @{"Content-Type"="application/json"} -Method POST -TimeoutSec 600 |Out-Null
-    }
-    Catch
-    {
-    throw $_
-    }
-  
+	try {
+		Invoke-RestMethod -Uri "$hostname/nitro/v1/config/install" -Body $body -WebSession $NSSession `
+ 			-Headers @{ "Content-Type" = "application/json" } -Method POST -TimeoutSec 600 | Out-Null
+	}
+	catch
+	{
+		throw $_
+	}
+
 }
 
 #Gets Netscaler Version
-function get-nsversion () {
+function Get-NSVersion () {
 
-    # Support function called by CipherGroup
+	# Support function called by CipherGroup
 
 
-    try {
-    $version = Invoke-RestMethod -uri "$hostname/nitro/v1/config/nsversion" -WebSession $NSSession `
-    -Headers @{"Content-Type"="application/json"} -Method GET 
-    }
-    Catch
-    {
-    throw $_
-    }
+	try {
+		$version = Invoke-RestMethod -Uri "$hostname/nitro/v1/config/nsversion" -WebSession $NSSession `
+ 			-Headers @{ "Content-Type" = "application/json" } -Method GET
+	}
+	catch
+	{
+		throw $_
+	}
 
-return $version.nsversion  
+	return $version.nsversion
 }
 
 
 #Reboots netscaler
 function reboot-ns {
 
-    $body = ConvertTo-JSON @{
-        "reboot"=@{
-            "warm" = $false;
-            }
-        }
+	$body = ConvertTo-Json @{
+		"reboot" = @{
+			"warm" = $false;
+		}
+	}
 
-    Invoke-RestMethod -uri "$hostname/nitro/v1/config/reboot" -body $body -WebSession $NSSession `
-    -Headers @{"Content-Type"="application/json"} -Method POST|Out-Null
+	Invoke-RestMethod -Uri "$hostname/nitro/v1/config/reboot" -Body $body -WebSession $NSSession `
+ 		-Headers @{ "Content-Type" = "application/json" } -Method POST | Out-Null
 }
 
 function check-nsversion {
-    #Checks for supported NS version
-    $info = Invoke-RestMethod -uri "$hostname/nitro/v1/config/nsversion" -WebSession $NSSession `
-    -Headers @{"Content-Type"="application/json"} -Method GET
-    $version = $info.nsversion.version
-    $version = $version.Substring(12,4)
+	#Checks for supported NS version
+	$info = Invoke-RestMethod -Uri "$hostname/nitro/v1/config/nsversion" -WebSession $NSSession `
+ 		-Headers @{ "Content-Type" = "application/json" } -Method GET
+	$version = $info.nsversion.version
+	$version = $version.Substring(12,4)
 
-    if ($version -lt 11.1)
-    {
-    throw "Version of Netsaler firmware must be greater or equal to 11.1"
-    }
+	if ($version -lt 11.1)
+	{
+		throw "Version of Netsaler firmware must be greater or equal to 11.1"
+	}
 
 }
 
 ###Script starts here
 
 #Logs into netscaler
-write-host "Logging in..."
+Write-Host "Logging in..."
 Login
 
 #Check for supported firmware version
 check-nsversion
 
 #workaround for variable type
-if($callhome)
+if ($callhome)
 {
-   write-host "Enabling callhome"
-   $ch = $true
+	Write-Host "Enabling callhome"
+	$ch = $true
 }
 else
 {
-    write-host "Disabling callhome"
-    $ch = $false
+	Write-Host "Disabling callhome"
+	$ch = $false
 }
 
-$version = get-nsversion
-write-host "Netscaler Version:" $version.version
-write-host "Upgrading Netscaler at $nsip..."
-$timetorun = measure-command {upgradens $url $callhome}
+$version = Get-NSVersion
+Write-Host "Netscaler Version:" $version.version
+Write-Host "Upgrading Netscaler at $nsip..."
+$timetorun = Measure-Command { upgradens $url $callhome }
 
-write-host "Upgrade completed..." -ForegroundColor Green
-write-host "Took $timetorun..."
+Write-Host "Upgrade completed..." -ForegroundColor Green
+Write-Host "Took $timetorun..."
 
-if(!$noreboot)
+if (!$noreboot)
 {
-write-host "Rebooting $nsip..."
-reboot-ns
+	Write-Host "Rebooting $nsip..."
+	reboot-ns
 }
 else
 {
-write-host "Upgrade for $nsip completed. Make sure to reboot NS."
+	Write-Host "Upgrade for $nsip completed. Make sure to reboot NS."
 }
 
 

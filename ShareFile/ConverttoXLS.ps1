@@ -5,59 +5,59 @@
 #Path for CSVs
 $csvpath = "C:\Users\JoeUser\Documents\CSV\"
 #Grabs the current date
-$date = get-date -Format MM-dd
+$date = Get-Date -Format MM-dd
 
 #Excel file name
 $finalxls = "ShareFileState-" + $date + ".xlsx"
 
 #Grabs all CSVs from above path
-$csvs = Get-ChildItem -path $csvpath -Filter *.csv
-$y=$csvs.Count
+$csvs = Get-ChildItem -Path $csvpath -Filter *.csv
+$y = $csvs.Count
 Write-Host “Detected the following CSV files: ($y)”
 
 foreach ($csv in $csvs)
 {
-Write-Host ” “$csv.Name
+	Write-Host ” “ $csv.Name
 }
 $outputfilename = $csvpath + $finalxls
 
 #opens Excel
-$excelapp = new-object -comobject Excel.Application
+$excelapp = New-Object -ComObject Excel.Application
 $excelapp.DisplayAlerts = $false #no alerts
 $excelapp.visible = $false #hides app running
 #Creates new workbook
 $xlsx = $excelapp.Workbooks.Add()
 
 
-$sheet=1
+$sheet = 1
 
 foreach ($csv in $csvs)
 {
-    write-host $csv.Name
-	
+	Write-Host $csv.Name
+
 	#Adds worksheet
-    $worksheet = $xlsx.Worksheets.Item($sheet)
-    $worksheet.Name = $csv.baseName
-	
+	$worksheet = $xlsx.Worksheets.Item($sheet)
+	$worksheet.Name = $csv.BaseName
+
 	#Opens CSV and copies to new worksheet
-    $tempcsv = $excelapp.Workbooks.Open($csv.FullName)
-    $tempsheet = $tempcsv.Worksheets.Item(1)
-    $tempSheet.UsedRange.Copy() | Out-Null
-    $worksheet.Paste()
-    $tempcsv.close()
+	$tempcsv = $excelapp.Workbooks.Open($csv.FullName)
+	$tempsheet = $tempcsv.Worksheets.Item(1)
+	$tempSheet.UsedRange.Copy() | Out-Null
+	$worksheet.Paste()
+	$tempcsv.close()
 
-     #Select all used cells
-     $range = $worksheet.UsedRange
-	 #Converts to table to make pretty
-     $table = "table" + $sheet
-     $worksheet.ListObjects.Add([Microsoft.Office.Interop.Excel.XlListObjectSourceType]::xlSrcRange, $excelapp.ActiveCell.CurrentRegion, $null, [Microsoft.Office.Interop.Excel.XlYesNoGuess]::xlYes).Name = $table
-     $worksheet.ListObjects.Item($table).TableStyle = "TableStyleMedium2"
-        
-     #Autofit the columns
-     $range.EntireColumn.Autofit() | out-null
+	#Select all used cells
+	$range = $worksheet.UsedRange
+	#Converts to table to make pretty
+	$table = "table" + $sheet
+	$worksheet.ListObjects.Add([Microsoft.Office.Interop.Excel.XlListObjectSourceType]::xlSrcRange,$excelapp.ActiveCell.CurrentRegion,$null,[Microsoft.Office.Interop.Excel.XlYesNoGuess]::xlYes).Name = $table
+	$worksheet.ListObjects.Item($table).TableStyle = "TableStyleMedium2"
 
-	 #counter
-    $sheet++
+	#Autofit the columns
+	$range.EntireColumn.Autofit() | Out-Null
+
+	#counter
+	$sheet++
 }
 
 #close Excel

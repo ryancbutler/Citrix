@@ -1,4 +1,4 @@
-#Rough ShareFile functions to aide migration to new Storage Zone.
+﻿#Rough ShareFile functions to aide migration to new Storage Zone.
 #Ryan Butler 8-29-16
 #version 0.5
 
@@ -10,121 +10,121 @@
 Add-PSSnapin Sharefile
 
 #######################Start Functions###################
-function get-zoneid ($zonename){
-    #gets id of zone
-    $zone = Send-SFRequest –Client $sfClient –Method GET -Entity Zones|where{$_.name -like $zonename}
-    return $zone.id
+function get-zoneid ($zonename) {
+	#gets id of zone
+	$zone = Send-SFRequest –Client $sfClient –Method GET -Entity Zones | Where-Object { $_.Name -like $zonename }
+	return $zone.id
 }
 
 function get-sharedfolders {
-    #gets all shared folders
-    $folders = Send-SFRequest –Client $sfClient –Method GET -Entity Items -id "allshared" -Expand "Children"
-    $results = @()
-        foreach ($child in $folders.Children)
-        {
-        $folder = Send-SFRequest –Client $sfClient –Method GET -Entity Items -id $child.Id -Expand "Zone,Owner"
+	#gets all shared folders
+	$folders = Send-SFRequest –Client $sfClient –Method GET -Entity Items -Id "allshared" -Expand "Children"
+	$results = @()
+	foreach ($child in $folders.Children)
+	{
+		$folder = Send-SFRequest –Client $sfClient –Method GET -Entity Items -Id $child.id -Expand "Zone,Owner"
 
-            if (($folder.Zone.Name -notlike $newsfname) -AND ($folder.Name -notlike "Customizations"))
-            {
-            $temp = new-object PSObject -Property @{
-                Name = $folder.Name
-                FolderID = $folder.Id
-                Zone = $folder.Zone.Name
-                ZoneID = $folder.Zone.ID
-                Owner = $folder.Owner.FullName
-                SizeMB = [MATH]::Round(($folder.FileSizeBytes)/1MB,2)
-            }
+		if (($folder.Zone.Name -notlike $newsfname) -and ($folder.Name -notlike "Customizations"))
+		{
+			$temp = New-Object PSObject -Property @{
+				Name = $folder.Name
+				FolderID = $folder.id
+				Zone = $folder.Zone.Name
+				ZoneID = $folder.Zone.id
+				Owner = $folder.Owner.FullName
+				SizeMB = [math]::Round(($folder.FileSizeBytes) / 1MB,2)
+			}
 
-            $results += $temp
-            }
-        }
-    return $results
+			$results += $temp
+		}
+	}
+	return $results
 }
 
 function get-migratedsharedfolders {
-    #gets migrated shared folders for reporting
-    $folders = Send-SFRequest –Client $sfClient –Method GET -Entity Items -id "allshared" -Expand "Children"
-    $results = @()
-        foreach ($child in $folders.Children)
-        {
-        $folder = Send-SFRequest –Client $sfClient –Method GET -Entity Items -id  $child.Id -Expand "Zone,Owner"
+	#gets migrated shared folders for reporting
+	$folders = Send-SFRequest –Client $sfClient –Method GET -Entity Items -Id "allshared" -Expand "Children"
+	$results = @()
+	foreach ($child in $folders.Children)
+	{
+		$folder = Send-SFRequest –Client $sfClient –Method GET -Entity Items -Id $child.id -Expand "Zone,Owner"
 
-            if (($folder.Zone.Name -like $newsfname))
-            {
-            $temp = new-object PSObject -Property @{
-                Name = $folder.Name
-                FolderID = $folder.Id
-                Zone = $folder.Zone.Name
-                ZoneID = $folder.Zone.ID
-                Owner = $folder.Owner.FullName
-                SizeMB = [MATH]::Round(($folder.FileSizeBytes)/1MB,2)
-            }
+		if (($folder.Zone.Name -like $newsfname))
+		{
+			$temp = New-Object PSObject -Property @{
+				Name = $folder.Name
+				FolderID = $folder.id
+				Zone = $folder.Zone.Name
+				ZoneID = $folder.Zone.id
+				Owner = $folder.Owner.FullName
+				SizeMB = [math]::Round(($folder.FileSizeBytes) / 1MB,2)
+			}
 
-            $results += $temp
-            }
-        }
-    return $results
+			$results += $temp
+		}
+	}
+	return $results
 }
 
 function get-migratedsfusers {
-    #gets users migrated
-    $users = Send-SFRequest –Client $sfClient –Method GET -Entity Accounts/Employees -select "Id,Email"
-    $results = @()
-        foreach ($user in $users)
-        {
-        $found = Send-SFRequest –Client $sfClient –Method GET -Entity Users -Id $user.id -Expand "DefaultZone,DiskSpace,HomeFolder"
-            if ($found.DefaultZone.Name -like $newsfname)
-            {
-            $temp = new-object PSObject -Property @{
-                Name = $found.FullNameShort
-                UserID = $found.Id
-                Zone = $found.DefaultZone.Name
-                ZoneID = $found.DefaultZone.ID
-                DiskSpaceMB = [MATH]::Round(($found.HomeFolder.FileSizeBytes)/1MB,2)
-            }
+	#gets users migrated
+	$users = Send-SFRequest –Client $sfClient –Method GET -Entity Accounts/Employees -select "Id,Email"
+	$results = @()
+	foreach ($user in $users)
+	{
+		$found = Send-SFRequest –Client $sfClient –Method GET -Entity Users -Id $user.id -Expand "DefaultZone,DiskSpace,HomeFolder"
+		if ($found.DefaultZone.Name -like $newsfname)
+		{
+			$temp = New-Object PSObject -Property @{
+				Name = $found.FullNameShort
+				UserID = $found.id
+				Zone = $found.DefaultZone.Name
+				ZoneID = $found.DefaultZone.id
+				DiskSpaceMB = [math]::Round(($found.HomeFolder.FileSizeBytes) / 1MB,2)
+			}
 
-            $results += $temp
-            }
-        }
-    return $results
+			$results += $temp
+		}
+	}
+	return $results
 }
 
 
 function get-sfusers {
-    #gets users and zone information
-    $users = Send-SFRequest –Client $sfClient –Method GET -Entity Accounts/Employees -select "Id,Email"
-    $results = @()
-        foreach ($user in $users)
-        {
-        $found = Send-SFRequest –Client $sfClient –Method GET -Entity Users -Id $user.id -Expand "DefaultZone,DiskSpace,HomeFolder"
-            if ($found.DefaultZone.Name -notlike $newsfname)
-            {
-            $temp = new-object PSObject -Property @{
-                Name = $found.FullNameShort
-                UserID = $found.Id
-                Zone = $found.DefaultZone.Name
-                ZoneID = $found.DefaultZone.ID
-                DiskSpaceMB = [MATH]::Round(($found.HomeFolder.FileSizeBytes)/1MB,2)
-            }
+	#gets users and zone information
+	$users = Send-SFRequest –Client $sfClient –Method GET -Entity Accounts/Employees -select "Id,Email"
+	$results = @()
+	foreach ($user in $users)
+	{
+		$found = Send-SFRequest –Client $sfClient –Method GET -Entity Users -Id $user.id -Expand "DefaultZone,DiskSpace,HomeFolder"
+		if ($found.DefaultZone.Name -notlike $newsfname)
+		{
+			$temp = New-Object PSObject -Property @{
+				Name = $found.FullNameShort
+				UserID = $found.id
+				Zone = $found.DefaultZone.Name
+				ZoneID = $found.DefaultZone.id
+				DiskSpaceMB = [math]::Round(($found.HomeFolder.FileSizeBytes) / 1MB,2)
+			}
 
-            $results += $temp
-            }
-        }
-    return $results
+			$results += $temp
+		}
+	}
+	return $results
 }
 
-function move-sffolder ($folderid, $newsf) {
-    #moves user to different zone
-    $newzone = '{"Zone": { "Id":"' +  $newsf + '" }}'
-    write-host $newzone
-    Send-SFRequest –Client $sfClient –Method PATCH -Entity Items -id $folderid -Bodytext $newzone
+function move-sffolder ($folderid,$newsf) {
+	#moves user to different zone
+	$newzone = '{"Zone": { "Id":"' + $newsf + '" }}'
+	Write-Host $newzone
+	Send-SFRequest –Client $sfClient –Method PATCH -Entity Items -Id $folderid -Bodytext $newzone
 }
 
-function move-sfuser ($userid, $newsf) {
-    #moves shared folder to different zone
-    $newzone = '{"DefaultZone": { "Id":"' +  $newsf + '" }}'
-    write-host $newzone
-    Send-SFRequest –Client $sfClient –Method PATCH -Entity Users -id $userid -Bodytext $newzone
+function move-sfuser ($userid,$newsf) {
+	#moves shared folder to different zone
+	$newzone = '{"DefaultZone": { "Id":"' + $newsf + '" }}'
+	Write-Host $newzone
+	Send-SFRequest –Client $sfClient –Method PATCH -Entity Users -Id $userid -Bodytext $newzone
 }
 #######################End Functions###################
 

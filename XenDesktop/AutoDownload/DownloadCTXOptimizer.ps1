@@ -7,7 +7,7 @@
 #$CitrixPassword = $env:citrixpassword
 
 #Uncomment to use credential object
-$creds = get-credential
+$creds = Get-Credential
 $CitrixUserName = $creds.UserName
 $CitrixPassword = $creds.GetNetworkCredential().Password
 
@@ -19,15 +19,15 @@ Invoke-WebRequest "https://identity.citrix.com/Utility/STS/Sign-In" -SessionVari
 
 #Set Form
 $form = @{
-    "persistent" = "1"
-    "userName" = $CitrixUserName
-    "loginbtn" = ""
-    "password" = $CitrixPassword
-    "returnURL" = "https://www.citrix.com/login/bridge?url=https%3A%2F%2Fsupport.citrix.com%2Farticle%2FCTX224676%3Fdownload"
-    "errorURL" = 'https://www.citrix.com/login?url=https%3A%2F%2Fsupport.citrix.com%2Farticle%2FCTX224676%3Fdownload&err=y'
-    }
+	"persistent" = "1"
+	"userName" = $CitrixUserName
+	"loginbtn" = ""
+	"password" = $CitrixPassword
+	"returnURL" = "https://www.citrix.com/login/bridge?url=https%3A%2F%2Fsupport.citrix.com%2Farticle%2FCTX224676%3Fdownload"
+	"errorURL" = 'https://www.citrix.com/login?url=https%3A%2F%2Fsupport.citrix.com%2Farticle%2FCTX224676%3Fdownload&err=y'
+}
 #Authenticate
-Invoke-WebRequest -Uri ("https://identity.citrix.com/Utility/STS/Sign-In") -WebSession $websession -Method POST -Body $form -contentType "application/x-www-form-urlencoded" -UseBasicParsing
+Invoke-WebRequest -Uri ("https://identity.citrix.com/Utility/STS/Sign-In") -WebSession $websession -Method POST -Body $form -ContentType "application/x-www-form-urlencoded" -UseBasicParsing
 
 #Download File
 Invoke-WebRequest -WebSession $websession -Uri "https://phoenix.citrix.com/supportkc/filedownload?uri=/filedownload/CTX224676/CitrixOptimizer.zip" -OutFile $downloadpath -Verbose -UseBasicParsing

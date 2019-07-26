@@ -24,70 +24,70 @@
     \Netscaler\CTX227928.ps1 -nsip "192.168.1.6" -https
     Grabs version from single NSIP using HTTPS (requires TLS1-ECDHE-RSA-AES256-SHA at least)
 #>
-[cmdletbinding()]
-Param
+[CmdletBinding()]
+param
 (
-    [Parameter(Mandatory=$true,ValueFromPipeline=$true,ValueFromPipelineByPropertyName=$true)]$nsip,
-    [String]$adminaccount="nsroot",
-    [String]$adminpassword="nsroot",
-    [switch]$https
+	[Parameter(Mandatory = $true,ValueFromPipeline = $true,ValueFromPipelineByPropertyName = $true)] $nsip,
+	[string]$adminaccount = "nsroot",
+	[string]$adminpassword = "nsroot",
+	[switch]$https
 )
 
-begin{
-function Login-ns ($hostname) {
-    # Login to NetScaler and save session to global variable
-       $body = ConvertTo-JSON @{
-           "login"=@{
-               "username"="$adminaccount";
-               "password"="$adminpassword"
-               }
-           }
-       try {
-       Invoke-RestMethod -uri "$hostname/nitro/v1/config/login" -body $body -SessionVariable NSSession `
-       -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.login+json"} -Method POST|Out-Null
-       $Script:NSSession = $local:NSSession
-       }
-       Catch
-       {
-       throw $_
-       }
-   }
-   
-function Logout-ns {
-   #logs out of Netscaler
-       $body = ConvertTo-JSON @{
-           "logout"=@{
-               }
-           }
-       Invoke-RestMethod -uri "$hostname/nitro/v1/config/logout" -body $body -WebSession $NSSession `
-       -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.logout+json"} -Method POST|Out-Null
-   }
+begin {
+	function Login-ns ($hostname) {
+		# Login to NetScaler and save session to global variable
+		$body = ConvertTo-Json @{
+			"login" = @{
+				"username" = "$adminaccount";
+				"password" = "$adminpassword"
+			}
+		}
+		try {
+			Invoke-RestMethod -Uri "$hostname/nitro/v1/config/login" -Body $body -SessionVariable NSSession `
+ 				-Headers @{ "Content-Type" = "application/vnd.com.citrix.netscaler.login+json" } -Method POST | Out-Null
+			$Script:NSSession = $local:NSSession
+		}
+		catch
+		{
+			throw $_
+		}
+	}
 
-function check-nsversion {
-    $info = Invoke-RestMethod -uri "$hostname/nitro/v1/config/nsversion" -WebSession $NSSession `
-    -Headers @{"Content-Type"="application/json"} -Method GET
-    $version = $info.nsversion.version
-    return $version
-}
+	function Logout-ns {
+		#logs out of Netscaler
+		$body = ConvertTo-Json @{
+			"logout" = @{
+			}
+		}
+		Invoke-RestMethod -Uri "$hostname/nitro/v1/config/logout" -Body $body -WebSession $NSSession `
+ 			-Headers @{ "Content-Type" = "application/vnd.com.citrix.netscaler.logout+json" } -Method POST | Out-Null
+	}
+
+	function check-nsversion {
+		$info = Invoke-RestMethod -Uri "$hostname/nitro/v1/config/nsversion" -WebSession $NSSession `
+ 			-Headers @{ "Content-Type" = "application/json" } -Method GET
+		$version = $info.nsversion.version
+		return $version
+	}
 }
 
-process{
-    if ($https)
-    {
-        [System.Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls
-        [System.Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}
-        write-verbose "Connecting HTTPS"
-        $hostname = "https://" + $nsip
-    }
-    else
-    {
-        write-verbose "Connecting HTTP"
-        $hostname = "http://" + $nsip
-    }
-    login-ns $hostname
-    $nsversion = New-Object PSCustomObject
-    $nsversion|add-member -NotePropertyName "NSIP" -NotePropertyValue $nsip
-    $nsversion|add-member -NotePropertyName "VERSION" -NotePropertyValue (check-nsversion)
-    return $nsversion
-    Logout-ns
+process {
+	if ($https)
+	{
+		[System.Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls
+		[System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $true }
+		Write-Verbose "Connecting HTTPS"
+		$hostname = "https://" + $nsip
+	}
+	else
+	{
+		Write-Verbose "Connecting HTTP"
+		$hostname = "http://" + $nsip
+	}
+	login-ns $hostname
+	$nsversion = New-Object PSCustomObject
+	$nsversion | Add-Member -NotePropertyName "NSIP" -NotePropertyValue $nsip
+	$nsversion | Add-Member -NotePropertyName "VERSION" -NotePropertyValue (check-nsversion)
+	return $nsversion
+	Logout-ns
 }

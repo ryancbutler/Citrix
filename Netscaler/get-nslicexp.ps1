@@ -30,7 +30,7 @@
 12-28-16: Better error handling when grabbing license files and NS version check
 08-27-17: Formatting for PS Gallery
 
-#> 
+#>
 
 <#
 .SYNOPSIS
@@ -54,12 +54,12 @@
 .EXAMPLE
    ./get-nslicexp -nsip 10.1.1.2 -adminaccount nsadmin -adminpassword "mysupersecretpassword"
    #>
-Param
+param
 (
-    [Parameter(Mandatory=$true)]$nsip,
-    [String]$adminaccount="nsroot",
-    [String]$adminpassword="nsroot",
-    [switch]$https
+	[Parameter(Mandatory = $true)] $nsip,
+	[string]$adminaccount = "nsroot",
+	[string]$adminpassword = "nsroot",
+	[switch]$https
 )
 
 
@@ -67,15 +67,15 @@ Param
 #Netscaler NSIP login information
 if ($https)
 {
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls
-    [System.Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}
-    write-host "Connecting HTTPS" -ForegroundColor Yellow
-    $hostname = "https://" + $nsip
+	[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls
+	[System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $true }
+	Write-Host "Connecting HTTPS" -ForegroundColor Yellow
+	$hostname = "https://" + $nsip
 }
 else
 {
-    write-host "Connecting HTTP" -ForegroundColor Yellow
-    $hostname = "http://" + $nsip
+	Write-Host "Connecting HTTP" -ForegroundColor Yellow
+	$hostname = "http://" + $nsip
 }
 
 
@@ -90,173 +90,173 @@ $password = $adminpassword
 ###############################
 
 
-function Login-ns {
- # Login to NetScaler and save session to global variable
-    $body = ConvertTo-JSON @{
-        "login"=@{
-            "username"="$username";
-            "password"="$password"
-            }
-        }
-    try {
-    Invoke-RestMethod -uri "$hostname/nitro/v1/config/login" -body $body -SessionVariable NSSession `
-    -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.login+json"} -Method POST|Out-Null
-    $Script:NSSession = $local:NSSession
-    }
-    Catch
-    {
-    throw $_
-    }
+function login-ns {
+	# Login to NetScaler and save session to global variable
+	$body = ConvertTo-Json @{
+		"login" = @{
+			"username" = "$username";
+			"password" = "$password"
+		}
+	}
+	try {
+		Invoke-RestMethod -Uri "$hostname/nitro/v1/config/login" -Body $body -SessionVariable NSSession `
+ 			-Headers @{ "Content-Type" = "application/vnd.com.citrix.netscaler.login+json" } -Method POST | Out-Null
+		$Script:NSSession = $local:NSSession
+	}
+	catch
+	{
+		throw $_
+	}
 }
 
 function Logout-ns {
-#logs out of Netscaler
-    $body = ConvertTo-JSON @{
-        "logout"=@{
-            }
-        }
-    Invoke-RestMethod -uri "$hostname/nitro/v1/config/logout" -body $body -WebSession $NSSession `
-    -Headers @{"Content-Type"="application/vnd.com.citrix.netscaler.logout+json"} -Method POST|Out-Null
+	#logs out of Netscaler
+	$body = ConvertTo-Json @{
+		"logout" = @{
+		}
+	}
+	Invoke-RestMethod -Uri "$hostname/nitro/v1/config/logout" -Body $body -WebSession $NSSession `
+ 		-Headers @{ "Content-Type" = "application/vnd.com.citrix.netscaler.logout+json" } -Method POST | Out-Null
 }
 
 
 function get-nslicense ($filename) {
-    #Grabs license file
-    $urlstring = "$hostname" + "/nitro/v1/config/systemfile/" + $filename+ "?args=filelocation:%2Fnsconfig%2Flicense"
-try {
-    $info = Invoke-RestMethod -uri $urlstring -WebSession $NSSession `
-    -Headers @{"Content-Type"="application/json"} -Method GET
-    $msg = $info.message
-}
-Catch
-{
-    throw "Error reading license(s): " + ($_.ErrorDetails.Message|ConvertFrom-Json).message
-    
-}
+	#Grabs license file
+	$urlstring = "$hostname" + "/nitro/v1/config/systemfile/" + $filename + "?args=filelocation:%2Fnsconfig%2Flicense"
+	try {
+		$info = Invoke-RestMethod -Uri $urlstring -WebSession $NSSession `
+ 			-Headers @{ "Content-Type" = "application/json" } -Method GET
+		$msg = $info.message
+	}
+	catch
+	{
+		throw "Error reading license(s): " + ($_.ErrorDetails.message | ConvertFrom-Json).message
 
-#Converts returned value from BASE64 to UTF8
-$info = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($info.systemfile.filecontent))
+	}
 
-#Grabs needed line that has licensing information
-$lines = $info.Split("`n")|where{$_ -like "*INCREMENT*"}
+	#Converts returned value from BASE64 to UTF8
+	$info = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($info.systemfile.filecontent))
 
-#Parses needed date values from string
-$licdates = @()
-foreach ($line in $lines)
-{
-$licdate = $line.Split()
+	#Grabs needed line that has licensing information
+	$lines = $info.Split("`n") | Where-Object { $_ -like "*INCREMENT*" }
+
+	#Parses needed date values from string
+	$licdates = @()
+	foreach ($line in $lines)
+	{
+		$licdate = $line.Split()
 
 
-    if ($licdate[4] -like "permanent")
-    {
-    $expire = "PERMANENT"
-    }
-    else
-    {
-    $expire = [datetime]$licdate[4]
-    }
+		if ($licdate[4] -like "permanent")
+		{
+			$expire = "PERMANENT"
+		}
+		else
+		{
+			$expire = [datetime]$licdate[4]
+		}
 
-#adds date to object
-$temp = New-Object PSObject -Property @{
-                expdate = $expire
-                feature = $licdate[1]
-                }
-$licdates += $temp
-}
+		#adds date to object
+		$temp = New-Object PSObject -Property @{
+			expdate = $expire
+			feature = $licdate[1]
+		}
+		$licdates += $temp
+	}
 
-Return $licdates
+	return $licdates
 }
 
 function get-nslicenses {
-#Gets available license files
-    
-    $urlstring = "$hostname" + "/nitro/v1/config/systemfile?args=filelocation:%2Fnsconfig%2Flicense"
-try {
-    $info = Invoke-RestMethod -uri $urlstring -WebSession $NSSession `
-    -Headers @{"Content-Type"="application/json"} -Method GET
-    $msg = $info.message
-}
-Catch
-{
-    throw "Error locating license(s): " + ($_.ErrorDetails.Message|ConvertFrom-Json).message
-    
-}
+	#Gets available license files
 
-$info = $info.systemfile|where{$_.filename -like "*.lic"}
+	$urlstring = "$hostname" + "/nitro/v1/config/systemfile?args=filelocation:%2Fnsconfig%2Flicense"
+	try {
+		$info = Invoke-RestMethod -Uri $urlstring -WebSession $NSSession `
+ 			-Headers @{ "Content-Type" = "application/json" } -Method GET
+		$msg = $info.message
+	}
+	catch
+	{
+		throw "Error locating license(s): " + ($_.ErrorDetails.message | ConvertFrom-Json).message
 
-Return $info
+	}
+
+	$info = $info.systemfile | Where-Object { $_.filename -like "*.lic" }
+
+	return $info
 }
 
 function check-nslicense () {
-#Compares dates and places results into array
-$currentnstime = get-nstime
-write-host "Current NS Time:" $currentnstime
-$licenses = get-nslicenses
-$results = @()
+	#Compares dates and places results into array
+	$currentnstime = get-nstime
+	Write-Host "Current NS Time:" $currentnstime
+	$licenses = get-nslicenses
+	$results = @()
 
-    foreach($license in $licenses)
-    {
-    write-host $license.filename -ForegroundColor Green
-    $dates = get-nslicense($license.filename)
-        foreach ($date in $dates)
-        {
-            if ($date.expdate -like "PERMANENT")
-            {
-                $expires = "PERMANENT"
-                $span = "9999"
-            }
-            else
-            {
-                $expires = ($date.expdate).ToShortDateString()
-                $span = (New-TimeSpan -Start $currentnstime -end ($date.expdate)).days
-            }
-        
-        $temp = New-Object PSObject -Property @{
-                Expires = $expires
-                Feature = $date.feature
-                DaysLeft = $span
-                LicenseFile = $license.filename
-                NSIP = $nsip
-                }
-        $results += $temp    
-        }
+	foreach ($license in $licenses)
+	{
+		Write-Host $license.filename -ForegroundColor Green
+		$dates = get-nslicense ($license.filename)
+		foreach ($date in $dates)
+		{
+			if ($date.expdate -like "PERMANENT")
+			{
+				$expires = "PERMANENT"
+				$span = "9999"
+			}
+			else
+			{
+				$expires = ($date.expdate).ToShortDateString()
+				$span = (New-TimeSpan -Start $currentnstime -End ($date.expdate)).days
+			}
 
-    }
-return $results
+			$temp = New-Object PSObject -Property @{
+				Expires = $expires
+				feature = $date.feature
+				DaysLeft = $span
+				LicenseFile = $license.filename
+				NSIP = $nsip
+			}
+			$results += $temp
+		}
+
+	}
+	return $results
 }
 
 function get-nstime {
-#Gets currenttime from netscaler
-    
-    $urlstring = "$hostname" + "/nitro/v1/config/nsconfig"
-try {
-    $info = Invoke-RestMethod -uri $urlstring -WebSession $NSSession `
-    -Headers @{"Content-Type"="application/json"} -Method GET
-    $currentdatestr = $info.nsconfig.currentsytemtime
-}
-Catch
-{
-    $ErrorMessage = $_.Exception.Response
-    $FailedItem = $_.Exception.ItemName
-}
-#converts string into datetime format
-#Fix for dates with single day integer
-$currentdatestr = $currentdatestr -replace "  "," 0"
-$nsdate = [DateTime]::ParseExact($currentdatestr,"ddd MMM dd HH:mm:ss yyyy",$null)
-return $nsdate
+	#Gets currenttime from netscaler
+
+	$urlstring = "$hostname" + "/nitro/v1/config/nsconfig"
+	try {
+		$info = Invoke-RestMethod -Uri $urlstring -WebSession $NSSession `
+ 			-Headers @{ "Content-Type" = "application/json" } -Method GET
+		$currentdatestr = $info.nsconfig.currentsytemtime
+	}
+	catch
+	{
+		$ErrorMessage = $_.Exception.Response
+		$FailedItem = $_.Exception.ItemName
+	}
+	#converts string into datetime format
+	#Fix for dates with single day integer
+	$currentdatestr = $currentdatestr -replace "  "," 0"
+	$nsdate = [datetime]::ParseExact($currentdatestr,"ddd MMM dd HH:mm:ss yyyy",$null)
+	return $nsdate
 }
 
 function check-nsversion {
-    #Checks for supported NS version
-    $info = Invoke-RestMethod -uri "$hostname/nitro/v1/config/nsversion" -WebSession $NSSession `
-    -Headers @{"Content-Type"="application/json"} -Method GET
-    $version = $info.nsversion.version
-    $version = $version.Substring(12,4)
+	#Checks for supported NS version
+	$info = Invoke-RestMethod -Uri "$hostname/nitro/v1/config/nsversion" -WebSession $NSSession `
+ 		-Headers @{ "Content-Type" = "application/json" } -Method GET
+	$version = $info.nsversion.version
+	$version = $version.Substring(12,4)
 
-    if ($version -lt 10.5)
-    {
-    throw "Version of Netsaler firmware must be greater or equal to 10.5"
-    }
+	if ($version -lt 10.5)
+	{
+		throw "Version of Netsaler firmware must be greater or equal to 10.5"
+	}
 
 }
 
@@ -264,4 +264,4 @@ function check-nsversion {
 login-ns
 check-nsversion
 return check-nslicense
-logout-ns
+Logout-ns
