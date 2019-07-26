@@ -14,19 +14,20 @@ $CitrixPassword = $creds.GetNetworkCredential().Password
 $downloadpath = "C:\temp\VDAWorkstationSetup_7_15_4000.exe"
 
 #Initialize Session 
-$R=Invoke-WebRequest "https://identity.citrix.com/Utility/STS/Sign-In?ReturnUrl=%2fUtility%2fSTS%2fsaml20%2fpost-binding-response" -SessionVariable websession
+Invoke-WebRequest "https://identity.citrix.com/Utility/STS/Sign-In?ReturnUrl=%2fUtility%2fSTS%2fsaml20%2fpost-binding-response" -SessionVariable websession -UseBasicParsing
 
 #Set Form
-$form = $R.Forms[0]
-$form.Fields["persistent"]="on"
-$form.Fields["userName"]= $CitrixUserName
-$form.Fields["password"]= $CitrixPassword
+$form = @{
+    "persistent" = "on"
+    "userName" = $CitrixUserName
+    "password" = $CitrixPassword
+}
 
 #Authenticate
-$R=Invoke-WebRequest -Uri ("https://identity.citrix.com/Utility/STS/Sign-In?ReturnUrl=%2fUtility%2fSTS%2fsaml20%2fpost-binding-response") -WebSession $websession -Method POST -Body $form.Fields -contentType "application/x-www-form-urlencoded" -UseBasicParsing
+Invoke-WebRequest -Uri ("https://identity.citrix.com/Utility/STS/Sign-In?ReturnUrl=%2fUtility%2fSTS%2fsaml20%2fpost-binding-response") -WebSession $websession -Method POST -Body $form -contentType "application/x-www-form-urlencoded" -UseBasicParsing
 
 
-$download = Invoke-WebRequest -Uri ('https://secureportal.citrix.com/Licensing/Downloads/UnrestrictedDL.aspx?DLID=15441&URL=https://downloads.citrix.com/15441/VDAWorkstationSetup_7_15_4000.exe') -WebSession $websession -UseBasicParsing -MaximumRedirection 100 -Verbose -Method GET
+$download = Invoke-WebRequest -Uri ('https://secureportal.citrix.com/Licensing/Downloads/UnrestrictedDL.aspx?DLID=15441&URL=https://downloads.citrix.com/15441/VDAWorkstationSetup_7_15_4000.exe') -WebSession $websession -UseBasicParsing -Verbose -Method GET
 $webform = @{
     "chkAccept" = "on"
     "__EVENTTARGET" = "clbAccept_0"
