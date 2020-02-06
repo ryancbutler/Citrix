@@ -16,7 +16,7 @@
 .PARAMETER CitrixPassword
   Citrix.com password
 .EXAMPLE
-  Get-CTXBinary -DLNUMBER "16834" -DLEXE "Citrix_Virtual_Apps_and_Desktops_7_1912.iso" -CitrixUserName "mycitrixusername" -CitrixPassword "mycitrixpassword"-DLPATH "C:\temp\"
+  Get-CTXBinary -DLNUMBER "16834" -DLEXE "Citrix_Virtual_Apps_and_Desktops_7_1912.iso" -CitrixUserName "mycitrixusername" -CitrixPassword "mycitrixpassword" -DLPATH "C:\temp\"
 #>
 	Param(
 		[Parameter(Mandatory = $true)]$DLNUMBER,
