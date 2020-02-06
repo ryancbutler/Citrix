@@ -6,6 +6,8 @@ PowerShell Scripts that download Citrix media used in a pipeline, Packer job, ta
 ## GetVDAS.ps1
 Example to download multiple VDAs or ISOs using `Get-CTXBinary` function
 
+![Get Binary Dialog](https://github.com/ryancbutler/Citrix/blob/images/images/get-binary.png?raw=true)
+
 ## Helpers/Get-CTXBinary.ps1
 Function to download ISO or VDA binary.  See **Helpers/Downloads.csv** for mapping
 
