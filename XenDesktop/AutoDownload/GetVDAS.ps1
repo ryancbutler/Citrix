@@ -1,6 +1,9 @@
 #Example script to download multiple VDA and ISO versions from Citrix.com
 #Ryan Butler 2/6/2020
 
+#Speeds up the download (Thanks James Kindon)
+$ProgressPreference = "SilentlyContinue"
+
 #Folder dialog
 #https://stackoverflow.com/questions/25690038/how-do-i-properly-use-the-folderbrowserdialog-in-powershell
 Function Get-Folder($initialDirectory)
@@ -37,5 +40,6 @@ $dls = $downloads | Out-GridView -PassThru -Title "Select VDA or ISO to download
 
 #Processes each download
 foreach ($dl in $dls) {
+    write-host "Downloading $($dl.filename)..."
     Get-CTXBinary -DLNUMBER $dl.dlnumber -DLEXE $dl.filename -CitrixUserName $CitrixUserName -CitrixPassword $CitrixPassword -DLPATH $path
 }
