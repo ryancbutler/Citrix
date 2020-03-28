@@ -36,7 +36,20 @@
 	}
 
 	#Authenticate
-	Invoke-WebRequest -Uri ("https://identity.citrix.com/Utility/STS/Sign-In?ReturnUrl=%2fUtility%2fSTS%2fsaml20%2fpost-binding-response") -WebSession $websession -Method POST -Body $form -ContentType "application/x-www-form-urlencoded" -UseBasicParsing|Out-Null
+	try {
+		Invoke-WebRequest -Uri ("https://identity.citrix.com/Utility/STS/Sign-In?ReturnUrl=%2fUtility%2fSTS%2fsaml20%2fpost-binding-response") -WebSession $websession -Method POST -Body $form -ContentType "application/x-www-form-urlencoded" -UseBasicParsing -ErrorAction Stop | Out-Null
+	}
+	catch {
+		if ($_.Exception.Response.StatusCode.Value__ -eq 500) {
+			Write-Verbose "500 returned on auth. Ignoring"
+			Write-Verbose $_.Exception.Response
+			Write-Verbose $_.Exception.Message
+		}
+		else {
+			throw $_
+		}
+
+	}
 	$dlurl = "https://secureportal.citrix.com/Licensing/Downloads/UnrestrictedDL.aspx?DLID=${DLNUMBER}&URL=https://downloads.citrix.com/${DLNUMBER}/${DLEXE}"
 	$download = Invoke-WebRequest -Uri $dlurl -WebSession $websession -UseBasicParsing -Method GET
 	$webform = @{ 
