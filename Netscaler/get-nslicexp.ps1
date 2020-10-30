@@ -1,6 +1,6 @@
 <#PSScriptInfo
 
-.VERSION 1.2
+.VERSION 1.3
 
 .GUID 39040cec-77cd-48c0-8f25-4f8a19568740
 
@@ -29,6 +29,7 @@
 12-14-16: Fix for double digit days
 12-28-16: Better error handling when grabbing license files and NS version check
 08-27-17: Formatting for PS Gallery
+10-30-20: Date conversion fix
 
 #>
 
@@ -242,7 +243,7 @@ function get-nstime {
 	#converts string into datetime format
 	#Fix for dates with single day integer
 	$currentdatestr = $currentdatestr -replace "  "," 0"
-	$nsdate = [datetime]::ParseExact($currentdatestr,"ddd MMM dd HH:mm:ss yyyy",$null)
+	$nsdate = [datetime]::ParseExact($currentdatestr,"ddd MMM dd HH:mm:ss yyyy",[System.Globalization.CultureInfo]::InvariantCulture)
 	return $nsdate
 }
 
