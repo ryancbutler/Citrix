@@ -59,7 +59,7 @@ If running PowerShell version 5 or above you can install via [Microsoft PowerShe
 Install-Script -Name set-nsssl -Scope currentuser
 ```
 
-### Inspect
+#### Inspect
 ```
 Save-Script -Name set-nsssl -Path <path>
 ```
@@ -91,6 +91,7 @@ Grabs Netscaler license expiration information via REST.  See [Blog Post](http:/
 - 12-14-16: Fix for double digit days
 - 12-28-16: Better error handling when grabbing license files and NS version check
 - 08-28-17: Formatted and added to PS gallery
+- 10-30-20: Date handling fix for other locales. Better output handling
 
 ### PS Gallery
 If running PowerShell version 5 or above you can install via [Microsoft PowerShell Gallery](https://www.powershellgallery.com/)
@@ -99,7 +100,7 @@ If running PowerShell version 5 or above you can install via [Microsoft PowerShe
 ```
 Install-Script -Name get-nslicexp -Scope currentuser
 ```
-### Inspect
+#### Inspect
 ```
 Save-Script -Name get-nslicexp -Path <path>
 ```
