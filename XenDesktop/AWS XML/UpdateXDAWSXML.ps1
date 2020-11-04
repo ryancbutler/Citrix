@@ -13,11 +13,11 @@ $products = @()
 
 $return.products.psobject.Properties | ForEach-Object { $products += $_.value }
 
-$products = $products | Where-Object { $_.Attributes.currentGeneration -eq "Yes" -and $_.Attributes.operatingsystem -eq "Windows" }
+$products = $products | Where-Object { $_.Attributes.currentGeneration -eq "Yes" -and $_.Attributes.operatingsystem -eq "Windows" }|Select-Object attributes -ExpandProperty attributes |Sort-Object instanceType -Unique
 
 foreach ($prod in $products)
 {
-	$attr = $prod.Attributes
+	$attr = $prod
 
 	$mem = ($attr.memory) -replace " GiB",""
 	[decimal]$mem = ($mem) -replace ",",""
@@ -44,7 +44,7 @@ foreach ($prod in $products)
 	}
 	$inner = $awsxml.CreateElement('EC2ComputeUnits',$instance.NamespaceURI)
 	$inner = $instance.AppendChild($inner)
-	$inner.InnerText = $ecu
+	$inner.InnerText = $ecu -replace "NA","0"
 
 	$inner = $awsxml.CreateElement('VirtualCores',$instance.NamespaceURI)
 	$inner = $instance.AppendChild($inner)

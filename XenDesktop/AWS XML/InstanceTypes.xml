@@ -1,0 +1,3216 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+AWS Instance Types
+
+This configuration file describes the AWS instance types.
+
+AWS instance types are documented by Amazon, but they are not available through the API, so XenDesktop services
+are unable to discover them dynamically at run time. This configuration file stores the descriptions in such a way
+that they can be ammended manually.
+
+As with all system configuration formats, this file must be edited with care. Please ensure that the rules of the
+XSD schema file are followed. (The XSD schema file can be found in the same folder as this XML file within your
+installation.) Mistakes in this file could result in no service offerings being available for AWS-based cloud
+connections, or in exceptions being thrown from the Citrix Host Service.
+
+-->
+<InstanceTypes xmlns="http://www.citrix.com/2013/xd/AWSInstanceTypes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.citrix.com/2013/xd/AWSInstanceTypes InstanceTypes.xsd">
+  <InstanceType>
+    <Name>c4.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>15360</MemoryMiB>
+    <EC2ComputeUnits>31</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c4.2xlarge</APIName>
+    <NetworkPerformance>High</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c4.4xlarge (vCPU:16)</Name>
+    <MemoryMiB>30720</MemoryMiB>
+    <EC2ComputeUnits>62</EC2ComputeUnits>
+    <VirtualCores>16</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c4.4xlarge</APIName>
+    <NetworkPerformance>High</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c4.8xlarge (vCPU:36)</Name>
+    <MemoryMiB>61440</MemoryMiB>
+    <EC2ComputeUnits>132</EC2ComputeUnits>
+    <VirtualCores>36</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c4.8xlarge</APIName>
+    <NetworkPerformance>10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c4.large (vCPU:2)</Name>
+    <MemoryMiB>3840.00</MemoryMiB>
+    <EC2ComputeUnits>8</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c4.large</APIName>
+    <NetworkPerformance>Moderate</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c4.xlarge (vCPU:4)</Name>
+    <MemoryMiB>7680.0</MemoryMiB>
+    <EC2ComputeUnits>16</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c4.xlarge</APIName>
+    <NetworkPerformance>High</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5.12xlarge (vCPU:48)</Name>
+    <MemoryMiB>98304</MemoryMiB>
+    <EC2ComputeUnits>188</EC2ComputeUnits>
+    <VirtualCores>48</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5.12xlarge</APIName>
+    <NetworkPerformance>12 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5.18xlarge (vCPU:72)</Name>
+    <MemoryMiB>147456</MemoryMiB>
+    <EC2ComputeUnits>281</EC2ComputeUnits>
+    <VirtualCores>72</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5.18xlarge</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5.24xlarge (vCPU:96)</Name>
+    <MemoryMiB>196608</MemoryMiB>
+    <EC2ComputeUnits>375</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5.24xlarge</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>16384</MemoryMiB>
+    <EC2ComputeUnits>39</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5.2xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5.4xlarge (vCPU:16)</Name>
+    <MemoryMiB>32768</MemoryMiB>
+    <EC2ComputeUnits>73</EC2ComputeUnits>
+    <VirtualCores>16</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5.4xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5.9xlarge (vCPU:36)</Name>
+    <MemoryMiB>73728</MemoryMiB>
+    <EC2ComputeUnits>139</EC2ComputeUnits>
+    <VirtualCores>36</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5.9xlarge</APIName>
+    <NetworkPerformance>10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5.large (vCPU:2)</Name>
+    <MemoryMiB>4096</MemoryMiB>
+    <EC2ComputeUnits>10</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5.large</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5.metal (vCPU:96)</Name>
+    <MemoryMiB>196608</MemoryMiB>
+    <EC2ComputeUnits>375</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5.metal</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5.xlarge (vCPU:4)</Name>
+    <MemoryMiB>8192</MemoryMiB>
+    <EC2ComputeUnits>20</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5.xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5a.12xlarge (vCPU:48)</Name>
+    <MemoryMiB>98304</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>48</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>true</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5a.12xlarge</APIName>
+    <NetworkPerformance>12 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5a.16xlarge (vCPU:64)</Name>
+    <MemoryMiB>131072</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>64</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>true</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5a.16xlarge</APIName>
+    <NetworkPerformance>20 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5a.24xlarge (vCPU:96)</Name>
+    <MemoryMiB>196608</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>true</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5a.24xlarge</APIName>
+    <NetworkPerformance>20 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5a.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>16384</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>true</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5a.2xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5a.4xlarge (vCPU:16)</Name>
+    <MemoryMiB>32768</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>16</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>true</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5a.4xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5a.8xlarge (vCPU:32)</Name>
+    <MemoryMiB>65536</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>32</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>true</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5a.8xlarge</APIName>
+    <NetworkPerformance>10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5a.large (vCPU:2)</Name>
+    <MemoryMiB>4096</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>true</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5a.large</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5a.xlarge (vCPU:4)</Name>
+    <MemoryMiB>8192</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>true</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5a.xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5ad.12xlarge (vCPU:48)</Name>
+    <MemoryMiB>98304</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>48</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5ad.12xlarge</APIName>
+    <NetworkPerformance>12 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5ad.16xlarge (vCPU:64)</Name>
+    <MemoryMiB>131072</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>64</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5ad.16xlarge</APIName>
+    <NetworkPerformance>20 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5ad.24xlarge (vCPU:96)</Name>
+    <MemoryMiB>196608</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5ad.24xlarge</APIName>
+    <NetworkPerformance>20 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5ad.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>16384</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5ad.2xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5ad.4xlarge (vCPU:16)</Name>
+    <MemoryMiB>32768</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>16</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5ad.4xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5ad.8xlarge (vCPU:32)</Name>
+    <MemoryMiB>65536</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>32</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5ad.8xlarge</APIName>
+    <NetworkPerformance>10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5ad.large (vCPU:2)</Name>
+    <MemoryMiB>4096</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5ad.large</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5ad.xlarge (vCPU:4)</Name>
+    <MemoryMiB>8192</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5ad.xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5d.12xlarge (vCPU:48)</Name>
+    <MemoryMiB>98304</MemoryMiB>
+    <EC2ComputeUnits>188</EC2ComputeUnits>
+    <VirtualCores>48</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5d.12xlarge</APIName>
+    <NetworkPerformance>12 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5d.18xlarge (vCPU:72)</Name>
+    <MemoryMiB>147456</MemoryMiB>
+    <EC2ComputeUnits>281</EC2ComputeUnits>
+    <VirtualCores>72</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5d.18xlarge</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5d.24xlarge (vCPU:96)</Name>
+    <MemoryMiB>196608</MemoryMiB>
+    <EC2ComputeUnits>375</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5d.24xlarge</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5d.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>16384</MemoryMiB>
+    <EC2ComputeUnits>39</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5d.2xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5d.4xlarge (vCPU:16)</Name>
+    <MemoryMiB>32768</MemoryMiB>
+    <EC2ComputeUnits>73</EC2ComputeUnits>
+    <VirtualCores>16</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5d.4xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5d.9xlarge (vCPU:36)</Name>
+    <MemoryMiB>73728</MemoryMiB>
+    <EC2ComputeUnits>139</EC2ComputeUnits>
+    <VirtualCores>36</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5d.9xlarge</APIName>
+    <NetworkPerformance>10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5d.large (vCPU:2)</Name>
+    <MemoryMiB>4096</MemoryMiB>
+    <EC2ComputeUnits>10</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5d.large</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5d.metal (vCPU:96)</Name>
+    <MemoryMiB>196608</MemoryMiB>
+    <EC2ComputeUnits>375</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5d.metal</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5d.xlarge (vCPU:4)</Name>
+    <MemoryMiB>8192</MemoryMiB>
+    <EC2ComputeUnits>20</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5d.xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5n.18xlarge (vCPU:72)</Name>
+    <MemoryMiB>196608</MemoryMiB>
+    <EC2ComputeUnits>281</EC2ComputeUnits>
+    <VirtualCores>72</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5n.18xlarge</APIName>
+    <NetworkPerformance>100 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5n.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>21504</MemoryMiB>
+    <EC2ComputeUnits>39</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5n.2xlarge</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5n.4xlarge (vCPU:16)</Name>
+    <MemoryMiB>43008</MemoryMiB>
+    <EC2ComputeUnits>73</EC2ComputeUnits>
+    <VirtualCores>16</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5n.4xlarge</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5n.9xlarge (vCPU:36)</Name>
+    <MemoryMiB>98304</MemoryMiB>
+    <EC2ComputeUnits>139</EC2ComputeUnits>
+    <VirtualCores>36</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5n.9xlarge</APIName>
+    <NetworkPerformance>50 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5n.large (vCPU:2)</Name>
+    <MemoryMiB>5376.00</MemoryMiB>
+    <EC2ComputeUnits>10</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5n.large</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5n.metal (vCPU:72)</Name>
+    <MemoryMiB>196608</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>72</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5n.metal</APIName>
+    <NetworkPerformance>100 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>c5n.xlarge (vCPU:4)</Name>
+    <MemoryMiB>10752.0</MemoryMiB>
+    <EC2ComputeUnits>20</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>c5n.xlarge</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>d2.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>62464</MemoryMiB>
+    <EC2ComputeUnits>28</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>d2.2xlarge</APIName>
+    <NetworkPerformance>High</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>d2.4xlarge (vCPU:16)</Name>
+    <MemoryMiB>124928</MemoryMiB>
+    <EC2ComputeUnits>56</EC2ComputeUnits>
+    <VirtualCores>16</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>d2.4xlarge</APIName>
+    <NetworkPerformance>High</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>d2.8xlarge (vCPU:36)</Name>
+    <MemoryMiB>249856</MemoryMiB>
+    <EC2ComputeUnits>116</EC2ComputeUnits>
+    <VirtualCores>36</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>d2.8xlarge</APIName>
+    <NetworkPerformance>10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>d2.xlarge (vCPU:4)</Name>
+    <MemoryMiB>31232.0</MemoryMiB>
+    <EC2ComputeUnits>14</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>d2.xlarge</APIName>
+    <NetworkPerformance>Moderate</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>f1.16xlarge (vCPU:64)</Name>
+    <MemoryMiB>999424</MemoryMiB>
+    <EC2ComputeUnits>201</EC2ComputeUnits>
+    <VirtualCores>64</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>f1.16xlarge</APIName>
+    <NetworkPerformance>20 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>f1.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>124928</MemoryMiB>
+    <EC2ComputeUnits>31</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>f1.2xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>g3.16xlarge (vCPU:64)</Name>
+    <MemoryMiB>499712</MemoryMiB>
+    <EC2ComputeUnits>201</EC2ComputeUnits>
+    <VirtualCores>64</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>g3.16xlarge</APIName>
+    <NetworkPerformance>20 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>g3.4xlarge (vCPU:16)</Name>
+    <MemoryMiB>124928</MemoryMiB>
+    <EC2ComputeUnits>58</EC2ComputeUnits>
+    <VirtualCores>16</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>g3.4xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>g3.8xlarge (vCPU:32)</Name>
+    <MemoryMiB>249856</MemoryMiB>
+    <EC2ComputeUnits>97</EC2ComputeUnits>
+    <VirtualCores>32</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>g3.8xlarge</APIName>
+    <NetworkPerformance>10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>g3s.xlarge (vCPU:4)</Name>
+    <MemoryMiB>31232.0</MemoryMiB>
+    <EC2ComputeUnits>13</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>g3s.xlarge</APIName>
+    <NetworkPerformance>10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>g4dn.12xlarge (vCPU:48)</Name>
+    <MemoryMiB>196608</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>48</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>g4dn.12xlarge</APIName>
+    <NetworkPerformance>50 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>g4dn.16xlarge (vCPU:64)</Name>
+    <MemoryMiB>262144</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>64</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>g4dn.16xlarge</APIName>
+    <NetworkPerformance>50 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>g4dn.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>32768</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>g4dn.2xlarge</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>g4dn.4xlarge (vCPU:16)</Name>
+    <MemoryMiB>65536</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>16</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>g4dn.4xlarge</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>g4dn.8xlarge (vCPU:32)</Name>
+    <MemoryMiB>131072</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>32</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>g4dn.8xlarge</APIName>
+    <NetworkPerformance>50 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>g4dn.metal (vCPU:96)</Name>
+    <MemoryMiB>393216</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>g4dn.metal</APIName>
+    <NetworkPerformance>100 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>g4dn.xlarge (vCPU:4)</Name>
+    <MemoryMiB>16384</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>g4dn.xlarge</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>h1.16xlarge (vCPU:64)</Name>
+    <MemoryMiB>262144</MemoryMiB>
+    <EC2ComputeUnits>201</EC2ComputeUnits>
+    <VirtualCores>64</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>h1.16xlarge</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>h1.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>32768</MemoryMiB>
+    <EC2ComputeUnits>31</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>h1.2xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>h1.4xlarge (vCPU:16)</Name>
+    <MemoryMiB>65536</MemoryMiB>
+    <EC2ComputeUnits>58</EC2ComputeUnits>
+    <VirtualCores>16</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>h1.4xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>h1.8xlarge (vCPU:32)</Name>
+    <MemoryMiB>131072</MemoryMiB>
+    <EC2ComputeUnits>97</EC2ComputeUnits>
+    <VirtualCores>32</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>h1.8xlarge</APIName>
+    <NetworkPerformance>10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>i3.16xlarge (vCPU:64)</Name>
+    <MemoryMiB>499712</MemoryMiB>
+    <EC2ComputeUnits>201</EC2ComputeUnits>
+    <VirtualCores>64</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>i3.16xlarge</APIName>
+    <NetworkPerformance>20 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>i3.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>62464</MemoryMiB>
+    <EC2ComputeUnits>31</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>i3.2xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>i3.4xlarge (vCPU:16)</Name>
+    <MemoryMiB>124928</MemoryMiB>
+    <EC2ComputeUnits>58</EC2ComputeUnits>
+    <VirtualCores>16</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>i3.4xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>i3.8xlarge (vCPU:32)</Name>
+    <MemoryMiB>249856</MemoryMiB>
+    <EC2ComputeUnits>97</EC2ComputeUnits>
+    <VirtualCores>32</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>i3.8xlarge</APIName>
+    <NetworkPerformance>10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>i3.large (vCPU:2)</Name>
+    <MemoryMiB>15616.00</MemoryMiB>
+    <EC2ComputeUnits>8</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>i3.large</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>i3.metal (vCPU:64)</Name>
+    <MemoryMiB>524288</MemoryMiB>
+    <EC2ComputeUnits>208</EC2ComputeUnits>
+    <VirtualCores>64</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>i3.metal</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>i3.xlarge (vCPU:4)</Name>
+    <MemoryMiB>31232.0</MemoryMiB>
+    <EC2ComputeUnits>16</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>i3.xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>i3en.12xlarge (vCPU:48)</Name>
+    <MemoryMiB>393216</MemoryMiB>
+    <EC2ComputeUnits>168</EC2ComputeUnits>
+    <VirtualCores>48</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>i3en.12xlarge</APIName>
+    <NetworkPerformance>50 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>i3en.24xlarge (vCPU:96)</Name>
+    <MemoryMiB>786432</MemoryMiB>
+    <EC2ComputeUnits>337</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>i3en.24xlarge</APIName>
+    <NetworkPerformance>100 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>i3en.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>65536</MemoryMiB>
+    <EC2ComputeUnits>37</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>i3en.2xlarge</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>i3en.3xlarge (vCPU:12)</Name>
+    <MemoryMiB>98304</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>12</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>i3en.3xlarge</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>i3en.6xlarge (vCPU:24)</Name>
+    <MemoryMiB>196608</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>24</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>i3en.6xlarge</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>i3en.large (vCPU:2)</Name>
+    <MemoryMiB>16384</MemoryMiB>
+    <EC2ComputeUnits>10</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>i3en.large</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>i3en.metal (vCPU:96)</Name>
+    <MemoryMiB>786432</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>i3en.metal</APIName>
+    <NetworkPerformance>100 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>i3en.xlarge (vCPU:4)</Name>
+    <MemoryMiB>32768</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>i3en.xlarge</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m4.10xlarge (vCPU:40)</Name>
+    <MemoryMiB>163840</MemoryMiB>
+    <EC2ComputeUnits>124.5</EC2ComputeUnits>
+    <VirtualCores>40</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m4.10xlarge</APIName>
+    <NetworkPerformance>10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m4.16xlarge (vCPU:64)</Name>
+    <MemoryMiB>262144</MemoryMiB>
+    <EC2ComputeUnits>188</EC2ComputeUnits>
+    <VirtualCores>64</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m4.16xlarge</APIName>
+    <NetworkPerformance>20 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m4.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>32768</MemoryMiB>
+    <EC2ComputeUnits>26</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m4.2xlarge</APIName>
+    <NetworkPerformance>High</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m4.4xlarge (vCPU:16)</Name>
+    <MemoryMiB>65536</MemoryMiB>
+    <EC2ComputeUnits>53.5</EC2ComputeUnits>
+    <VirtualCores>16</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m4.4xlarge</APIName>
+    <NetworkPerformance>High</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m4.large (vCPU:2)</Name>
+    <MemoryMiB>8192</MemoryMiB>
+    <EC2ComputeUnits>6.5</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m4.large</APIName>
+    <NetworkPerformance>Moderate</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m4.xlarge (vCPU:4)</Name>
+    <MemoryMiB>16384</MemoryMiB>
+    <EC2ComputeUnits>13</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m4.xlarge</APIName>
+    <NetworkPerformance>High</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5.12xlarge (vCPU:48)</Name>
+    <MemoryMiB>196608</MemoryMiB>
+    <EC2ComputeUnits>168</EC2ComputeUnits>
+    <VirtualCores>48</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5.12xlarge</APIName>
+    <NetworkPerformance>10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5.16xlarge (vCPU:64)</Name>
+    <MemoryMiB>262144</MemoryMiB>
+    <EC2ComputeUnits>256</EC2ComputeUnits>
+    <VirtualCores>64</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5.16xlarge</APIName>
+    <NetworkPerformance>20 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5.24xlarge (vCPU:96)</Name>
+    <MemoryMiB>393216</MemoryMiB>
+    <EC2ComputeUnits>337</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5.24xlarge</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>32768</MemoryMiB>
+    <EC2ComputeUnits>37</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5.2xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5.4xlarge (vCPU:16)</Name>
+    <MemoryMiB>65536</MemoryMiB>
+    <EC2ComputeUnits>70</EC2ComputeUnits>
+    <VirtualCores>16</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5.4xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5.8xlarge (vCPU:32)</Name>
+    <MemoryMiB>131072</MemoryMiB>
+    <EC2ComputeUnits>128</EC2ComputeUnits>
+    <VirtualCores>32</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5.8xlarge</APIName>
+    <NetworkPerformance>10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5.large (vCPU:2)</Name>
+    <MemoryMiB>8192</MemoryMiB>
+    <EC2ComputeUnits>10</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5.large</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5.metal (vCPU:96)</Name>
+    <MemoryMiB>393216</MemoryMiB>
+    <EC2ComputeUnits>345</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5.metal</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5.xlarge (vCPU:4)</Name>
+    <MemoryMiB>16384</MemoryMiB>
+    <EC2ComputeUnits>16</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5.xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5a.12xlarge (vCPU:48)</Name>
+    <MemoryMiB>196608</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>48</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5a.12xlarge</APIName>
+    <NetworkPerformance>10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5a.16xlarge (vCPU:64)</Name>
+    <MemoryMiB>262144</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>64</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5a.16xlarge</APIName>
+    <NetworkPerformance>12 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5a.24xlarge (vCPU:96)</Name>
+    <MemoryMiB>393216</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5a.24xlarge</APIName>
+    <NetworkPerformance>20 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5a.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>32768</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5a.2xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5a.4xlarge (vCPU:16)</Name>
+    <MemoryMiB>65536</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>16</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5a.4xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5a.8xlarge (vCPU:32)</Name>
+    <MemoryMiB>131072</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>32</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5a.8xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5a.large (vCPU:2)</Name>
+    <MemoryMiB>8192</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5a.large</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5a.xlarge (vCPU:4)</Name>
+    <MemoryMiB>16384</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5a.xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5ad.12xlarge (vCPU:48)</Name>
+    <MemoryMiB>196608</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>48</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5ad.12xlarge</APIName>
+    <NetworkPerformance>10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5ad.16xlarge (vCPU:64)</Name>
+    <MemoryMiB>262144</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>64</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5ad.16xlarge</APIName>
+    <NetworkPerformance>12 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5ad.24xlarge (vCPU:96)</Name>
+    <MemoryMiB>393216</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5ad.24xlarge</APIName>
+    <NetworkPerformance>20 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5ad.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>32768</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5ad.2xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5ad.4xlarge (vCPU:16)</Name>
+    <MemoryMiB>65536</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>16</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5ad.4xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5ad.8xlarge (vCPU:32)</Name>
+    <MemoryMiB>131072</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>32</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5ad.8xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5ad.large (vCPU:2)</Name>
+    <MemoryMiB>8192</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5ad.large</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5ad.xlarge (vCPU:4)</Name>
+    <MemoryMiB>16384</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5ad.xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5d.12xlarge (vCPU:48)</Name>
+    <MemoryMiB>196608</MemoryMiB>
+    <EC2ComputeUnits>168</EC2ComputeUnits>
+    <VirtualCores>48</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5d.12xlarge</APIName>
+    <NetworkPerformance>10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5d.16xlarge (vCPU:64)</Name>
+    <MemoryMiB>262144</MemoryMiB>
+    <EC2ComputeUnits>256</EC2ComputeUnits>
+    <VirtualCores>64</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5d.16xlarge</APIName>
+    <NetworkPerformance>20 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5d.24xlarge (vCPU:96)</Name>
+    <MemoryMiB>393216</MemoryMiB>
+    <EC2ComputeUnits>337</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5d.24xlarge</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5d.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>32768</MemoryMiB>
+    <EC2ComputeUnits>37</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5d.2xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5d.4xlarge (vCPU:16)</Name>
+    <MemoryMiB>65536</MemoryMiB>
+    <EC2ComputeUnits>70</EC2ComputeUnits>
+    <VirtualCores>16</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5d.4xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5d.8xlarge (vCPU:32)</Name>
+    <MemoryMiB>131072</MemoryMiB>
+    <EC2ComputeUnits>128</EC2ComputeUnits>
+    <VirtualCores>32</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5d.8xlarge</APIName>
+    <NetworkPerformance>10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5d.large (vCPU:2)</Name>
+    <MemoryMiB>8192</MemoryMiB>
+    <EC2ComputeUnits>10</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5d.large</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5d.metal (vCPU:96)</Name>
+    <MemoryMiB>393216</MemoryMiB>
+    <EC2ComputeUnits>345</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5d.metal</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5d.xlarge (vCPU:4)</Name>
+    <MemoryMiB>16384</MemoryMiB>
+    <EC2ComputeUnits>16</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5d.xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5dn.12xlarge (vCPU:48)</Name>
+    <MemoryMiB>196608</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>48</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5dn.12xlarge</APIName>
+    <NetworkPerformance>50 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5dn.16xlarge (vCPU:64)</Name>
+    <MemoryMiB>262144</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>64</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5dn.16xlarge</APIName>
+    <NetworkPerformance>75 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5dn.24xlarge (vCPU:96)</Name>
+    <MemoryMiB>393216</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5dn.24xlarge</APIName>
+    <NetworkPerformance>100 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5dn.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>32768</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5dn.2xlarge</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5dn.4xlarge (vCPU:16)</Name>
+    <MemoryMiB>65536</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>16</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5dn.4xlarge</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5dn.8xlarge (vCPU:32)</Name>
+    <MemoryMiB>131072</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>32</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5dn.8xlarge</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5dn.large (vCPU:2)</Name>
+    <MemoryMiB>8192</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5dn.large</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5dn.metal (vCPU:96)</Name>
+    <MemoryMiB>393216</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5dn.metal</APIName>
+    <NetworkPerformance>100 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5dn.xlarge (vCPU:4)</Name>
+    <MemoryMiB>16384</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5dn.xlarge</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5n.12xlarge (vCPU:48)</Name>
+    <MemoryMiB>196608</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>48</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5n.12xlarge</APIName>
+    <NetworkPerformance>50 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5n.16xlarge (vCPU:64)</Name>
+    <MemoryMiB>262144</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>64</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5n.16xlarge</APIName>
+    <NetworkPerformance>75 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5n.24xlarge (vCPU:96)</Name>
+    <MemoryMiB>393216</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5n.24xlarge</APIName>
+    <NetworkPerformance>100 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5n.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>32768</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5n.2xlarge</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5n.4xlarge (vCPU:16)</Name>
+    <MemoryMiB>65536</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>16</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5n.4xlarge</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5n.8xlarge (vCPU:32)</Name>
+    <MemoryMiB>131072</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>32</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5n.8xlarge</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5n.large (vCPU:2)</Name>
+    <MemoryMiB>8192</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5n.large</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5n.metal (vCPU:96)</Name>
+    <MemoryMiB>393216</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5n.metal</APIName>
+    <NetworkPerformance>100 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5n.xlarge (vCPU:4)</Name>
+    <MemoryMiB>16384</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5n.xlarge</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>p2.16xlarge (vCPU:64)</Name>
+    <MemoryMiB>749568</MemoryMiB>
+    <EC2ComputeUnits>201</EC2ComputeUnits>
+    <VirtualCores>64</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>p2.16xlarge</APIName>
+    <NetworkPerformance>20 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>p2.8xlarge (vCPU:32)</Name>
+    <MemoryMiB>499712</MemoryMiB>
+    <EC2ComputeUnits>97</EC2ComputeUnits>
+    <VirtualCores>32</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>p2.8xlarge</APIName>
+    <NetworkPerformance>10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>p2.xlarge (vCPU:4)</Name>
+    <MemoryMiB>62464</MemoryMiB>
+    <EC2ComputeUnits>16</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>p2.xlarge</APIName>
+    <NetworkPerformance>High</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>p3.16xlarge (vCPU:64)</Name>
+    <MemoryMiB>499712</MemoryMiB>
+    <EC2ComputeUnits>201</EC2ComputeUnits>
+    <VirtualCores>64</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>p3.16xlarge</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>p3.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>62464</MemoryMiB>
+    <EC2ComputeUnits>31</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>p3.2xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>p3.8xlarge (vCPU:32)</Name>
+    <MemoryMiB>249856</MemoryMiB>
+    <EC2ComputeUnits>97</EC2ComputeUnits>
+    <VirtualCores>32</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>p3.8xlarge</APIName>
+    <NetworkPerformance>10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>p3dn.24xlarge (vCPU:96)</Name>
+    <MemoryMiB>786432</MemoryMiB>
+    <EC2ComputeUnits>337</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>p3dn.24xlarge</APIName>
+    <NetworkPerformance>100 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r4.16xlarge (vCPU:64)</Name>
+    <MemoryMiB>499712</MemoryMiB>
+    <EC2ComputeUnits>201</EC2ComputeUnits>
+    <VirtualCores>64</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r4.16xlarge</APIName>
+    <NetworkPerformance>20 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r4.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>62464</MemoryMiB>
+    <EC2ComputeUnits>31</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r4.2xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r4.4xlarge (vCPU:16)</Name>
+    <MemoryMiB>124928</MemoryMiB>
+    <EC2ComputeUnits>58</EC2ComputeUnits>
+    <VirtualCores>16</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r4.4xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r4.8xlarge (vCPU:32)</Name>
+    <MemoryMiB>249856</MemoryMiB>
+    <EC2ComputeUnits>97</EC2ComputeUnits>
+    <VirtualCores>32</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r4.8xlarge</APIName>
+    <NetworkPerformance>10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r4.large (vCPU:2)</Name>
+    <MemoryMiB>15616.00</MemoryMiB>
+    <EC2ComputeUnits>8</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r4.large</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r4.xlarge (vCPU:4)</Name>
+    <MemoryMiB>31232.0</MemoryMiB>
+    <EC2ComputeUnits>16</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r4.xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5.12xlarge (vCPU:48)</Name>
+    <MemoryMiB>393216</MemoryMiB>
+    <EC2ComputeUnits>168</EC2ComputeUnits>
+    <VirtualCores>48</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5.12xlarge</APIName>
+    <NetworkPerformance>10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5.16xlarge (vCPU:64)</Name>
+    <MemoryMiB>524288</MemoryMiB>
+    <EC2ComputeUnits>256</EC2ComputeUnits>
+    <VirtualCores>64</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5.16xlarge</APIName>
+    <NetworkPerformance>20 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5.24xlarge (vCPU:96)</Name>
+    <MemoryMiB>786432</MemoryMiB>
+    <EC2ComputeUnits>337</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5.24xlarge</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>65536</MemoryMiB>
+    <EC2ComputeUnits>37</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5.2xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5.4xlarge (vCPU:16)</Name>
+    <MemoryMiB>131072</MemoryMiB>
+    <EC2ComputeUnits>70</EC2ComputeUnits>
+    <VirtualCores>16</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5.4xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5.8xlarge (vCPU:32)</Name>
+    <MemoryMiB>262144</MemoryMiB>
+    <EC2ComputeUnits>128</EC2ComputeUnits>
+    <VirtualCores>32</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5.8xlarge</APIName>
+    <NetworkPerformance>10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5.large (vCPU:2)</Name>
+    <MemoryMiB>16384</MemoryMiB>
+    <EC2ComputeUnits>10</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5.large</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5.metal (vCPU:96)</Name>
+    <MemoryMiB>786432</MemoryMiB>
+    <EC2ComputeUnits>347</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5.metal</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5.xlarge (vCPU:4)</Name>
+    <MemoryMiB>32768</MemoryMiB>
+    <EC2ComputeUnits>19</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5.xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5a.12xlarge (vCPU:48)</Name>
+    <MemoryMiB>393216</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>48</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5a.12xlarge</APIName>
+    <NetworkPerformance>10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5a.16xlarge (vCPU:64)</Name>
+    <MemoryMiB>524288</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>64</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5a.16xlarge</APIName>
+    <NetworkPerformance>12 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5a.24xlarge (vCPU:96)</Name>
+    <MemoryMiB>786432</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5a.24xlarge</APIName>
+    <NetworkPerformance>20 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5a.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>65536</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5a.2xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5a.4xlarge (vCPU:16)</Name>
+    <MemoryMiB>131072</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>16</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5a.4xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5a.8xlarge (vCPU:32)</Name>
+    <MemoryMiB>262144</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>32</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5a.8xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5a.large (vCPU:2)</Name>
+    <MemoryMiB>16384</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5a.large</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5a.xlarge (vCPU:4)</Name>
+    <MemoryMiB>32768</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5a.xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5ad.12xlarge (vCPU:48)</Name>
+    <MemoryMiB>393216</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>48</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5ad.12xlarge</APIName>
+    <NetworkPerformance>10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5ad.16xlarge (vCPU:64)</Name>
+    <MemoryMiB>524288</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>64</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5ad.16xlarge</APIName>
+    <NetworkPerformance>12 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5ad.24xlarge (vCPU:96)</Name>
+    <MemoryMiB>786432</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5ad.24xlarge</APIName>
+    <NetworkPerformance>20 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5ad.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>65536</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5ad.2xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5ad.4xlarge (vCPU:16)</Name>
+    <MemoryMiB>131072</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>16</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5ad.4xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5ad.8xlarge (vCPU:32)</Name>
+    <MemoryMiB>262144</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>32</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5ad.8xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5ad.large (vCPU:2)</Name>
+    <MemoryMiB>16384</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5ad.large</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5ad.xlarge (vCPU:4)</Name>
+    <MemoryMiB>32768</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5ad.xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5d.12xlarge (vCPU:48)</Name>
+    <MemoryMiB>393216</MemoryMiB>
+    <EC2ComputeUnits>168</EC2ComputeUnits>
+    <VirtualCores>48</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5d.12xlarge</APIName>
+    <NetworkPerformance>10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5d.16xlarge (vCPU:64)</Name>
+    <MemoryMiB>524288</MemoryMiB>
+    <EC2ComputeUnits>256</EC2ComputeUnits>
+    <VirtualCores>64</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5d.16xlarge</APIName>
+    <NetworkPerformance>20 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5d.24xlarge (vCPU:96)</Name>
+    <MemoryMiB>786432</MemoryMiB>
+    <EC2ComputeUnits>337</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5d.24xlarge</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5d.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>65536</MemoryMiB>
+    <EC2ComputeUnits>37</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5d.2xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5d.4xlarge (vCPU:16)</Name>
+    <MemoryMiB>131072</MemoryMiB>
+    <EC2ComputeUnits>70</EC2ComputeUnits>
+    <VirtualCores>16</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5d.4xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5d.8xlarge (vCPU:32)</Name>
+    <MemoryMiB>262144</MemoryMiB>
+    <EC2ComputeUnits>128</EC2ComputeUnits>
+    <VirtualCores>32</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5d.8xlarge</APIName>
+    <NetworkPerformance>10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5d.large (vCPU:2)</Name>
+    <MemoryMiB>16384</MemoryMiB>
+    <EC2ComputeUnits>10</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5d.large</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5d.metal (vCPU:96)</Name>
+    <MemoryMiB>786432</MemoryMiB>
+    <EC2ComputeUnits>347</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5d.metal</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5d.xlarge (vCPU:4)</Name>
+    <MemoryMiB>32768</MemoryMiB>
+    <EC2ComputeUnits>19</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5d.xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5dn.12xlarge (vCPU:48)</Name>
+    <MemoryMiB>393216</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>48</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5dn.12xlarge</APIName>
+    <NetworkPerformance>50 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5dn.16xlarge (vCPU:64)</Name>
+    <MemoryMiB>524288</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>64</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5dn.16xlarge</APIName>
+    <NetworkPerformance>75 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5dn.24xlarge (vCPU:96)</Name>
+    <MemoryMiB>786432</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5dn.24xlarge</APIName>
+    <NetworkPerformance>100 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5dn.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>65536</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5dn.2xlarge</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5dn.4xlarge (vCPU:16)</Name>
+    <MemoryMiB>131072</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>16</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5dn.4xlarge</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5dn.8xlarge (vCPU:32)</Name>
+    <MemoryMiB>262144</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>32</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5dn.8xlarge</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5dn.large (vCPU:2)</Name>
+    <MemoryMiB>16384</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5dn.large</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5dn.metal (vCPU:96)</Name>
+    <MemoryMiB>786432</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5dn.metal</APIName>
+    <NetworkPerformance>100 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5dn.xlarge (vCPU:4)</Name>
+    <MemoryMiB>32768</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5dn.xlarge</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5n.12xlarge (vCPU:48)</Name>
+    <MemoryMiB>393216</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>48</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5n.12xlarge</APIName>
+    <NetworkPerformance>50 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5n.16xlarge (vCPU:64)</Name>
+    <MemoryMiB>524288</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>64</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5n.16xlarge</APIName>
+    <NetworkPerformance>75 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5n.24xlarge (vCPU:96)</Name>
+    <MemoryMiB>786432</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5n.24xlarge</APIName>
+    <NetworkPerformance>100 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5n.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>65536</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5n.2xlarge</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5n.4xlarge (vCPU:16)</Name>
+    <MemoryMiB>131072</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>16</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5n.4xlarge</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5n.8xlarge (vCPU:32)</Name>
+    <MemoryMiB>262144</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>32</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5n.8xlarge</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5n.large (vCPU:2)</Name>
+    <MemoryMiB>16384</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5n.large</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5n.metal (vCPU:96)</Name>
+    <MemoryMiB>786432</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5n.metal</APIName>
+    <NetworkPerformance>100 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5n.xlarge (vCPU:4)</Name>
+    <MemoryMiB>32768</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5n.xlarge</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>t2.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>32768</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>t2.2xlarge</APIName>
+    <NetworkPerformance>Moderate</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>t2.large (vCPU:2)</Name>
+    <MemoryMiB>8192</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>t2.large</APIName>
+    <NetworkPerformance>Low to Moderate</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>t2.medium (vCPU:2)</Name>
+    <MemoryMiB>4096</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>true</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>t2.medium</APIName>
+    <NetworkPerformance>Low to Moderate</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>t2.micro (vCPU:1)</Name>
+    <MemoryMiB>1024</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>1</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>true</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>t2.micro</APIName>
+    <NetworkPerformance>Low to Moderate</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>t2.nano (vCPU:1)</Name>
+    <MemoryMiB>512.0</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>1</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>true</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>t2.nano</APIName>
+    <NetworkPerformance>Low</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>t2.small (vCPU:1)</Name>
+    <MemoryMiB>2048</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>1</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>true</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>t2.small</APIName>
+    <NetworkPerformance>Low to Moderate</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>t2.xlarge (vCPU:4)</Name>
+    <MemoryMiB>16384</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>t2.xlarge</APIName>
+    <NetworkPerformance>Moderate</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>t3.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>32768</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>t3.2xlarge</APIName>
+    <NetworkPerformance>Up to 5 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>t3.large (vCPU:2)</Name>
+    <MemoryMiB>8192</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>t3.large</APIName>
+    <NetworkPerformance>Up to 5 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>t3.medium (vCPU:2)</Name>
+    <MemoryMiB>4096</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>t3.medium</APIName>
+    <NetworkPerformance>Up to 5 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>t3.micro (vCPU:2)</Name>
+    <MemoryMiB>1024</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>t3.micro</APIName>
+    <NetworkPerformance>Up to 5 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>t3.nano (vCPU:2)</Name>
+    <MemoryMiB>512.0</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>t3.nano</APIName>
+    <NetworkPerformance>Up to 5 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>t3.small (vCPU:2)</Name>
+    <MemoryMiB>2048</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>t3.small</APIName>
+    <NetworkPerformance>Up to 5 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>t3.xlarge (vCPU:4)</Name>
+    <MemoryMiB>16384</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>t3.xlarge</APIName>
+    <NetworkPerformance>Up to 5 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>t3a.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>32768</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>t3a.2xlarge</APIName>
+    <NetworkPerformance>Up to 5 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>t3a.large (vCPU:2)</Name>
+    <MemoryMiB>8192</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>t3a.large</APIName>
+    <NetworkPerformance>Up to 5 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>t3a.medium (vCPU:2)</Name>
+    <MemoryMiB>4096</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>t3a.medium</APIName>
+    <NetworkPerformance>Up to 5 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>t3a.micro (vCPU:2)</Name>
+    <MemoryMiB>1024</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>t3a.micro</APIName>
+    <NetworkPerformance>Up to 5 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>t3a.nano (vCPU:2)</Name>
+    <MemoryMiB>512.0</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>t3a.nano</APIName>
+    <NetworkPerformance>Up to 5 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>t3a.small (vCPU:2)</Name>
+    <MemoryMiB>2048</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>t3a.small</APIName>
+    <NetworkPerformance>Up to 5 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>t3a.xlarge (vCPU:4)</Name>
+    <MemoryMiB>16384</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>t3a.xlarge</APIName>
+    <NetworkPerformance>Up to 5 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>u-12tb1.metal (vCPU:448)</Name>
+    <MemoryMiB>12582912</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>448</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>u-12tb1.metal</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>u-18tb1.metal (vCPU:448)</Name>
+    <MemoryMiB>18874368</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>448</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>u-18tb1.metal</APIName>
+    <NetworkPerformance>100 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>u-24tb1.metal (vCPU:448)</Name>
+    <MemoryMiB>25165824</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>448</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>u-24tb1.metal</APIName>
+    <NetworkPerformance>100 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>u-6tb1.metal (vCPU:448)</Name>
+    <MemoryMiB>6291456</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>448</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>u-6tb1.metal</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>u-9tb1.metal (vCPU:448)</Name>
+    <MemoryMiB>9437184</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>448</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>u-9tb1.metal</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>x1.16xlarge (vCPU:64)</Name>
+    <MemoryMiB>999424</MemoryMiB>
+    <EC2ComputeUnits>174.5</EC2ComputeUnits>
+    <VirtualCores>64</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>x1.16xlarge</APIName>
+    <NetworkPerformance>High</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>x1.32xlarge (vCPU:128)</Name>
+    <MemoryMiB>1998848</MemoryMiB>
+    <EC2ComputeUnits>349</EC2ComputeUnits>
+    <VirtualCores>128</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>x1.32xlarge</APIName>
+    <NetworkPerformance>High</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>x1e.16xlarge (vCPU:64)</Name>
+    <MemoryMiB>1998848</MemoryMiB>
+    <EC2ComputeUnits>179</EC2ComputeUnits>
+    <VirtualCores>64</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>x1e.16xlarge</APIName>
+    <NetworkPerformance>10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>x1e.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>249856</MemoryMiB>
+    <EC2ComputeUnits>23</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>x1e.2xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>x1e.32xlarge (vCPU:128)</Name>
+    <MemoryMiB>3997696</MemoryMiB>
+    <EC2ComputeUnits>340</EC2ComputeUnits>
+    <VirtualCores>128</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>x1e.32xlarge</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>x1e.4xlarge (vCPU:16)</Name>
+    <MemoryMiB>499712</MemoryMiB>
+    <EC2ComputeUnits>47</EC2ComputeUnits>
+    <VirtualCores>16</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>x1e.4xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>x1e.8xlarge (vCPU:32)</Name>
+    <MemoryMiB>999424</MemoryMiB>
+    <EC2ComputeUnits>91</EC2ComputeUnits>
+    <VirtualCores>32</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>x1e.8xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>x1e.xlarge (vCPU:4)</Name>
+    <MemoryMiB>124928</MemoryMiB>
+    <EC2ComputeUnits>12</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>x1e.xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>z1d.12xlarge (vCPU:48)</Name>
+    <MemoryMiB>393216</MemoryMiB>
+    <EC2ComputeUnits>235</EC2ComputeUnits>
+    <VirtualCores>48</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>z1d.12xlarge</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>z1d.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>65536</MemoryMiB>
+    <EC2ComputeUnits>45</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>z1d.2xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>z1d.3xlarge (vCPU:12)</Name>
+    <MemoryMiB>98304</MemoryMiB>
+    <EC2ComputeUnits>64</EC2ComputeUnits>
+    <VirtualCores>12</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>z1d.3xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>z1d.6xlarge (vCPU:24)</Name>
+    <MemoryMiB>196608</MemoryMiB>
+    <EC2ComputeUnits>116</EC2ComputeUnits>
+    <VirtualCores>24</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>z1d.6xlarge</APIName>
+    <NetworkPerformance>10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>z1d.large (vCPU:2)</Name>
+    <MemoryMiB>16384</MemoryMiB>
+    <EC2ComputeUnits>12</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>z1d.large</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>z1d.metal (vCPU:48)</Name>
+    <MemoryMiB>393216</MemoryMiB>
+    <EC2ComputeUnits>271</EC2ComputeUnits>
+    <VirtualCores>48</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>z1d.metal</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>z1d.xlarge (vCPU:4)</Name>
+    <MemoryMiB>32768</MemoryMiB>
+    <EC2ComputeUnits>23</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>z1d.xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+</InstanceTypes>
