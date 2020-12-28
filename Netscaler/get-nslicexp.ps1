@@ -97,7 +97,8 @@ function login-ns {
 			"username" = "$username";
 			"password" = "$password"
 		}
-	}
+	# un-escape because this causes issues with special characters	
+	}  | ForEach-Object { [System.Text.RegularExpressions.Regex]::Unescape($_) }
 	try {
 		Invoke-RestMethod -Uri "$hostname/nitro/v1/config/login" -Body $body -SessionVariable NSSession `
 			-Headers @{ "Content-Type" = "application/vnd.com.citrix.netscaler.login+json" } -Method POST | Out-Null
