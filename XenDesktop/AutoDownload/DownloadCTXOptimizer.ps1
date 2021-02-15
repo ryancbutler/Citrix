@@ -33,4 +33,4 @@ Invoke-WebRequest -Uri ("https://identity.citrix.com/Utility/STS/Sign-In") -WebS
 Invoke-WebRequest -WebSession $websession -Uri "https://fileservice.citrix.com/download/secured/support/article/CTX224676/downloads/CitrixOptimizer.zip" -OutFile $downloadpath -Verbose -UseBasicParsing
 
 #Unzip Optimizer. Requires 7-zip!
-#7z.exe x $downloadpath -o"$unzippath" -y
+7z.exe x $downloadpath -o"$unzippath" -y
