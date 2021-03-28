@@ -53,11 +53,11 @@
 	$dlurl = "https://secureportal.citrix.com/Licensing/Downloads/UnrestrictedDL.aspx?DLID=${DLNUMBER}&URL=https://downloads.citrix.com/${DLNUMBER}/${DLEXE}"
 	$download = Invoke-WebRequest -Uri $dlurl -WebSession $websession -UseBasicParsing -Method GET
 	$webform = @{ 
-		"chkAccept"         = "on"
-		"__EVENTTARGET"     = "clbAccept_0"
-		"__EVENTARGUMENT"   = "clbAccept_0_Click"
-		"__VIEWSTATE"       = ($download.InputFields | Where-Object { $_.id -eq "__VIEWSTATE" }).value
-		"__EVENTVALIDATION" = ($download.InputFields | Where-Object { $_.id -eq "__EVENTVALIDATION" }).value
+		"chkAccept"            = "on"
+		"clbAccept"            = "Accept"
+		"__VIEWSTATEGENERATOR" = ($download.InputFields | Where-Object { $_.id -eq "__VIEWSTATEGENERATOR" }).value
+		"__VIEWSTATE"          = ($download.InputFields | Where-Object { $_.id -eq "__VIEWSTATE" }).value
+		"__EVENTVALIDATION"    = ($download.InputFields | Where-Object { $_.id -eq "__EVENTVALIDATION" }).value
 	}
 
 	$outfile = ($DLPATH + $DLEXE)
@@ -65,4 +65,3 @@
 	Invoke-WebRequest -Uri $dlurl -WebSession $websession -Method POST -Body $webform -ContentType "application/x-www-form-urlencoded" -UseBasicParsing -OutFile $outfile
 	return $outfile
 }
-
