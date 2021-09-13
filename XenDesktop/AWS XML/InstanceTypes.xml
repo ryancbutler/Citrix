@@ -666,6 +666,136 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>Moderate</NetworkPerformance>
   </InstanceType>
   <InstanceType>
+    <Name>d3.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>65536</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>d3.2xlarge</APIName>
+    <NetworkPerformance>Up to 15 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>d3.4xlarge (vCPU:16)</Name>
+    <MemoryMiB>131072</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>16</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>d3.4xlarge</APIName>
+    <NetworkPerformance>Up to 15 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>d3.8xlarge (vCPU:32)</Name>
+    <MemoryMiB>262144</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>32</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>d3.8xlarge</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>d3.xlarge (vCPU:4)</Name>
+    <MemoryMiB>32768</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>d3.xlarge</APIName>
+    <NetworkPerformance>Up to 15 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>d3en.12xlarge (vCPU:48)</Name>
+    <MemoryMiB>196608</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>48</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>d3en.12xlarge</APIName>
+    <NetworkPerformance>75 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>d3en.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>32768</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>d3en.2xlarge</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>d3en.4xlarge (vCPU:16)</Name>
+    <MemoryMiB>65536</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>16</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>d3en.4xlarge</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>d3en.6xlarge (vCPU:24)</Name>
+    <MemoryMiB>98304</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>24</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>d3en.6xlarge</APIName>
+    <NetworkPerformance>40 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>d3en.8xlarge (vCPU:32)</Name>
+    <MemoryMiB>131072</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>32</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>d3en.8xlarge</APIName>
+    <NetworkPerformance>50 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>d3en.xlarge (vCPU:4)</Name>
+    <MemoryMiB>16384</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>d3en.xlarge</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
     <Name>f1.16xlarge (vCPU:64)</Name>
     <MemoryMiB>999424</MemoryMiB>
     <EC2ComputeUnits>201</EC2ComputeUnits>
@@ -742,6 +872,71 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
     <APIName>g3s.xlarge</APIName>
     <NetworkPerformance>10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>g4ad.16xlarge (vCPU:64)</Name>
+    <MemoryMiB>262144</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>64</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>g4ad.16xlarge</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>g4ad.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>32768</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>g4ad.2xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>g4ad.4xlarge (vCPU:16)</Name>
+    <MemoryMiB>65536</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>16</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>g4ad.4xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>g4ad.8xlarge (vCPU:32)</Name>
+    <MemoryMiB>131072</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>32</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>g4ad.8xlarge</APIName>
+    <NetworkPerformance>15 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>g4ad.xlarge (vCPU:4)</Name>
+    <MemoryMiB>16384</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>g4ad.xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
     <Name>g4dn.12xlarge (vCPU:48)</Name>
@@ -1836,6 +2031,214 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
+    <Name>m5zn.12xlarge (vCPU:48)</Name>
+    <MemoryMiB>196608</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>48</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5zn.12xlarge</APIName>
+    <NetworkPerformance>100 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5zn.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>32768</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5zn.2xlarge</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5zn.3xlarge (vCPU:12)</Name>
+    <MemoryMiB>49152</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>12</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5zn.3xlarge</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5zn.6xlarge (vCPU:24)</Name>
+    <MemoryMiB>98304</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>24</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5zn.6xlarge</APIName>
+    <NetworkPerformance>50 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5zn.large (vCPU:2)</Name>
+    <MemoryMiB>8192</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5zn.large</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5zn.metal (vCPU:48)</Name>
+    <MemoryMiB>196608</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>48</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5zn.metal</APIName>
+    <NetworkPerformance>100 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m5zn.xlarge (vCPU:4)</Name>
+    <MemoryMiB>16384</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m5zn.xlarge</APIName>
+    <NetworkPerformance>Up to 25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m6i.12xlarge (vCPU:48)</Name>
+    <MemoryMiB>196608</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>48</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m6i.12xlarge</APIName>
+    <NetworkPerformance>18750 Megabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m6i.16xlarge (vCPU:64)</Name>
+    <MemoryMiB>262144</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>64</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m6i.16xlarge</APIName>
+    <NetworkPerformance>25000 Megabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m6i.24xlarge (vCPU:96)</Name>
+    <MemoryMiB>393216</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m6i.24xlarge</APIName>
+    <NetworkPerformance>37500 Megabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m6i.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>32768</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m6i.2xlarge</APIName>
+    <NetworkPerformance>Up to 12500 Megabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m6i.32xlarge (vCPU:128)</Name>
+    <MemoryMiB>524288</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>128</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m6i.32xlarge</APIName>
+    <NetworkPerformance>50000 Megabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m6i.4xlarge (vCPU:16)</Name>
+    <MemoryMiB>65536</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>16</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m6i.4xlarge</APIName>
+    <NetworkPerformance>Up to 12500 Megabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m6i.8xlarge (vCPU:32)</Name>
+    <MemoryMiB>131072</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>32</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m6i.8xlarge</APIName>
+    <NetworkPerformance>12500 Megabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m6i.large (vCPU:2)</Name>
+    <MemoryMiB>8192</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m6i.large</APIName>
+    <NetworkPerformance>Up to 12500 Megabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>m6i.xlarge (vCPU:4)</Name>
+    <MemoryMiB>16384</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>m6i.xlarge</APIName>
+    <NetworkPerformance>Up to 12500 Megabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
     <Name>p2.16xlarge (vCPU:64)</Name>
     <MemoryMiB>749568</MemoryMiB>
     <EC2ComputeUnits>201</EC2ComputeUnits>
@@ -2327,6 +2730,123 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <IOPerformance>High</IOPerformance>
     <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
     <APIName>r5ad.xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5b.12xlarge (vCPU:48)</Name>
+    <MemoryMiB>393216</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>48</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5b.12xlarge</APIName>
+    <NetworkPerformance>10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5b.16xlarge (vCPU:64)</Name>
+    <MemoryMiB>524288</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>64</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5b.16xlarge</APIName>
+    <NetworkPerformance>20 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5b.24xlarge (vCPU:96)</Name>
+    <MemoryMiB>786432</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5b.24xlarge</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5b.2xlarge (vCPU:8)</Name>
+    <MemoryMiB>65536</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>8</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5b.2xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5b.4xlarge (vCPU:16)</Name>
+    <MemoryMiB>131072</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>16</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5b.4xlarge</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5b.8xlarge (vCPU:32)</Name>
+    <MemoryMiB>262144</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>32</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5b.8xlarge</APIName>
+    <NetworkPerformance>10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5b.large (vCPU:2)</Name>
+    <MemoryMiB>16384</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>2</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5b.large</APIName>
+    <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5b.metal (vCPU:96)</Name>
+    <MemoryMiB>786432</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>96</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5b.metal</APIName>
+    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>r5b.xlarge (vCPU:4)</Name>
+    <MemoryMiB>32768</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>4</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>r5b.xlarge</APIName>
     <NetworkPerformance>Up to 10 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
@@ -2954,6 +3474,19 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>Up to 5 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
+    <Name>u-12tb1.112xlarge (vCPU:448)</Name>
+    <MemoryMiB>12582912</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>448</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>u-12tb1.112xlarge</APIName>
+    <NetworkPerformance>100 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
     <Name>u-12tb1.metal (vCPU:448)</Name>
     <MemoryMiB>12582912</MemoryMiB>
     <EC2ComputeUnits>0</EC2ComputeUnits>
@@ -2964,7 +3497,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <IOPerformance>High</IOPerformance>
     <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
     <APIName>u-12tb1.metal</APIName>
-    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+    <NetworkPerformance>100 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
     <Name>u-18tb1.metal (vCPU:448)</Name>
@@ -2993,6 +3526,32 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <NetworkPerformance>100 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
+    <Name>u-6tb1.112xlarge (vCPU:448)</Name>
+    <MemoryMiB>6291456</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>448</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>u-6tb1.112xlarge</APIName>
+    <NetworkPerformance>100 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>u-6tb1.56xlarge (vCPU:224)</Name>
+    <MemoryMiB>6291456</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>224</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>u-6tb1.56xlarge</APIName>
+    <NetworkPerformance>100 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
     <Name>u-6tb1.metal (vCPU:448)</Name>
     <MemoryMiB>6291456</MemoryMiB>
     <EC2ComputeUnits>0</EC2ComputeUnits>
@@ -3003,7 +3562,20 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <IOPerformance>High</IOPerformance>
     <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
     <APIName>u-6tb1.metal</APIName>
-    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+    <NetworkPerformance>100 Gigabit</NetworkPerformance>
+  </InstanceType>
+  <InstanceType>
+    <Name>u-9tb1.112xlarge (vCPU:448)</Name>
+    <MemoryMiB>9437184</MemoryMiB>
+    <EC2ComputeUnits>0</EC2ComputeUnits>
+    <VirtualCores>448</VirtualCores>
+    <InstanceStorageGB>100</InstanceStorageGB>
+    <Platform32>false</Platform32>
+    <Platform64>true</Platform64>
+    <IOPerformance>High</IOPerformance>
+    <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
+    <APIName>u-9tb1.112xlarge</APIName>
+    <NetworkPerformance>100 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
     <Name>u-9tb1.metal (vCPU:448)</Name>
@@ -3016,7 +3588,7 @@ connections, or in exceptions being thrown from the Citrix Host Service.
     <IOPerformance>High</IOPerformance>
     <EBSOptimizedAvailable>true</EBSOptimizedAvailable>
     <APIName>u-9tb1.metal</APIName>
-    <NetworkPerformance>25 Gigabit</NetworkPerformance>
+    <NetworkPerformance>100 Gigabit</NetworkPerformance>
   </InstanceType>
   <InstanceType>
     <Name>x1.16xlarge (vCPU:64)</Name>
