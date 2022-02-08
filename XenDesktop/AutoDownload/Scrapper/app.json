@@ -1,0 +1,938 @@
+[
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2112, All Editions - Citrix",
+        "dlnumber": "20115",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=20115&URL=https://downloads.citrix.com/20115/Citrix_Virtual_Apps_and_Desktops_7_2112.iso",
+        "filename": "Citrix_Virtual_Apps_and_Desktops_7_2112.iso"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2112, All Editions - Citrix",
+        "dlnumber": "20116",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=20116&URL=https://downloads.citrix.com/20116/VDAServerSetup_2112.exe",
+        "filename": "VDAServerSetup_2112.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2112, All Editions - Citrix",
+        "dlnumber": "20117",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=20117&URL=https://downloads.citrix.com/20117/VDAWorkstationSetup_2112.exe",
+        "filename": "VDAWorkstationSetup_2112.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2112, All Editions - Citrix",
+        "dlnumber": "20118",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=20118&URL=https://downloads.citrix.com/20118/VDAWorkstationCoreSetup_2112.exe",
+        "filename": "VDAWorkstationCoreSetup_2112.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2112, All Editions - Citrix",
+        "dlnumber": "9803",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=9803&URL=https://downloads.citrix.com/9803/Citrix_Licensing_11.17.2.0_BUILD_37000.zip",
+        "filename": "Citrix_Licensing_11.17.2.0_BUILD_37000.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2112, All Editions - Citrix",
+        "dlnumber": "19803",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=19803&URL=https://downloads.citrix.com/19803/ProfileMgmt_2112.zip",
+        "filename": "ProfileMgmt_2112.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2112, All Editions - Citrix",
+        "dlnumber": "19998",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=19998&URL=https://downloads.citrix.com/19998/CitrixStoreFront-x64.exe",
+        "filename": "CitrixStoreFront-x64.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2112, All Editions - Citrix",
+        "dlnumber": "12292",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12292&URL=https://downloads.citrix.com/12292/MMCFormsShim.zip",
+        "filename": "MMCFormsShim.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2109, All Editions - Citrix",
+        "dlnumber": "19799",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=19799&URL=https://downloads.citrix.com/19799/Citrix_Virtual_Apps_and_Desktops_7_2109.iso",
+        "filename": "Citrix_Virtual_Apps_and_Desktops_7_2109.iso"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2109, All Editions - Citrix",
+        "dlnumber": "19800",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=19800&URL=https://downloads.citrix.com/19800/VDAServerSetup_2109.exe",
+        "filename": "VDAServerSetup_2109.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2109, All Editions - Citrix",
+        "dlnumber": "19801",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=19801&URL=https://downloads.citrix.com/19801/VDAWorkstationSetup_2109.exe",
+        "filename": "VDAWorkstationSetup_2109.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2109, All Editions - Citrix",
+        "dlnumber": "19802",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=19802&URL=https://downloads.citrix.com/19802/VDAWorkstationCoreSetup_2109.exe",
+        "filename": "VDAWorkstationCoreSetup_2109.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2109, All Editions - Citrix",
+        "dlnumber": "9803",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=9803&URL=https://downloads.citrix.com/9803/Citrix_Licensing_11.17.2.0_BUILD_36000.zip",
+        "filename": "Citrix_Licensing_11.17.2.0_BUILD_36000.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2109, All Editions - Citrix",
+        "dlnumber": "19803",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=19803&URL=https://downloads.citrix.com/19803/ProfileMgmt_2109.zip",
+        "filename": "ProfileMgmt_2109.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2109, All Editions - Citrix",
+        "dlnumber": "19430",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=19430&URL=https://downloads.citrix.com/19430/CitrixStoreFront-x64.exe",
+        "filename": "CitrixStoreFront-x64.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2109, All Editions - Citrix",
+        "dlnumber": "12292",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12292&URL=https://downloads.citrix.com/12292/MMCFormsShim.zip",
+        "filename": "MMCFormsShim.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2106, All Editions - Citrix",
+        "dlnumber": "19467",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=19467&URL=https://downloads.citrix.com/19467/Citrix_Virtual_Apps_and_Desktops_7_2106.iso",
+        "filename": "Citrix_Virtual_Apps_and_Desktops_7_2106.iso"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2106, All Editions - Citrix",
+        "dlnumber": "19468",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=19468&URL=https://downloads.citrix.com/19468/VDAServerSetup_2106.exe",
+        "filename": "VDAServerSetup_2106.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2106, All Editions - Citrix",
+        "dlnumber": "19469",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=19469&URL=https://downloads.citrix.com/19469/VDAWorkstationSetup_2106.exe",
+        "filename": "VDAWorkstationSetup_2106.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2106, All Editions - Citrix",
+        "dlnumber": "19470",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=19470&URL=https://downloads.citrix.com/19470/VDAWorkstationCoreSetup_2106.exe",
+        "filename": "VDAWorkstationCoreSetup_2106.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2106, All Editions - Citrix",
+        "dlnumber": "9803",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=9803&URL=https://downloads.citrix.com/9803/Citrix_Licensing_11.17.2.0_BUILD_35000.zip",
+        "filename": "Citrix_Licensing_11.17.2.0_BUILD_35000.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2106, All Editions - Citrix",
+        "dlnumber": "19471",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=19471&URL=https://downloads.citrix.com/19471/ProfileMgmt_2106.zip",
+        "filename": "ProfileMgmt_2106.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2106, All Editions - Citrix",
+        "dlnumber": "19430",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=19430&URL=https://downloads.citrix.com/19430/CitrixStoreFront-x64.exe",
+        "filename": "CitrixStoreFront-x64.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2106, All Editions - Citrix",
+        "dlnumber": "12292",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12292&URL=https://downloads.citrix.com/12292/MMCFormsShim.zip",
+        "filename": "MMCFormsShim.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2103, All Editions - Citrix",
+        "dlnumber": "19143",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=19143&URL=https://downloads.citrix.com/19143/Citrix_Virtual_Apps_and_Desktops_7_2103.iso",
+        "filename": "Citrix_Virtual_Apps_and_Desktops_7_2103.iso"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2103, All Editions - Citrix",
+        "dlnumber": "19144",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=19144&URL=https://downloads.citrix.com/19144/VDAServerSetup_2103.exe",
+        "filename": "VDAServerSetup_2103.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2103, All Editions - Citrix",
+        "dlnumber": "19145",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=19145&URL=https://downloads.citrix.com/19145/VDAWorkstationSetup_2103.exe",
+        "filename": "VDAWorkstationSetup_2103.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2103, All Editions - Citrix",
+        "dlnumber": "19146",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=19146&URL=https://downloads.citrix.com/19146/VDAWorkstationCoreSetup_2103.exe",
+        "filename": "VDAWorkstationCoreSetup_2103.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2103, All Editions - Citrix",
+        "dlnumber": "9803",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=9803&URL=https://downloads.citrix.com/9803/Citrix_Licensing_11.16.6.0_BUILD_34000.zip",
+        "filename": "Citrix_Licensing_11.16.6.0_BUILD_34000.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2103, All Editions - Citrix",
+        "dlnumber": "19147",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=19147&URL=https://downloads.citrix.com/19147/ProfileMgmt_2103.zip",
+        "filename": "ProfileMgmt_2103.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2103, All Editions - Citrix",
+        "dlnumber": "18840",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=18840&URL=https://downloads.citrix.com/18840/CitrixStoreFront-x64.exe",
+        "filename": "CitrixStoreFront-x64.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2103, All Editions - Citrix",
+        "dlnumber": "12292",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12292&URL=https://downloads.citrix.com/12292/MMCFormsShim.zip",
+        "filename": "MMCFormsShim.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2012, All Editions - Citrix",
+        "dlnumber": "18862",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=18862&URL=https://downloads.citrix.com/18862/Citrix_Virtual_Apps_and_Desktops_7_2012.iso",
+        "filename": "Citrix_Virtual_Apps_and_Desktops_7_2012.iso"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2012, All Editions - Citrix",
+        "dlnumber": "18863",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=18863&URL=https://downloads.citrix.com/18863/VDAServerSetup_2012.exe",
+        "filename": "VDAServerSetup_2012.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2012, All Editions - Citrix",
+        "dlnumber": "18864",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=18864&URL=https://downloads.citrix.com/18864/VDAWorkstationSetup_2012.exe",
+        "filename": "VDAWorkstationSetup_2012.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2012, All Editions - Citrix",
+        "dlnumber": "18865",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=18865&URL=https://downloads.citrix.com/18865/VDAWorkstationCoreSetup_2012.exe",
+        "filename": "VDAWorkstationCoreSetup_2012.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2012, All Editions - Citrix",
+        "dlnumber": "9803",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=9803&URL=https://downloads.citrix.com/9803/Citrix_Licensing_11.16.6.0_BUILD_33000.zip",
+        "filename": "Citrix_Licensing_11.16.6.0_BUILD_33000.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2012, All Editions - Citrix",
+        "dlnumber": "18866",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=18866&URL=https://downloads.citrix.com/18866/ProfileMgmt_2012.zip",
+        "filename": "ProfileMgmt_2012.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2012, All Editions - Citrix",
+        "dlnumber": "18840",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=18840&URL=https://downloads.citrix.com/18840/CitrixStoreFront-x64.exe",
+        "filename": "CitrixStoreFront-x64.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2012, All Editions - Citrix",
+        "dlnumber": "12292",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12292&URL=https://downloads.citrix.com/12292/MMCFormsShim.zip",
+        "filename": "MMCFormsShim.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2009, All Editions - Citrix",
+        "dlnumber": "18750",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=18750&URL=https://downloads.citrix.com/18750/Citrix_Virtual_Apps_and_Desktops_7_2009.iso",
+        "filename": "Citrix_Virtual_Apps_and_Desktops_7_2009.iso"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2009, All Editions - Citrix",
+        "dlnumber": "18751",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=18751&URL=https://downloads.citrix.com/18751/VDAServerSetup_2009.exe",
+        "filename": "VDAServerSetup_2009.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2009, All Editions - Citrix",
+        "dlnumber": "18752",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=18752&URL=https://downloads.citrix.com/18752/VDAWorkstationSetup_2009.exe",
+        "filename": "VDAWorkstationSetup_2009.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2009, All Editions - Citrix",
+        "dlnumber": "18753",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=18753&URL=https://downloads.citrix.com/18753/VDAWorkstationCoreSetup_2009.exe",
+        "filename": "VDAWorkstationCoreSetup_2009.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2009, All Editions - Citrix",
+        "dlnumber": "9803",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=9803&URL=https://downloads.citrix.com/9803/Citrix_Licensing_11.16.6.0_BUILD_32000.zip",
+        "filename": "Citrix_Licensing_11.16.6.0_BUILD_32000.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2009, All Editions - Citrix",
+        "dlnumber": "18754",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=18754&URL=https://downloads.citrix.com/18754/ProfileMgmt_2009.zip",
+        "filename": "ProfileMgmt_2009.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2009, All Editions - Citrix",
+        "dlnumber": "17801",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=17801&URL=https://downloads.citrix.com/17801/CitrixStoreFront-x64.exe",
+        "filename": "CitrixStoreFront-x64.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2009, All Editions - Citrix",
+        "dlnumber": "12292",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12292&URL=https://downloads.citrix.com/12292/MMCFormsShim.zip",
+        "filename": "MMCFormsShim.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2006, All Editions - Citrix",
+        "dlnumber": "17823",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=17823&URL=https://downloads.citrix.com/17823/Citrix_Virtual_Apps_and_Desktops_7_2006.iso",
+        "filename": "Citrix_Virtual_Apps_and_Desktops_7_2006.iso"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2006, All Editions - Citrix",
+        "dlnumber": "17824",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=17824&URL=https://downloads.citrix.com/17824/VDAServerSetup_2006.exe",
+        "filename": "VDAServerSetup_2006.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2006, All Editions - Citrix",
+        "dlnumber": "17825",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=17825&URL=https://downloads.citrix.com/17825/VDAWorkstationSetup_2006.exe",
+        "filename": "VDAWorkstationSetup_2006.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2006, All Editions - Citrix",
+        "dlnumber": "17826",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=17826&URL=https://downloads.citrix.com/17826/VDAWorkstationCoreSetup_2006.exe",
+        "filename": "VDAWorkstationCoreSetup_2006.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2006, All Editions - Citrix",
+        "dlnumber": "9803",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=9803&URL=https://downloads.citrix.com/9803/Citrix_Licensing_11.16.6.0_BUILD_31000.zip",
+        "filename": "Citrix_Licensing_11.16.6.0_BUILD_31000.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2006, All Editions - Citrix",
+        "dlnumber": "17827",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=17827&URL=https://downloads.citrix.com/17827/ProfileMgmt_2006.zip",
+        "filename": "ProfileMgmt_2006.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2006, All Editions - Citrix",
+        "dlnumber": "17801",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=17801&URL=https://downloads.citrix.com/17801/CitrixStoreFront-x64.exe",
+        "filename": "CitrixStoreFront-x64.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2006, All Editions - Citrix",
+        "dlnumber": "12292",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12292&URL=https://downloads.citrix.com/12292/MMCFormsShim.zip",
+        "filename": "MMCFormsShim.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2003, All Editions - Citrix",
+        "dlnumber": "17568",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=17568&URL=https://downloads.citrix.com/17568/Citrix_Virtual_Apps_and_Desktops_7_2003.iso",
+        "filename": "Citrix_Virtual_Apps_and_Desktops_7_2003.iso"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2003, All Editions - Citrix",
+        "dlnumber": "17569",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=17569&URL=https://downloads.citrix.com/17569/VDAServerSetup_2003.exe",
+        "filename": "VDAServerSetup_2003.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2003, All Editions - Citrix",
+        "dlnumber": "17570",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=17570&URL=https://downloads.citrix.com/17570/VDAWorkstationSetup_2003.exe",
+        "filename": "VDAWorkstationSetup_2003.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2003, All Editions - Citrix",
+        "dlnumber": "17571",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=17571&URL=https://downloads.citrix.com/17571/VDAWorkstationCoreSetup_2003.exe",
+        "filename": "VDAWorkstationCoreSetup_2003.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2003, All Editions - Citrix",
+        "dlnumber": "9803",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=9803&URL=https://downloads.citrix.com/9803/Citrix_Licensing_11.16.3.0_BUILD_30000.zip",
+        "filename": "Citrix_Licensing_11.16.3.0_BUILD_30000.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2003, All Editions - Citrix",
+        "dlnumber": "17572",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=17572&URL=https://downloads.citrix.com/17572/ProfileMgmt_2003.zip",
+        "filename": "ProfileMgmt_2003.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2003, All Editions - Citrix",
+        "dlnumber": "16841",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=16841&URL=https://downloads.citrix.com/16841/CitrixStoreFront-x64.exe",
+        "filename": "CitrixStoreFront-x64.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 2003, All Editions - Citrix",
+        "dlnumber": "12292",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12292&URL=https://downloads.citrix.com/12292/MMCFormsShim.zip",
+        "filename": "MMCFormsShim.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1909, All Editions - Citrix",
+        "dlnumber": "16555",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=16555&URL=https://downloads.citrix.com/16555/Citrix_Virtual_Apps_and_Desktops_7_1909.iso",
+        "filename": "Citrix_Virtual_Apps_and_Desktops_7_1909.iso"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1909, All Editions - Citrix",
+        "dlnumber": "16558",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=16558&URL=https://downloads.citrix.com/16558/VDAServerSetup_1909.exe",
+        "filename": "VDAServerSetup_1909.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1909, All Editions - Citrix",
+        "dlnumber": "16559",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=16559&URL=https://downloads.citrix.com/16559/VDAWorkstationSetup_1909.exe",
+        "filename": "VDAWorkstationSetup_1909.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1909, All Editions - Citrix",
+        "dlnumber": "16560",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=16560&URL=https://downloads.citrix.com/16560/VDAWorkstationCoreSetup_1909.exe",
+        "filename": "VDAWorkstationCoreSetup_1909.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1909, All Editions - Citrix",
+        "dlnumber": "9803",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=9803&URL=https://downloads.citrix.com/9803/Citrix_Licensing_11.16.3.0_BUILD_28000.zip",
+        "filename": "Citrix_Licensing_11.16.3.0_BUILD_28000.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1909, All Editions - Citrix",
+        "dlnumber": "16561",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=16561&URL=https://downloads.citrix.com/16561/ProfileMgmt_1909.zip",
+        "filename": "ProfileMgmt_1909.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1909, All Editions - Citrix",
+        "dlnumber": "16562",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=16562&URL=https://downloads.citrix.com/16562/CitrixStoreFront-x64.exe",
+        "filename": "CitrixStoreFront-x64.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1909, All Editions - Citrix",
+        "dlnumber": "12292",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12292&URL=https://downloads.citrix.com/12292/MMCFormsShim.zip",
+        "filename": "MMCFormsShim.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1906, All Editions - Citrix",
+        "dlnumber": "16107",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=16107&URL=https://downloads.citrix.com/16107/Citrix_Virtual_Apps_and_Desktops_7_1906_2.iso",
+        "filename": "Citrix_Virtual_Apps_and_Desktops_7_1906_2.iso"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1906, All Editions - Citrix",
+        "dlnumber": "16110",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=16110&URL=https://downloads.citrix.com/16110/VDAServerSetup_1906_2.exe",
+        "filename": "VDAServerSetup_1906_2.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1906, All Editions - Citrix",
+        "dlnumber": "16111",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=16111&URL=https://downloads.citrix.com/16111/VDAWorkstationSetup_1906_2.exe",
+        "filename": "VDAWorkstationSetup_1906_2.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1906, All Editions - Citrix",
+        "dlnumber": "16112",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=16112&URL=https://downloads.citrix.com/16112/VDAWorkstationCoreSetup_1906_2.exe",
+        "filename": "VDAWorkstationCoreSetup_1906_2.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1906, All Editions - Citrix",
+        "dlnumber": "9803",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=9803&URL=https://downloads.citrix.com/9803/Citrix_Licensing_11.15.0.0_BUILD_27000.zip",
+        "filename": "Citrix_Licensing_11.15.0.0_BUILD_27000.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1906, All Editions - Citrix",
+        "dlnumber": "16113",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=16113&URL=https://downloads.citrix.com/16113/ProfileMgmt_1906.zip",
+        "filename": "ProfileMgmt_1906.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1906, All Editions - Citrix",
+        "dlnumber": "16426",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=16426&URL=https://downloads.citrix.com/16426/CitrixStoreFront-x64.exe",
+        "filename": "CitrixStoreFront-x64.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1906, All Editions - Citrix",
+        "dlnumber": "12292",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12292&URL=https://downloads.citrix.com/12292/MMCFormsShim.zip",
+        "filename": "MMCFormsShim.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1903, All Editions - Citrix",
+        "dlnumber": "15898",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=15898&URL=https://downloads.citrix.com/15898/Citrix_Virtual_Apps_and_Desktops_7_1903.iso",
+        "filename": "Citrix_Virtual_Apps_and_Desktops_7_1903.iso"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1903, All Editions - Citrix",
+        "dlnumber": "15901",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=15901&URL=https://downloads.citrix.com/15901/VDAServerSetup_1903.exe",
+        "filename": "VDAServerSetup_1903.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1903, All Editions - Citrix",
+        "dlnumber": "15902",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=15902&URL=https://downloads.citrix.com/15902/VDAWorkstationSetup_1903.exe",
+        "filename": "VDAWorkstationSetup_1903.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1903, All Editions - Citrix",
+        "dlnumber": "15903",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=15903&URL=https://downloads.citrix.com/15903/VDAWorkstationCoreSetup_1903.exe",
+        "filename": "VDAWorkstationCoreSetup_1903.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1903, All Editions - Citrix",
+        "dlnumber": "9803",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=9803&URL=https://downloads.citrix.com/9803/Citrix_Licensing_11.15.0.0_BUILD_26000.zip",
+        "filename": "Citrix_Licensing_11.15.0.0_BUILD_26000.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1903, All Editions - Citrix",
+        "dlnumber": "15904",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=15904&URL=https://downloads.citrix.com/15904/ProfileMgmt_1903.zip",
+        "filename": "ProfileMgmt_1903.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1903, All Editions - Citrix",
+        "dlnumber": "15905",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=15905&URL=https://downloads.citrix.com/15905/CitrixStoreFront-x64.exe",
+        "filename": "CitrixStoreFront-x64.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1903, All Editions - Citrix",
+        "dlnumber": "12292",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12292&URL=https://downloads.citrix.com/12292/MMCFormsShim.zip",
+        "filename": "MMCFormsShim.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1811, All Editions - Citrix",
+        "dlnumber": "15504",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=15504&URL=https://downloads.citrix.com/15504/Citrix_Virtual_Apps_and_Desktops_7_1811.iso",
+        "filename": "Citrix_Virtual_Apps_and_Desktops_7_1811.iso"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1811, All Editions - Citrix",
+        "dlnumber": "15550",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=15550&URL=https://downloads.citrix.com/15550/VDAServerSetup_1811.exe",
+        "filename": "VDAServerSetup_1811.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1811, All Editions - Citrix",
+        "dlnumber": "15551",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=15551&URL=https://downloads.citrix.com/15551/VDAWorkstationSetup_1811.exe",
+        "filename": "VDAWorkstationSetup_1811.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1811, All Editions - Citrix",
+        "dlnumber": "15552",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=15552&URL=https://downloads.citrix.com/15552/VDAWorkstationCoreSetup_1811.exe",
+        "filename": "VDAWorkstationCoreSetup_1811.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1811, All Editions - Citrix",
+        "dlnumber": "9803",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=9803&URL=https://downloads.citrix.com/9803/Citrix_Licensing_11.15.0.0_BUILD_26000.zip",
+        "filename": "Citrix_Licensing_11.15.0.0_BUILD_26000.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1811, All Editions - Citrix",
+        "dlnumber": "15556",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=15556&URL=https://downloads.citrix.com/15556/ProfileMgmt_1811.zip",
+        "filename": "ProfileMgmt_1811.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1811, All Editions - Citrix",
+        "dlnumber": "15553",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=15553&URL=https://downloads.citrix.com/15553/CitrixStoreFront-x64.exe",
+        "filename": "CitrixStoreFront-x64.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1811, All Editions - Citrix",
+        "dlnumber": "12292",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12292&URL=https://downloads.citrix.com/12292/MMCFormsShim.zip",
+        "filename": "MMCFormsShim.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1808, All Editions - Citrix",
+        "dlnumber": "15146",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=15146&URL=https://downloads.citrix.com/15146/Citrix_Virtual_Apps_and_Desktops_7_1808_2.iso",
+        "filename": "Citrix_Virtual_Apps_and_Desktops_7_1808_2.iso"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1808, All Editions - Citrix",
+        "dlnumber": "15053",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=15053&URL=https://downloads.citrix.com/15053/VDAServerSetup_1808_2.exe",
+        "filename": "VDAServerSetup_1808_2.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1808, All Editions - Citrix",
+        "dlnumber": "15054",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=15054&URL=https://downloads.citrix.com/15054/VDAWorkstationSetup_1808_2.exe",
+        "filename": "VDAWorkstationSetup_1808_2.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1808, All Editions - Citrix",
+        "dlnumber": "15055",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=15055&URL=https://downloads.citrix.com/15055/VDAWorkstationCoreSetup_1808_2.exe",
+        "filename": "VDAWorkstationCoreSetup_1808_2.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1808, All Editions - Citrix",
+        "dlnumber": "9803",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=9803&URL=https://downloads.citrix.com/9803/Citrix_Licensing_11.15.0.0_BUILD_25000.zip",
+        "filename": "Citrix_Licensing_11.15.0.0_BUILD_25000.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1808, All Editions - Citrix",
+        "dlnumber": "15056",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=15056&URL=https://downloads.citrix.com/15056/ProfileMgmt_1808.zip",
+        "filename": "ProfileMgmt_1808.zip"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1808, All Editions - Citrix",
+        "dlnumber": "15057",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=15057&URL=https://downloads.citrix.com/15057/CitrixStoreFront-x64.exe",
+        "filename": "CitrixStoreFront-x64.exe"
+    },
+    {
+        "edition": "Citrix Virtual Apps and Desktops 7 1808, All Editions - Citrix",
+        "dlnumber": "12292",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12292&URL=https://downloads.citrix.com/12292/MMCFormsShim.zip",
+        "filename": "MMCFormsShim.zip"
+    },
+    {
+        "edition": "XenApp 7.18 / XenDesktop 7.18, All Editions - Citrix",
+        "dlnumber": "14705",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=14705&URL=https://downloads.citrix.com/14705/XenApp_and_XenDesktop_7_18.iso",
+        "filename": "XenApp_and_XenDesktop_7_18.iso"
+    },
+    {
+        "edition": "XenApp 7.18 / XenDesktop 7.18, All Editions - Citrix",
+        "dlnumber": "14708",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=14708&URL=https://downloads.citrix.com/14708/VDAServerSetup_7.18.exe",
+        "filename": "VDAServerSetup_7.18.exe"
+    },
+    {
+        "edition": "XenApp 7.18 / XenDesktop 7.18, All Editions - Citrix",
+        "dlnumber": "14709",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=14709&URL=https://downloads.citrix.com/14709/VDAWorkstationSetup_7.18.exe",
+        "filename": "VDAWorkstationSetup_7.18.exe"
+    },
+    {
+        "edition": "XenApp 7.18 / XenDesktop 7.18, All Editions - Citrix",
+        "dlnumber": "14710",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=14710&URL=https://downloads.citrix.com/14710/VDAWorkstationCoreSetup_7.18.exe",
+        "filename": "VDAWorkstationCoreSetup_7.18.exe"
+    },
+    {
+        "edition": "XenApp 7.18 / XenDesktop 7.18, All Editions - Citrix",
+        "dlnumber": "9803",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=9803&URL=https://downloads.citrix.com/9803/Citrix_Licensing_11.15.0.0_BUILD_24100.zip",
+        "filename": "Citrix_Licensing_11.15.0.0_BUILD_24100.zip"
+    },
+    {
+        "edition": "XenApp 7.18 / XenDesktop 7.18, All Editions - Citrix",
+        "dlnumber": "14711",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=14711&URL=https://downloads.citrix.com/14711/ProfileMgmt-7.18.0.zip",
+        "filename": "ProfileMgmt-7.18.0.zip"
+    },
+    {
+        "edition": "XenApp 7.18 / XenDesktop 7.18, All Editions - Citrix",
+        "dlnumber": "14712",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=14712&URL=https://downloads.citrix.com/14712/CitrixStoreFront-x64.exe",
+        "filename": "CitrixStoreFront-x64.exe"
+    },
+    {
+        "edition": "XenApp 7.18 / XenDesktop 7.18, All Editions - Citrix",
+        "dlnumber": "12292",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12292&URL=https://downloads.citrix.com/12292/MMCFormsShim.zip",
+        "filename": "MMCFormsShim.zip"
+    },
+    {
+        "edition": "XenApp 7.17 / XenDesktop 7.17, All Editions - Citrix",
+        "dlnumber": "14338",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=14338&URL=https://downloads.citrix.com/14338/XenApp_and_XenDesktop_7_17.iso",
+        "filename": "XenApp_and_XenDesktop_7_17.iso"
+    },
+    {
+        "edition": "XenApp 7.17 / XenDesktop 7.17, All Editions - Citrix",
+        "dlnumber": "14341",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=14341&URL=https://downloads.citrix.com/14341/VDAServerSetup_7.17.exe",
+        "filename": "VDAServerSetup_7.17.exe"
+    },
+    {
+        "edition": "XenApp 7.17 / XenDesktop 7.17, All Editions - Citrix",
+        "dlnumber": "14342",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=14342&URL=https://downloads.citrix.com/14342/VDAWorkstationSetup_7.17.exe",
+        "filename": "VDAWorkstationSetup_7.17.exe"
+    },
+    {
+        "edition": "XenApp 7.17 / XenDesktop 7.17, All Editions - Citrix",
+        "dlnumber": "14343",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=14343&URL=https://downloads.citrix.com/14343/VDAWorkstationCoreSetup_7.17.exe",
+        "filename": "VDAWorkstationCoreSetup_7.17.exe"
+    },
+    {
+        "edition": "XenApp 7.17 / XenDesktop 7.17, All Editions - Citrix",
+        "dlnumber": "9803",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=9803&URL=https://downloads.citrix.com/9803/Citrix_Licensing_11.14.0.1_BUILD_23101.zip",
+        "filename": "Citrix_Licensing_11.14.0.1_BUILD_23101.zip"
+    },
+    {
+        "edition": "XenApp 7.17 / XenDesktop 7.17, All Editions - Citrix",
+        "dlnumber": "14344",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=14344&URL=https://downloads.citrix.com/14344/ProfileMgmt-7.17.0.zip",
+        "filename": "ProfileMgmt-7.17.0.zip"
+    },
+    {
+        "edition": "XenApp 7.17 / XenDesktop 7.17, All Editions - Citrix",
+        "dlnumber": "14345",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=14345&URL=https://downloads.citrix.com/14345/CitrixStoreFront-x64.exe",
+        "filename": "CitrixStoreFront-x64.exe"
+    },
+    {
+        "edition": "XenApp 7.17 / XenDesktop 7.17, All Editions - Citrix",
+        "dlnumber": "12292",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12292&URL=https://downloads.citrix.com/12292/MMCFormsShim.zip",
+        "filename": "MMCFormsShim.zip"
+    },
+    {
+        "edition": "XenApp 7.16 / XenDesktop 7.16, All Editions - Citrix",
+        "dlnumber": "13852",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=13852&URL=https://downloads.citrix.com/13852/XenApp_and_XenDesktop_7_16.iso",
+        "filename": "XenApp_and_XenDesktop_7_16.iso"
+    },
+    {
+        "edition": "XenApp 7.16 / XenDesktop 7.16, All Editions - Citrix",
+        "dlnumber": "13856",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=13856&URL=https://downloads.citrix.com/13856/VDAServerSetup_7.16.exe",
+        "filename": "VDAServerSetup_7.16.exe"
+    },
+    {
+        "edition": "XenApp 7.16 / XenDesktop 7.16, All Editions - Citrix",
+        "dlnumber": "13857",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=13857&URL=https://downloads.citrix.com/13857/VDAWorkstationSetup_7.16.exe",
+        "filename": "VDAWorkstationSetup_7.16.exe"
+    },
+    {
+        "edition": "XenApp 7.16 / XenDesktop 7.16, All Editions - Citrix",
+        "dlnumber": "13858",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=13858&URL=https://downloads.citrix.com/13858/VDAWorkstationCoreSetup_7.16.exe",
+        "filename": "VDAWorkstationCoreSetup_7.16.exe"
+    },
+    {
+        "edition": "XenApp 7.16 / XenDesktop 7.16, All Editions - Citrix",
+        "dlnumber": "9803",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=9803&URL=https://downloads.citrix.com/9803/Citrix_Licensing_11.14.0.1_BUILD_22103.zip",
+        "filename": "Citrix_Licensing_11.14.0.1_BUILD_22103.zip"
+    },
+    {
+        "edition": "XenApp 7.16 / XenDesktop 7.16, All Editions - Citrix",
+        "dlnumber": "13859",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=13859&URL=https://downloads.citrix.com/13859/ProfileMgmt-7.16.0.zip",
+        "filename": "ProfileMgmt-7.16.0.zip"
+    },
+    {
+        "edition": "XenApp 7.16 / XenDesktop 7.16, All Editions - Citrix",
+        "dlnumber": "13861",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=13861&URL=https://downloads.citrix.com/13861/CitrixStoreFront-x64.exe",
+        "filename": "CitrixStoreFront-x64.exe"
+    },
+    {
+        "edition": "XenApp 7.16 / XenDesktop 7.16, All Editions - Citrix",
+        "dlnumber": "12292",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12292&URL=https://downloads.citrix.com/12292/MMCFormsShim.zip",
+        "filename": "MMCFormsShim.zip"
+    },
+    {
+        "edition": "XenApp 7.14 / XenDesktop 7.14, All Editions - Citrix",
+        "dlnumber": "13167",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=13167&URL=https://downloads.citrix.com/13167/XenApp_and_XenDesktop_7_14_1.iso",
+        "filename": "XenApp_and_XenDesktop_7_14_1.iso"
+    },
+    {
+        "edition": "XenApp 7.14 / XenDesktop 7.14, All Editions - Citrix",
+        "dlnumber": "13170",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=13170&URL=https://downloads.citrix.com/13170/VDAServerSetup_7.14.1.exe",
+        "filename": "VDAServerSetup_7.14.1.exe"
+    },
+    {
+        "edition": "XenApp 7.14 / XenDesktop 7.14, All Editions - Citrix",
+        "dlnumber": "13171",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=13171&URL=https://downloads.citrix.com/13171/VDAWorkstationSetup_7.14.1.exe",
+        "filename": "VDAWorkstationSetup_7.14.1.exe"
+    },
+    {
+        "edition": "XenApp 7.14 / XenDesktop 7.14, All Editions - Citrix",
+        "dlnumber": "13172",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=13172&URL=https://downloads.citrix.com/13172/VDAWorkstationCoreSetup_7.14.1.exe",
+        "filename": "VDAWorkstationCoreSetup_7.14.1.exe"
+    },
+    {
+        "edition": "XenApp 7.14 / XenDesktop 7.14, All Editions - Citrix",
+        "dlnumber": "9803",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=9803&URL=https://downloads.citrix.com/9803/Citrix_Licensing_11.14.0.1_BUILD_20104.zip",
+        "filename": "Citrix_Licensing_11.14.0.1_BUILD_20104.zip"
+    },
+    {
+        "edition": "XenApp 7.14 / XenDesktop 7.14, All Editions - Citrix",
+        "dlnumber": "13090",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=13090&URL=https://downloads.citrix.com/13090/ProfileMgmt-5.8.0.zip",
+        "filename": "ProfileMgmt-5.8.0.zip"
+    },
+    {
+        "edition": "XenApp 7.14 / XenDesktop 7.14, All Editions - Citrix",
+        "dlnumber": "13091",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=13091&URL=https://downloads.citrix.com/13091/CitrixStoreFront-x64.exe",
+        "filename": "CitrixStoreFront-x64.exe"
+    },
+    {
+        "edition": "XenApp 7.14 / XenDesktop 7.14, All Editions - Citrix",
+        "dlnumber": "12292",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12292&URL=https://downloads.citrix.com/12292/MMCFormsShim.zip",
+        "filename": "MMCFormsShim.zip"
+    },
+    {
+        "edition": "XenApp 7.13 / XenDesktop 7.13, All Editions - Citrix",
+        "dlnumber": "12763",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12763&URL=https://downloads.citrix.com/12763/XenApp_and_XenDesktop_7_13.iso",
+        "filename": "XenApp_and_XenDesktop_7_13.iso"
+    },
+    {
+        "edition": "XenApp 7.13 / XenDesktop 7.13, All Editions - Citrix",
+        "dlnumber": "12766",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12766&URL=https://downloads.citrix.com/12766/VDAServerSetup_7.13.exe",
+        "filename": "VDAServerSetup_7.13.exe"
+    },
+    {
+        "edition": "XenApp 7.13 / XenDesktop 7.13, All Editions - Citrix",
+        "dlnumber": "12767",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12767&URL=https://downloads.citrix.com/12767/VDAWorkstationSetup_7.13.exe",
+        "filename": "VDAWorkstationSetup_7.13.exe"
+    },
+    {
+        "edition": "XenApp 7.13 / XenDesktop 7.13, All Editions - Citrix",
+        "dlnumber": "12768",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12768&URL=https://downloads.citrix.com/12768/VDAWorkstationCoreSetup_7.13.exe",
+        "filename": "VDAWorkstationCoreSetup_7.13.exe"
+    },
+    {
+        "edition": "XenApp 7.13 / XenDesktop 7.13, All Editions - Citrix",
+        "dlnumber": "9803",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=9803&URL=https://downloads.citrix.com/9803/Citrix_Licensing_11.14.0.1_BUILD_19005.zip",
+        "filename": "Citrix_Licensing_11.14.0.1_BUILD_19005.zip"
+    },
+    {
+        "edition": "XenApp 7.13 / XenDesktop 7.13, All Editions - Citrix",
+        "dlnumber": "12769",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12769&URL=https://downloads.citrix.com/12769/ProfileMgmt-5.7.0.zip",
+        "filename": "ProfileMgmt-5.7.0.zip"
+    },
+    {
+        "edition": "XenApp 7.13 / XenDesktop 7.13, All Editions - Citrix",
+        "dlnumber": "12770",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12770&URL=https://downloads.citrix.com/12770/CitrixStoreFront-x64.exe",
+        "filename": "CitrixStoreFront-x64.exe"
+    },
+    {
+        "edition": "XenApp 7.12 / XenDesktop 7.12, All Editions - Citrix",
+        "dlnumber": "12444",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12444&URL=https://downloads.citrix.com/12444/XenApp_and_XenDesktop_7_12.iso",
+        "filename": "XenApp_and_XenDesktop_7_12.iso"
+    },
+    {
+        "edition": "XenApp 7.12 / XenDesktop 7.12, All Editions - Citrix",
+        "dlnumber": "12447",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12447&URL=https://downloads.citrix.com/12447/VDAServerSetup_7.12.exe",
+        "filename": "VDAServerSetup_7.12.exe"
+    },
+    {
+        "edition": "XenApp 7.12 / XenDesktop 7.12, All Editions - Citrix",
+        "dlnumber": "12502",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12502&URL=https://downloads.citrix.com/12502/VDAWorkstationSetup_7.12.exe",
+        "filename": "VDAWorkstationSetup_7.12.exe"
+    },
+    {
+        "edition": "XenApp 7.12 / XenDesktop 7.12, All Editions - Citrix",
+        "dlnumber": "12448",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12448&URL=https://downloads.citrix.com/12448/VDAWorkstationCoreSetup_7.12.exe",
+        "filename": "VDAWorkstationCoreSetup_7.12.exe"
+    },
+    {
+        "edition": "XenApp 7.12 / XenDesktop 7.12, All Editions - Citrix",
+        "dlnumber": "9803",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=9803&URL=https://downloads.citrix.com/9803/Citrix_Licensing_11.14.0.1_BUILD_18001.zip",
+        "filename": "Citrix_Licensing_11.14.0.1_BUILD_18001.zip"
+    },
+    {
+        "edition": "XenApp 7.12 / XenDesktop 7.12, All Editions - Citrix",
+        "dlnumber": "12449",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12449&URL=https://downloads.citrix.com/12449/ProfileMgmt-5.6.0.zip",
+        "filename": "ProfileMgmt-5.6.0.zip"
+    },
+    {
+        "edition": "XenApp 7.12 / XenDesktop 7.12, All Editions - Citrix",
+        "dlnumber": "12450",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12450&URL=https://downloads.citrix.com/12450/CitrixStoreFront-x64.exe",
+        "filename": "CitrixStoreFront-x64.exe"
+    },
+    {
+        "edition": "XenApp 7.11 / XenDesktop 7.11, All Editions - Citrix",
+        "dlnumber": "12279",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12279&URL=https://downloads.citrix.com/12279/XenApp_and_XenDesktop_7_11.iso",
+        "filename": "XenApp_and_XenDesktop_7_11.iso"
+    },
+    {
+        "edition": "XenApp 7.11 / XenDesktop 7.11, All Editions - Citrix",
+        "dlnumber": "12282",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12282&URL=https://downloads.citrix.com/12282/VDAServerSetup_7.11.exe",
+        "filename": "VDAServerSetup_7.11.exe"
+    },
+    {
+        "edition": "XenApp 7.11 / XenDesktop 7.11, All Editions - Citrix",
+        "dlnumber": "12283",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12283&URL=https://downloads.citrix.com/12283/VDAWorkstationSetup_7.11.exe",
+        "filename": "VDAWorkstationSetup_7.11.exe"
+    },
+    {
+        "edition": "XenApp 7.11 / XenDesktop 7.11, All Editions - Citrix",
+        "dlnumber": "9803",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=9803&URL=https://downloads.citrix.com/9803/Citrix_Licensing_11.14.0.1_Build_17005.zip",
+        "filename": "Citrix_Licensing_11.14.0.1_Build_17005.zip"
+    },
+    {
+        "edition": "XenApp 7.11 / XenDesktop 7.11, All Editions - Citrix",
+        "dlnumber": "12284",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12284&URL=https://downloads.citrix.com/12284/Profile_Mgmt-5.5.0.zip",
+        "filename": "Profile_Mgmt-5.5.0.zip"
+    },
+    {
+        "edition": "XenApp 7.11 / XenDesktop 7.11, All Editions - Citrix",
+        "dlnumber": "12285",
+        "url": "https://secureportal.citrix.com/udl.asp?DLID=12285&URL=https://downloads.citrix.com/12285/CitrixStoreFront-x64.exe",
+        "filename": "CitrixStoreFront-x64.exe"
+    }
+]
