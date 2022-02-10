@@ -4,7 +4,7 @@ PowerShell Scripts that download Citrix media used in a pipeline, Packer job, ta
 
 **NOTE: There are currently no error handling if credentials are mistyped!**
 
-## Get-BinaryExample.ps1
+## Get-BinaryExampleNEW.ps1
 
 Uses data from <https://raw.githubusercontent.com/ryancbutler/Citrix_DL_Scrapper/main/ctx_dls.json> to download latest **Multi** and **Single** session VDAs
 
