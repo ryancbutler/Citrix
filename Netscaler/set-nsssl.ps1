@@ -36,7 +36,7 @@
 06-02-17: Changes for default profile and add for policy priority argument.  Also added some error handling
 08-27-17: Formatting for PS Gallery
 01-27-18: Adjustment for default profile version https://support.citrix.com/article/CTX205291
-06-15-22: Updated cipher groups for an A+ at SSLlabs.com - Q2/2022 (Marco Hofmann @xenadmin)
+06-15-22: Updated cipher groups for an A+ at SSLlabs.com - Q2/2023 (Marco Hofmann @xenadmin)
 04-04-23: Re-worked formatting. (Marco Hofmann @xenadmin)
 04-04-23: NetScaler 13.1 doesn't know SSLv2 anymore, so trying to disable it throws errors. Commented out for now. (Marco Hofmann @xenadmin)
 

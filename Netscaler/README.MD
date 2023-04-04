@@ -57,7 +57,7 @@ Based on this [Citrix blog](https://www.citrix.com/blogs/2015/05/22/scoring-an-a
 - 01-27-18
   - Adjustment for default profile firmware version <https://support.citrix.com/article/CTX205291>
 - 06-15-22
-  - Updated cipher groups for an A+ at SSLlabs.com - Q2/2022 ([Marco Hofmann](https://github.com/xenadmin) ([@xenadmin](https://twitter.com/xenadmin)))
+  - Updated cipher groups for an A+ at SSLlabs.com - Q2/2023 ([Marco Hofmann](https://github.com/xenadmin) ([@xenadmin](https://twitter.com/xenadmin)))
 - 04-04-23
   - Re-worked formatting. ([Marco Hofmann](https://github.com/xenadmin) ([@xenadmin](https://twitter.com/xenadmin)))
   - NetScaler 13.1 doesn't know SSLv2 anymore, so trying to disable it throws errors. Commented out for now. ([Marco Hofmann](https://github.com/xenadmin) ([@xenadmin](https://twitter.com/xenadmin)))
