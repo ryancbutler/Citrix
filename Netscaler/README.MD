@@ -88,7 +88,7 @@ Update-Script set-nsssl
 
 **CREATED: 6-30-16**
 
-Uses the 11.1 REST API to upgrade Netscaler firmware. See [Blog Post](http://techdrabble.com/citrix/20-upgrade-netscaler-via-rest-api-install-command) for more information
+Uses the 11.1 REST API to upgrade Netscaler firmware. See [Blog Post](https://techdrabble.com/citrix/netscaler/20-upgrade-netscaler-via-rest-api-install-command) for more information
 
 **NOTE: Must be firmware 11.1 or greater**
 
@@ -100,7 +100,7 @@ Uses the 11.1 REST API to upgrade Netscaler firmware. See [Blog Post](http://tec
 
 **CREATED: 8-14-16**
 
-Grabs Netscaler license expiration information via REST.  See [Blog Post](http://www.techdrabble.com/citrix/netscaler/23-check-netscaler-license-expiration-information-quickly-via-powershell) for more information and detailed usage.
+Grabs Netscaler license expiration information via REST.  See [Blog Post](https://techdrabble.com/citrix/netscaler/23-check-netscaler-license-expiration-information-quickly-via-powershell) for more information and detailed usage.
 
 **NOTE: Must be firmware 10.5 or greater**
 
